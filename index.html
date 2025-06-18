@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aaquib Javid, The Alpha, MMA Fighter Portfolio and Training">
+    <title>Aaquib Javid - The Alpha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1a1e4a;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(to bottom, #1a1e4a, #2d3362);
+            text-align: center;
+            padding: 4em 1em;
+            color: #ffffff;
+        }
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 0.5em;
+            color: #d1d5db;
+        }
+        nav {
+            background-color: #1a1e4a;
+            padding: 1em;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 1.5em;
+            font-weight: 600;
+        }
+        nav a:hover {
+            color: #00cc88;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2em;
+        }
+        .section {
+            margin-bottom: 2em;
+            background-color: #ffffff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            color: #1a1e4a;
+            font-size: 1.8em;
+            margin-bottom: 1em;
+            font-weight: 700;
+        }
+        .fight-record table, .achievements table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            background-color: #f8fafc;
+        }
+        .fight-record th, .fight-record td, .achievements th, .achievements td {
+            border: 1px solid #e5e7eb;
+            padding: 0.8em;
+            text-align: left;
+        }
+        .fight-record th, .achievements th {
+            background-color: #1a1e4a;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5em;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+        .faq-item {
+            margin-bottom: 1.5em;
+        }
+        .faq-item h3 {
+            color: #1a1e4a;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
+        }
+        .faq-item p {
+            color: #4b5563;
+            font-size: 1em;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form label {
+            margin: 0.5em 0 0.2em;
+            color: #1a1e4a;
+            font-weight: 600;
+        }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            padding: 0.8em;
+            margin-bottom: 1em;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            color: #1a1e4a;
+        }
+        .contact-form button {
+            background-color: #00cc88;
+            color: #ffffff;
+            padding: 1em;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .contact-form button:hover {
+            background-color: #00b37a;
+        }
+        .contact-links {
+            margin-top: 1em;
+            text-align: center;
+        }
+        .contact-links a {
+            color: #00cc88;
+            text-decoration: none;
+            margin: 0 1em;
+            font-weight: 600;
+        }
+        .contact-links a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5em;
+            background-color: #1a1e4a;
+            color: #ffffff;
+        }
+        footer a {
+            color: #00cc88;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            nav a {
+                display: block;
+                margin: 0.5em 0;
+            }
+            .container {
+                padding: 1em;
+            }
+            .section {
+                padding: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aaquib Javid - The Alpha</h1>
+        <p>Professional MMA Fighter | Flyweight & Bantamweight | KOI Combat Academy</p>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#record">Fight Record</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#media">Media</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Book Training</a>
+    </nav>
+    <div class="container">
+        <div id="home" class="section">
+            <h2>Welcome</h2>
+            <p>Aaquib Javid, known as "The Alpha," is a rising MMA fighter from Drass, Ladakh, competing in Flyweight and Bantamweight divisions. Training with KOI Combat Academy, Aaquib combines speed, technique, and grit to dominate in the cage and train aspiring fighters.</p>
+        </div>
+        <div id="about" class="section">
+            <h2>About Aaquib</h2>
+            <p>Hailing from Drass, Ladakh, Aaquib Javid is a professional MMA fighter with a 1-0-0 record. Ranked #139 among Pro Men’s Flyweight fighters in Europe, he trains at KOI Combat Academy, bringing discipline and high-altitude resilience to his craft. Aaquib offers personalized 1:1 training to help you achieve your MMA goals.</p>
+        </div>
+        <div id="record" class="section fight-record">
+            <h2>Fight Record</h2>
+            <p>Professional Record: 1-0-0 (Win-Loss-Draw)</p>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Opponent</th>
+                    <th>Event</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>April 2021</td>
+                    <td>Abhishek Gowda</td>
+                    <td>GAMMA MMA India National 2021</td>
+                    <td>Win</td>
+                </tr>
+            </table>
+        </div>
+        <div id="achievements" class="section achievements">
+            <h2>Achievements</h2>
+            <table>
+                <tr>
+                    <th>Year</th>
+                    <th>Event</th>
+                    <th>Medal</th>
+                </tr>
+                <tr>
+                    <td>2021</td>
+                    <td>Asian Mixed Martial Arts Championship (GAMMA), Kyrgyzstan</td>
+                    <td>Bronze</td>
+                </tr>
+            </table>
+        </div>
+        <div id="media" class="section">
+            <h2>Fight Highlights</h2>
+            <p>Watch Aaquib Javid in action at the GAMMA India MMA Nationals 2021.</p>
+            <div class="video-grid">
+                <div>
+                    <h3>Fight 1: Aaquib Javid vs. Abhishek Gowda (Day 2)</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p><small>Note: Replace VIDEO_ID_1 with the YouTube video ID for Aaquib Javid vs. Abhishek Gowda.</small></p>
+                </div>
+                <div>
+                    <h3>Fight 2: Limasunep Imchen vs. Aaquib Javid (Day 1)</h3>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p><small>Note: Replace VIDEO_ID_2 with the YouTube video ID for Limasunep Imchen vs. Aaquib Javid.</small></p>
+                </div>
+            </div>
+        </div>
+        <div id="faq" class="section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What types of training does Aaquib offer?</h3>
+                <p>Aaquib provides personalized 1:1 MMA training, including striking, grappling, and fitness-focused sessions. Options include in-person training at KOI Combat Academy in Ladakh, virtual coaching, self-defense, and competition preparation. (Note: Confirm specific offerings with Aaquib.)</p>
+            </div>
+            <div class="faq-item">
+                <h3>How much do training sessions cost?</h3>
+                <p>Pricing varies based on session type and package. Contact Aaquib for current rates and any introductory offers. (Note: Update with Aaquib’s actual pricing details.)</p>
+            </div>
+            <div class="faq-item">
+                <h3>Who can train with Aaquib?</h3>
+                <p>Aaquib trains beginners, fitness enthusiasts, and competitive fighters. Sessions are tailored to your skill level and goals, from learning basics to preparing for the cage. (Note: Confirm target audience with Aaquib.)</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I book a 1:1 training session?</h3>
+                <p>Use the contact form below or message Aaquib on WhatsApp to submit your details and preferred training type. Aaquib will respond to schedule your session. (Note: Update with Aaquib’s preferred booking process.)</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is Aaquib’s experience as an MMA fighter?</h3>
+                <p>Aaquib Javid, "The Alpha," has a 1-0-0 pro record, a Bronze Medal from the 2021 Asian MMA Championship, and trains at KOI Combat Academy. He is ranked #139 among Pro Men’s Flyweight fighters in Europe. (Note: Update with additional fight history if provided.)</p>
+            </div>
+        </div>
+        <div id="contact" class="section">
+            <h2>Book 1:1 Training</h2>
+            <p>Train with "The Alpha" to master MMA techniques, boost fitness, or prepare for competition. Fill out the form or message via WhatsApp to book your session!</p>
+            <form class="contact-form" action="mailto:aaquibjavid@example.com" method="post" enctype="text/plain">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="training-type">Training Type:</label>
+                <select id="training-type" name="training-type" required>
+                    <option value="in-person">In-Person (Ladakh)</option>
+                    <option value="virtual">Virtual Coaching</option>
+                    <option value="self-defense">Self-Defense</option>
+                    <option value="competition">Competition Prep</option>
+                </select>
+                <label for="message">Message (e.g., goals, availability):</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Book Now</button>
+            </form>
+            <p><small>Note: Update the form's mailto action with Aaquib's actual email address.</small></p>
+            <div class="contact-links">
+                <p>Connect with Aaquib:</p>
+                <a href="https://wa.me/1234567890" target="_blank">WhatsApp</a> |
+                <a href="https://tapology.com/fightcenter/fighters/aaquib-javid-the-alpha">Tapology</a> |
+                <a href="https://twitter.com/aaquibjavid">Twitter</a>
+                <p><small>Note: Update the WhatsApp link with Aaquib's actual phone number.</small></p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2025 Aaquib Javid. All rights reserved. | <a href="#contact">Book Training</a></p>
+    </footer>
+</body>
+</html>
