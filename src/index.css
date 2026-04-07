@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Crimson Pro", serif;
+  --font-sans: "Inter", sans-serif;
+  --color-anthropic-bg: #fbfaf8;
+  --color-anthropic-text: #1d1917;
+  --color-anthropic-accent: #d97757;
+}
+
+@layer base {
+  body {
+    @apply bg-anthropic-bg text-anthropic-text font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}

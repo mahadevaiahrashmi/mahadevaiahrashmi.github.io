@@ -47,6 +47,7 @@ htmlcov/
 # OS files
 Desktop.ini
 ehthumbs.db
+*:Zone.Identifier
 
 # Claude Code machine-specific memory
 .claude/projects/
