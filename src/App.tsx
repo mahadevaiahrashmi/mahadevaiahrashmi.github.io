@@ -8,7 +8,6 @@ import {
   Mail,
   Linkedin,
   Github,
-  ChevronRight,
   ExternalLink,
   MapPin,
   BookOpen,
@@ -17,15 +16,10 @@ import {
   Heart,
   Instagram,
   Twitter,
-  FileText,
-  Brain,
-  BarChart3,
-  Layers,
-  Code,
-  TrendingUp
+  FileText
 } from "lucide-react";
 
-const ExperienceItem = ({ title, company, period, impact, description, links }: any) => (
+const ExperienceItem = ({ title, company, companyUrl, period, impact, description, links }: any) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -37,11 +31,14 @@ const ExperienceItem = ({ title, company, period, impact, description, links }: 
       <h3 className="text-2xl font-serif font-medium">{title}</h3>
       <span className="text-sm font-sans uppercase tracking-widest opacity-60">{period}</span>
     </div>
-    <div className="text-lg font-serif italic mb-4 opacity-80">{company}</div>
+    <div className="text-lg font-serif italic mb-4 opacity-80">
+      {companyUrl ? (
+        <a href={companyUrl} target="_blank" rel="noopener noreferrer" className="hover:text-anthropic-accent transition-colors">{company}</a>
+      ) : company}
+    </div>
     {impact && (
-      <div className="flex items-center gap-2 mb-4 text-anthropic-accent font-sans text-sm uppercase tracking-widest">
-        <TrendingUp size={14} />
-        <span>{impact}</span>
+      <div className="mb-4 text-anthropic-accent font-sans text-sm uppercase tracking-widest">
+        {impact}
       </div>
     )}
     <div className="space-y-3">
@@ -75,13 +72,10 @@ export default function App() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-serif text-xl font-medium tracking-tight">Rashmi M.</span>
+          <span className="font-serif text-xl font-medium tracking-tight">Rashmi Mahadevaiah</span>
           <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
             <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
-            <a href="#expertise" className="hover:opacity-100 transition-opacity">Expertise</a>
             <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
-            <a href="#projects" className="hover:opacity-100 transition-opacity">Projects</a>
-            <a href="#blog" className="hover:opacity-100 transition-opacity">Blog</a>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>
         </div>
@@ -143,57 +137,6 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* What I Bring — Pillars */}
-        <section id="expertise" className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-serif italic">What I Bring</h2>
-            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Brain size={28} />,
-                title: "AI & ML Engineering",
-                description: "Production systems built with LLMs, NLP, RAG, agentic AI, computer vision, and deep learning. Hands-on with Python, TensorFlow, PyTorch, and end-to-end ML pipeline deployment.",
-                keywords: ["LLMs", "NLP", "RAG", "Agentic AI", "Deep Learning", "Computer Vision", "Python"]
-              },
-              {
-                icon: <Briefcase size={28} />,
-                title: "Product Leadership",
-                description: "13+ years translating AI capabilities into product strategy. Experience leading cross-functional teams, defining roadmaps, and shipping data products that drive measurable business growth.",
-                keywords: ["Product Management", "Roadmaps", "Go-to-Market", "Cross-functional"]
-              },
-              {
-                icon: <BarChart3 size={28} />,
-                title: "Data Strategy",
-                description: "End-to-end data science — from statistical modeling and predictive analytics to NL2SQL, sentiment analysis, and building analytics platforms that democratize data access.",
-                keywords: ["Data Science", "NL2SQL", "Predictive Analytics", "Statistical Modeling"]
-              }
-            ].map((pillar, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-8 border border-anthropic-text/10 rounded-2xl"
-              >
-                <div className="text-anthropic-accent mb-4">{pillar.icon}</div>
-                <h3 className="text-2xl font-serif font-medium mb-4">{pillar.title}</h3>
-                <p className="text-lg font-serif leading-relaxed opacity-70 mb-6">{pillar.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {pillar.keywords.map(kw => (
-                    <span key={kw} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider">
-                      {kw}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
         {/* Experience Section */}
         <section id="experience" className="mb-32">
           <div className="flex items-center gap-4 mb-12">
@@ -205,6 +148,7 @@ export default function App() {
             <ExperienceItem
               title="AI/ML Engineer"
               company="KOGO.ai"
+              companyUrl="https://kogo.ai/"
               period="Jan 2025 — Jul 2025"
               impact="Built multi-agent AI systems processing 1000s of sales leads via LLM-powered pipelines"
               description={[
@@ -217,6 +161,7 @@ export default function App() {
             <ExperienceItem
               title="Co-Founder & Technical Lead"
               company="RichFeyn.com"
+              companyUrl="https://www.richfeyn.com/"
               period="Aug 2021 — Jul 2024"
               impact="Founded AI startup — shipped 3 products from 0→1 across computer vision, IoT, and mobile"
               description={[
@@ -229,6 +174,7 @@ export default function App() {
             <ExperienceItem
               title="Senior Manager — Data Science"
               company="Axis Bank"
+              companyUrl="https://www.axis.bank.in/"
               period="Apr 2017 — Dec 2020"
               impact="25% new customer acquisition growth · 18% retention improvement · 10% balance increase"
               description={[
@@ -241,6 +187,7 @@ export default function App() {
             <ExperienceItem
               title="Senior Business Analyst — Data Science"
               company="Tata Consultancy Services"
+              companyUrl="https://www.tcs.com/"
               period="Jul 2015 — Mar 2017"
               impact="50% reduction in lead activation time · Published white paper on NLP + sentiment analysis"
               description={[
@@ -254,6 +201,7 @@ export default function App() {
             <ExperienceItem
               title="Associate — Fashion Business Analytics"
               company="Snapdeal"
+              companyUrl="https://www.snapdeal.com/"
               period="Oct 2014 — Feb 2015"
               impact="Drove fashion vertical to $6M monthly revenue"
               description={[
@@ -264,124 +212,13 @@ export default function App() {
             <ExperienceItem
               title="Algorithm Engineer"
               company="KLA Corporation"
+              companyUrl="https://www.kla.com/"
               period="Mar 2011 — Mar 2013"
               impact="Improved defect capture rate from 80% to 90% — eliminated manual inspection"
               description={[
                 "Built image processing and computer vision products for semiconductor wafer inspection using signal processing and machine learning algorithms, increasing defect capture rates from 80% to 90% and eliminating manual inspection workflows."
               ]}
             />
-          </div>
-        </section>
-
-        {/* Blog Section */}
-        <section id="blog" className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-serif italic">Blog</h2>
-            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "The Rise of Agentic AI in Enterprise Workflows",
-                date: "March 2026",
-                excerpt: "Exploring how autonomous agents are transforming CRM integration and sales pipeline monitoring.",
-                category: "AI Strategy"
-              },
-              {
-                title: "NLP for Wholesale Banking: Lessons from Axis Bank",
-                date: "January 2026",
-                excerpt: "A deep dive into using N-gram methods and NER for customer acquisition and attrition prediction.",
-                category: "Data Science"
-              },
-              {
-                title: "Building Asimov: A Modular Data Science Platform",
-                date: "November 2025",
-                excerpt: "Technical insights into creating NL2SQL interfaces for streamlined business analytics.",
-                category: "Engineering"
-              },
-              {
-                title: "The Future of IoT in the Smart Kitchen",
-                date: "September 2025",
-                excerpt: "How AI-powered cart generators are simplifying household inventory management.",
-                category: "IoT"
-              }
-            ].map((post, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="group p-8 border border-anthropic-text/10 rounded-2xl hover:border-anthropic-accent/30 transition-colors cursor-pointer"
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-xs font-sans uppercase tracking-widest text-anthropic-accent">{post.category}</span>
-                  <span className="text-xs font-sans uppercase tracking-widest opacity-40">{post.date}</span>
-                </div>
-                <h3 className="text-2xl font-serif font-medium mb-4 group-hover:text-anthropic-accent transition-colors">{post.title}</h3>
-                <p className="text-lg font-serif opacity-70 leading-relaxed mb-6">{post.excerpt}</p>
-                <div className="flex items-center gap-2 text-sm font-sans uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
-                  Read Article <ChevronRight size={14} />
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Projects Placeholder Section */}
-        <section id="projects" className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-serif italic">Projects</h2>
-            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Asimov — AI Data Science Platform",
-                tags: ["LLMs", "NL2SQL", "Python", "Agentic AI"],
-                description: "Modular AI-powered analytics platform enabling business users to query databases using natural language, with automated statistical analysis and visualization agents.",
-                status: "Case study coming soon"
-              },
-              {
-                title: "AI Sales Lead Pipeline",
-                tags: ["RAG", "LLMs", "OCR", "MCP"],
-                description: "Multi-agent system using Retrieval-Augmented Generation and web search workflows to process, enrich, and score sales leads at scale for enterprise clients.",
-                status: "Case study coming soon"
-              },
-              {
-                title: "Smart Catalogue — Computer Vision for SMEs",
-                tags: ["Computer Vision", "Image Captioning", "Deep Learning"],
-                description: "AI product transforming phone camera images into professional product catalogue visuals using semantic analysis and image captioning models.",
-                status: "Case study coming soon"
-              },
-              {
-                title: "NLP Customer Intelligence — Axis Bank",
-                tags: ["NLP", "NER", "Text Mining", "Machine Learning"],
-                description: "Data science system using Named Entity Recognition and N-gram models to predict customer attrition, identify competitor relationships, and drive targeted acquisition campaigns.",
-                status: "Case study coming soon"
-              }
-            ].map((project, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-8 border border-anthropic-text/10 rounded-2xl"
-              >
-                <h3 className="text-2xl font-serif font-medium mb-3">{project.title}</h3>
-                <p className="text-lg font-serif leading-relaxed opacity-70 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <span className="text-xs font-sans uppercase tracking-widest text-anthropic-accent">{project.status}</span>
-              </motion.div>
-            ))}
           </div>
         </section>
 
