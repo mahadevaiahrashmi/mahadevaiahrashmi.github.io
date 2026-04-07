@@ -4,26 +4,29 @@
  */
 
 import { motion } from "motion/react";
-import { 
-  Mail, 
-  Linkedin, 
-  Github, 
-  ChevronRight, 
+import {
+  Mail,
+  Linkedin,
+  Github,
+  ChevronRight,
   ExternalLink,
   MapPin,
-  Calendar,
-  Award,
   BookOpen,
   Briefcase,
   Cpu,
   Heart,
   Instagram,
   Twitter,
-  FileText
+  FileText,
+  Brain,
+  BarChart3,
+  Layers,
+  Code,
+  TrendingUp
 } from "lucide-react";
 
-const ExperienceItem = ({ title, company, period, description, links }: any) => (
-  <motion.div 
+const ExperienceItem = ({ title, company, period, impact, description, links }: any) => (
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -35,6 +38,12 @@ const ExperienceItem = ({ title, company, period, description, links }: any) => 
       <span className="text-sm font-sans uppercase tracking-widest opacity-60">{period}</span>
     </div>
     <div className="text-lg font-serif italic mb-4 opacity-80">{company}</div>
+    {impact && (
+      <div className="flex items-center gap-2 mb-4 text-anthropic-accent font-sans text-sm uppercase tracking-widest">
+        <TrendingUp size={14} />
+        <span>{impact}</span>
+      </div>
+    )}
     <div className="space-y-3">
       {description.map((item: string, idx: number) => (
         <p key={idx} className="text-lg leading-relaxed opacity-90">
@@ -45,10 +54,10 @@ const ExperienceItem = ({ title, company, period, description, links }: any) => 
     {links && (
       <div className="mt-4 flex gap-4">
         {links.map((link: any, idx: number) => (
-          <a 
-            key={idx} 
-            href={link.url} 
-            target="_blank" 
+          <a
+            key={idx}
+            href={link.url}
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-sm font-sans hover:text-anthropic-accent transition-colors"
           >
@@ -69,9 +78,10 @@ export default function App() {
           <span className="font-serif text-xl font-medium tracking-tight">Rashmi M.</span>
           <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
             <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
+            <a href="#expertise" className="hover:opacity-100 transition-opacity">Expertise</a>
             <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
+            <a href="#projects" className="hover:opacity-100 transition-opacity">Projects</a>
             <a href="#blog" className="hover:opacity-100 transition-opacity">Blog</a>
-            <a href="#education" className="hover:opacity-100 transition-opacity">Education</a>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>
         </div>
@@ -89,20 +99,30 @@ export default function App() {
               Building the future <br />
               <span className="italic">through AI & Data.</span>
             </h1>
-            <div className="max-w-2xl">
-              <p className="text-xl md:text-2xl font-serif leading-relaxed opacity-80 mb-8">
-                I am Rashmi Mahadevaiah, an AI/ML Engineer and Product Leader with 13 years of experience 
-                in product management, data science, and building agentic solutions. 
-                I specialize in LLMs, NLP, and transforming complex data into strategic insights.
+            <div className="max-w-3xl">
+              <p className="text-xl md:text-2xl font-serif leading-relaxed opacity-80 mb-4">
+                I am Rashmi Mahadevaiah — an AI/ML Engineer and Product Leader with 13+ years of experience
+                shipping data-driven products across financial services, e-commerce, IoT, and SaaS.
+              </p>
+              <p className="text-lg font-serif leading-relaxed opacity-70 mb-4">
+                I build and deploy production AI systems using Large Language Models (LLMs), Natural Language Processing (NLP),
+                Retrieval-Augmented Generation (RAG), and agentic AI architectures. My work spans the full ML lifecycle —
+                from exploratory data science and statistical modeling to building end-to-end machine learning pipelines,
+                NL2SQL interfaces, and multi-agent orchestration systems.
+              </p>
+              <p className="text-lg font-serif leading-relaxed opacity-70 mb-8">
+                I bring deep technical expertise in Python, deep learning, computer vision, and predictive analytics,
+                combined with product management experience that translates complex AI capabilities into measurable
+                business outcomes — including 25% customer acquisition growth, 18% retention improvement, and $6M+ revenue impact.
               </p>
               <div className="flex flex-wrap gap-4">
-                <a 
+                <a
                   href="mailto:mahadevaiah.rashmi@gmail.com"
                   className="px-6 py-3 bg-anthropic-text text-anthropic-bg rounded-full font-sans text-sm uppercase tracking-widest hover:opacity-90 transition-opacity flex items-center gap-2"
                 >
                   <Mail size={16} /> Get in touch
                 </a>
-                <a 
+                <a
                   href="https://www.linkedin.com/in/rashmimahadevaiah/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -110,8 +130,8 @@ export default function App() {
                 >
                   <Linkedin size={16} /> LinkedIn
                 </a>
-                <a 
-                  href="/resume.pdf" 
+                <a
+                  href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 border border-anthropic-accent text-anthropic-accent rounded-full font-sans text-sm uppercase tracking-widest hover:bg-anthropic-accent hover:text-white transition-all flex items-center gap-2"
@@ -123,6 +143,57 @@ export default function App() {
           </motion.div>
         </section>
 
+        {/* What I Bring — Pillars */}
+        <section id="expertise" className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic">What I Bring</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Brain size={28} />,
+                title: "AI & ML Engineering",
+                description: "Production systems built with LLMs, NLP, RAG, agentic AI, computer vision, and deep learning. Hands-on with Python, TensorFlow, PyTorch, and end-to-end ML pipeline deployment.",
+                keywords: ["LLMs", "NLP", "RAG", "Agentic AI", "Deep Learning", "Computer Vision", "Python"]
+              },
+              {
+                icon: <Briefcase size={28} />,
+                title: "Product Leadership",
+                description: "13+ years translating AI capabilities into product strategy. Experience leading cross-functional teams, defining roadmaps, and shipping data products that drive measurable business growth.",
+                keywords: ["Product Management", "Roadmaps", "Go-to-Market", "Cross-functional"]
+              },
+              {
+                icon: <BarChart3 size={28} />,
+                title: "Data Strategy",
+                description: "End-to-end data science — from statistical modeling and predictive analytics to NL2SQL, sentiment analysis, and building analytics platforms that democratize data access.",
+                keywords: ["Data Science", "NL2SQL", "Predictive Analytics", "Statistical Modeling"]
+              }
+            ].map((pillar, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-8 border border-anthropic-text/10 rounded-2xl"
+              >
+                <div className="text-anthropic-accent mb-4">{pillar.icon}</div>
+                <h3 className="text-2xl font-serif font-medium mb-4">{pillar.title}</h3>
+                <p className="text-lg font-serif leading-relaxed opacity-70 mb-6">{pillar.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {pillar.keywords.map(kw => (
+                    <span key={kw} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider">
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* Experience Section */}
         <section id="experience" className="mb-32">
           <div className="flex items-center gap-4 mb-12">
@@ -131,66 +202,72 @@ export default function App() {
           </div>
 
           <div className="space-y-4">
-            <ExperienceItem 
+            <ExperienceItem
               title="AI/ML Engineer"
               company="KOGO.ai"
               period="Jan 2025 — Jul 2025"
+              impact="Built multi-agent AI systems processing 1000s of sales leads via LLM-powered pipelines"
               description={[
-                "Built AI agents with LLMs for OCR, RAG, MCP, and web search workflows to process sales leads and map parent company hierarchies.",
-                "Developed 'Asimov', an AI-powered data science platform streamlining analytics via NL2SQL with modular agents for statistical analysis and visualization.",
-                "Created AI solutions for call center log analysis and automated sales improvement plans for the automotive sector."
+                "Designed and deployed AI agents using Large Language Models (LLMs) for OCR, Retrieval-Augmented Generation (RAG), Model Context Protocol (MCP), and web search workflows to process sales leads and map parent company hierarchies.",
+                "Developed 'Asimov', an AI-powered data science platform streamlining business analytics via NL2SQL with modular agents for statistical analysis, data visualization, and automated reporting.",
+                "Created AI solutions using NLP and machine learning for call center log analysis and automated sales improvement plans for the automotive sector."
               ]}
             />
 
-            <ExperienceItem 
-              title="Co-Founder"
+            <ExperienceItem
+              title="Co-Founder & Technical Lead"
               company="RichFeyn.com"
               period="Aug 2021 — Jul 2024"
+              impact="Founded AI startup — shipped 3 products from 0→1 across computer vision, IoT, and mobile"
               description={[
-                "Launched an AI product transforming phone camera images into professional catalogue visuals for SMEs using Semantic analysis and Image Captioning.",
-                "Developed an IoT-based smart jar with auto-reordering functionality, featuring an AI-powered cart generator based on text prompts.",
-                "Built cross-platform mobile applications to track inventory and automate orders for busy households."
+                "Launched an AI product transforming phone camera images into professional catalogue visuals for SMEs using semantic analysis, image captioning, and computer vision models.",
+                "Developed an IoT-based smart jar with auto-reordering functionality, featuring an AI-powered cart generator using natural language processing and text prompt understanding.",
+                "Built cross-platform mobile applications with Python and React Native to track inventory and automate orders for busy households."
               ]}
             />
 
-            <ExperienceItem 
+            <ExperienceItem
               title="Senior Manager — Data Science"
               company="Axis Bank"
               period="Apr 2017 — Dec 2020"
+              impact="25% new customer acquisition growth · 18% retention improvement · 10% balance increase"
               description={[
-                "Led data science initiatives for wholesale banking, increasing new customer acquisition by 25% through sector-wise NLP campaigns.",
-                "Predicted high-value customer attrition using NLP text mining, increasing retention by 18% and balances by 10%.",
-                "Identified competitor bank users using Named Entity Recognition (NER) to map supply chain positions and increase wallet share."
+                "Led data science initiatives for wholesale banking, increasing new customer acquisition by 25% through sector-wise NLP campaigns using N-gram models and text classification.",
+                "Built predictive models for high-value customer attrition using NLP text mining and machine learning, increasing retention by 18% and account balances by 10%.",
+                "Identified competitor bank users using Named Entity Recognition (NER) and knowledge graphs to map supply chain positions and increase wallet share."
               ]}
             />
 
-            <ExperienceItem 
-              title="Senior Business Analyst"
-              company="Tata Consulting Services"
+            <ExperienceItem
+              title="Senior Business Analyst — Data Science"
+              company="Tata Consultancy Services"
               period="Jul 2015 — Mar 2017"
+              impact="50% reduction in lead activation time · Published white paper on NLP + sentiment analysis"
               description={[
-                "Built automated web crawlers and scrapers to identify leads, decreasing lead activation time by 50% using topic mining NLP techniques.",
-                "Optimized search results for a US Airline firm and built predictive maintenance models for medical equipment manufacturers.",
-                "Developed battery degradation models for Japanese EV firms to formulate improved warranty services.",
-                "Published White Paper: 'Transforming social media marketing by analyzing weather patterns and twitter activity using sentiment analysis'."
+                "Built automated web crawlers and scrapers to identify leads, decreasing lead activation time by 50% using topic mining and NLP techniques with Python.",
+                "Optimized search results for a US airline using information retrieval algorithms and built predictive maintenance models using machine learning for medical equipment manufacturers.",
+                "Developed battery degradation models for Japanese EV firms using statistical modeling and time-series analysis to formulate improved warranty services.",
+                "Published White Paper: 'Transforming social media marketing by analyzing weather patterns and Twitter activity using sentiment analysis and NLP'."
               ]}
             />
 
-            <ExperienceItem 
+            <ExperienceItem
               title="Associate — Fashion Business Analytics"
               company="Snapdeal"
               period="Oct 2014 — Feb 2015"
+              impact="Drove fashion vertical to $6M monthly revenue"
               description={[
-                "Developed promo code and cashback rule engines for the Fashion vertical, driving categories to reach $6M monthly revenue."
+                "Developed promo code and cashback rule engines using data analytics and Python for the Fashion vertical, driving categories to reach $6M monthly revenue through data-driven pricing strategies."
               ]}
             />
 
-            <ExperienceItem 
+            <ExperienceItem
               title="Algorithm Engineer"
               company="KLA Corporation"
               period="Mar 2011 — Mar 2013"
+              impact="Improved defect capture rate from 80% to 90% — eliminated manual inspection"
               description={[
-                "Built image processing products for semiconductor wafer inspection, increasing defect capture rates from 80% to 90% and eliminating manual inspection."
+                "Built image processing and computer vision products for semiconductor wafer inspection using signal processing and machine learning algorithms, increasing defect capture rates from 80% to 90% and eliminating manual inspection workflows."
               ]}
             />
           </div>
@@ -251,14 +328,71 @@ export default function App() {
           </div>
         </section>
 
+        {/* Projects Placeholder Section */}
+        <section id="projects" className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic">Projects</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Asimov — AI Data Science Platform",
+                tags: ["LLMs", "NL2SQL", "Python", "Agentic AI"],
+                description: "Modular AI-powered analytics platform enabling business users to query databases using natural language, with automated statistical analysis and visualization agents.",
+                status: "Case study coming soon"
+              },
+              {
+                title: "AI Sales Lead Pipeline",
+                tags: ["RAG", "LLMs", "OCR", "MCP"],
+                description: "Multi-agent system using Retrieval-Augmented Generation and web search workflows to process, enrich, and score sales leads at scale for enterprise clients.",
+                status: "Case study coming soon"
+              },
+              {
+                title: "Smart Catalogue — Computer Vision for SMEs",
+                tags: ["Computer Vision", "Image Captioning", "Deep Learning"],
+                description: "AI product transforming phone camera images into professional product catalogue visuals using semantic analysis and image captioning models.",
+                status: "Case study coming soon"
+              },
+              {
+                title: "NLP Customer Intelligence — Axis Bank",
+                tags: ["NLP", "NER", "Text Mining", "Machine Learning"],
+                description: "Data science system using Named Entity Recognition and N-gram models to predict customer attrition, identify competitor relationships, and drive targeted acquisition campaigns.",
+                status: "Case study coming soon"
+              }
+            ].map((project, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="p-8 border border-anthropic-text/10 rounded-2xl"
+              >
+                <h3 className="text-2xl font-serif font-medium mb-3">{project.title}</h3>
+                <p className="text-lg font-serif leading-relaxed opacity-70 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tags.map(tag => (
+                    <span key={tag} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-xs font-sans uppercase tracking-widest text-anthropic-accent">{project.status}</span>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* Education Section */}
         <section id="education" className="mb-32">
           <div className="flex items-center gap-4 mb-12">
             <h2 className="text-4xl font-serif italic">Education</h2>
             <div className="h-[1px] flex-1 bg-anthropic-text/10" />
           </div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -272,39 +406,65 @@ export default function App() {
           </motion.div>
         </section>
 
-        {/* Interests & Skills */}
-        <section className="grid md:grid-cols-2 gap-12 mb-32">
-          <div>
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-3xl font-serif italic">Core Skills</h2>
-              <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+        {/* Technical Skills — Categorized */}
+        <section className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic">Technical Skills</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-4">AI & Machine Learning</h3>
+              <div className="flex flex-wrap gap-2">
+                {["LLMs", "NLP", "RAG", "Agentic AI", "Deep Learning", "Computer Vision", "NER", "NL2SQL", "Sentiment Analysis", "Text Mining", "Image Captioning", "Predictive Modeling"].map(skill => (
+                  <span key={skill} className="px-4 py-2 bg-anthropic-text/5 rounded-lg text-sm font-sans uppercase tracking-wider">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {["LLMs", "NLP", "RAG", "Product Management", "Data Science", "AI Agents", "Python", "Machine Learning", "IoT", "NL2SQL"].map(skill => (
-                <span key={skill} className="px-4 py-2 bg-anthropic-text/5 rounded-lg text-sm font-sans uppercase tracking-wider">
-                  {skill}
-                </span>
-              ))}
+            <div>
+              <h3 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-4">Languages & Tools</h3>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "SQL", "TensorFlow", "PyTorch", "Scikit-learn", "Pandas", "React", "Node.js", "Git", "Docker", "REST APIs"].map(skill => (
+                  <span key={skill} className="px-4 py-2 bg-anthropic-text/5 rounded-lg text-sm font-sans uppercase tracking-wider">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-4">Domain & Strategy</h3>
+              <div className="flex flex-wrap gap-2">
+                {["Product Management", "Data Science", "ML Pipelines", "IoT", "Financial Services", "E-Commerce", "Statistical Modeling", "A/B Testing", "Data Visualization"].map(skill => (
+                  <span key={skill} className="px-4 py-2 bg-anthropic-text/5 rounded-lg text-sm font-sans uppercase tracking-wider">
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-4 mb-8">
-              <h2 className="text-3xl font-serif italic">Interests</h2>
-              <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-            </div>
-            <div className="flex flex-wrap gap-6">
-              {[
-                { icon: <Heart size={18} />, label: "Yoga" },
-                { icon: <Cpu size={18} />, label: "Running" },
-                { icon: <BookOpen size={18} />, label: "Meditation" },
-                { icon: <MapPin size={18} />, label: "Trekking" }
-              ].map(interest => (
-                <div key={interest.label} className="flex items-center gap-2 opacity-80">
-                  {interest.icon}
-                  <span className="font-serif text-lg">{interest.label}</span>
-                </div>
-              ))}
-            </div>
+        </section>
+
+        {/* Interests */}
+        <section className="mb-32">
+          <div className="flex items-center gap-4 mb-8">
+            <h2 className="text-3xl font-serif italic">Interests</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+          <div className="flex flex-wrap gap-6">
+            {[
+              { icon: <Heart size={18} />, label: "Yoga" },
+              { icon: <Cpu size={18} />, label: "Running" },
+              { icon: <BookOpen size={18} />, label: "Meditation" },
+              { icon: <MapPin size={18} />, label: "Trekking" }
+            ].map(interest => (
+              <div key={interest.label} className="flex items-center gap-2 opacity-80">
+                {interest.icon}
+                <span className="font-serif text-lg">{interest.label}</span>
+              </div>
+            ))}
           </div>
         </section>
 
