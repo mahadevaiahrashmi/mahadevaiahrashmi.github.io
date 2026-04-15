@@ -18,6 +18,9 @@ import {
   Twitter,
   FileText
 } from "lucide-react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import BlogList from "./components/BlogList";
+import BlogPost from "./components/BlogPost";
 
 const ExperienceItem = ({ title, company, companyUrl, period, impact, description, links }: any) => (
   <motion.div
@@ -66,7 +69,7 @@ const ExperienceItem = ({ title, company, companyUrl, period, impact, descriptio
   </motion.div>
 );
 
-export default function App() {
+function HomePage() {
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
@@ -76,6 +79,7 @@ export default function App() {
           <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
             <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
             <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
+            <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>
         </div>
@@ -338,6 +342,18 @@ export default function App() {
         <span>Built with precision and care</span>
       </footer>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
