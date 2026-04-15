@@ -78,6 +78,7 @@ function HomePage() {
           <span className="font-serif text-xl font-medium tracking-tight">Rashmi Mahadevaiah</span>
           <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
             <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
+            <a href="#about-me" className="hover:opacity-100 transition-opacity">About Me</a>
             <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
@@ -92,31 +93,40 @@ function HomePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row items-start gap-12 md:gap-16"
           >
-            <h1 className="text-6xl md:text-8xl font-serif font-light tracking-tight mb-8 leading-[1.1]">
-              Building the future <br />
-              <span className="italic">through AI & Data.</span>
-            </h1>
-            <div className="max-w-3xl">
-              <p className="text-xl md:text-2xl font-serif leading-relaxed opacity-80 mb-4">
-                I am Rashmi Mahadevaiah — an AI/ML Engineer and Product Leader with 13+ years of experience
-                shipping data-driven products across financial services, e-commerce, IoT, and SaaS.
+            {/* Photo */}
+            <div className="flex-shrink-0">
+              <img
+                src="/photo.jpg"
+                alt="Rashmi Mahadevaiah"
+                className="w-48 h-48 md:w-56 md:h-56 rounded-2xl object-cover shadow-lg"
+              />
+            </div>
+
+            {/* Hero Content */}
+            <div className="flex-1">
+              <h1 className="text-5xl md:text-7xl font-serif font-light tracking-tight mb-4 leading-[1.15]">
+                AI/ML Engineer <br />
+                <span className="italic">& Product Leader.</span>
+              </h1>
+              <p className="text-xl font-serif leading-relaxed opacity-60 mb-8 max-w-xl">
+                13 years. 6 companies. Production AI systems shipped — from statistical models at KLA to multi-agent orchestration at KOGO.ai.
               </p>
-              <p className="text-lg font-serif leading-relaxed opacity-70 mb-4">
-                I build and deploy production AI systems using Large Language Models (LLMs), Natural Language Processing (NLP),
-                Retrieval-Augmented Generation (RAG), and agentic AI architectures. My work spans the full ML lifecycle —
-                from exploratory data science and statistical modeling to building end-to-end machine learning pipelines,
-                NL2SQL interfaces, and multi-agent orchestration systems.
-              </p>
-              <p className="text-lg font-serif leading-relaxed opacity-70 mb-8">
-                I bring deep technical expertise in Python, deep learning, computer vision, and predictive analytics,
-                combined with product management experience that translates complex AI capabilities into measurable
-                business outcomes — including 25% customer acquisition growth, 18% retention improvement, and $6M+ revenue impact.
-              </p>
-              <div className="flex flex-wrap gap-4">
+
+              {/* CTA Hierarchy */}
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3.5 bg-anthropic-accent text-white rounded-full font-sans text-sm uppercase tracking-widest hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm"
+                >
+                  <FileText size={16} /> View Resume
+                </a>
                 <a
                   href="mailto:mahadevaiah.rashmi@gmail.com"
-                  className="px-6 py-3 bg-anthropic-text text-anthropic-bg rounded-full font-sans text-sm uppercase tracking-widest hover:opacity-90 transition-opacity flex items-center gap-2"
+                  className="px-6 py-3.5 border border-anthropic-text/20 rounded-full font-sans text-sm uppercase tracking-widest hover:bg-anthropic-text/5 transition-colors flex items-center gap-2"
                 >
                   <Mail size={16} /> Get in touch
                 </a>
@@ -124,20 +134,42 @@ function HomePage() {
                   href="https://www.linkedin.com/in/rashmimahadevaiah/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 border border-anthropic-text/20 rounded-full font-sans text-sm uppercase tracking-widest hover:bg-anthropic-text/5 transition-colors flex items-center gap-2"
+                  className="inline-flex items-center gap-1.5 text-sm font-sans opacity-50 hover:opacity-100 transition-opacity"
                 >
                   <Linkedin size={16} /> LinkedIn
                 </a>
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border border-anthropic-accent text-anthropic-accent rounded-full font-sans text-sm uppercase tracking-widest hover:bg-anthropic-accent hover:text-white transition-all flex items-center gap-2"
-                >
-                  <FileText size={16} /> View Resume
-                </a>
               </div>
             </div>
+          </motion.div>
+        </section>
+
+        {/* About Me Section */}
+        <section id="about-me" className="mb-32">
+          <div className="flex items-center gap-4 mb-10">
+            <h2 className="text-4xl font-serif italic">About Me</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl space-y-6 text-lg font-serif leading-relaxed opacity-80"
+          >
+            <p>
+              I'm an IIT Madras alumnus who fell in love with making machines understand human language and behavior.
+              My career started in semiconductor defect detection — teaching computers to see microscopic flaws in silicon wafers —
+              and evolved into teaching large language models to reason, plan, and make decisions.
+            </p>
+            <p>
+              I've spent the last 13+ years across the full ML lifecycle: from exploratory data science and statistical modeling
+              at Axis Bank and TCS, to founding an AI startup (RichFeyn) that shipped three products across computer vision, IoT, and mobile,
+              to building multi-agent AI orchestration systems at KOGO.ai that process thousands of sales leads autonomously.
+            </p>
+            <p>
+              Outside of AI, I'm a yoga practitioner, a runner, and someone who believes the best products come from
+              deep empathy for the people who use them — not from the technology itself.
+            </p>
           </motion.div>
         </section>
 
