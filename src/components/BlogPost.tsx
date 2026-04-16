@@ -610,8 +610,27 @@ function RichFeynPost() {
         </div>
       </div>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6 italic">
-        Stay tuned for more updates as we continue to push the boundaries of home automation and intelligent living.
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        See It In Action
+      </h2>
+      
+      <div className="my-12">
+        <video 
+          controls 
+          className="w-full rounded-2xl shadow-lg border border-anthropic-text/10"
+        >
+          <source src="/blog-assets/richfeyn/Richfeyn_demo_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p className="text-sm opacity-50 mt-4 text-center italic">A quick demonstration of the RichFeyn Smart Jar ecosystem.</p>
+      </div>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        The Future of Living
+      </h2>
+
+      <p className="text-lg leading-relaxed opacity-90 mb-6">
+        RichFeyn is more than a smart jar company. It's a partner in simplifying and enhancing everyday life. We believe that by automating the mundane, we empower people to thrive in a fast-paced world and focus on what truly matters.
       </p>
     </>
   );
