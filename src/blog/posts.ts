@@ -34,4 +34,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "How we built a smart reordering system that tracks inventory and restocks kitchen supplies autonomously, saving hours of manual shopping every month.",
   },
+  {
+    slug: "claude-style-replication",
+    title: "Replicating Claude Code's Communication Styles",
+    subtitle: "A Complete Guide for Gemini CLI & Codex CLI",
+    date: "2026-04-16",
+    readTime: "8 min read",
+    tags: ["Claude Code", "Gemini CLI", "Codex CLI", "Guide"],
+    excerpt:
+      "Learn how to mimic Claude Code's elegant communication styles in Gemini and Codex CLI using custom slash commands, profiles, and configuration scripts.",
+  },
 ];

@@ -611,9 +611,167 @@ function RichFeynPost() {
   );
 }
 
+function ClaudeStyleReplicationPost() {
+  return (
+    <>
+      <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight mb-6 leading-tight">
+        Replicating Claude Code's Communication Styles in Gemini CLI & Codex CLI: A Complete Guide
+      </h1>
+
+      <p className="text-lg font-serif italic opacity-60 mb-12">
+        A guide to custom slash commands, profiles, and configuration scripts.
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Introduction
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6">
+        If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
+      </p>
+      <CodeBlock>
+{`1. Default     Claude completes coding tasks efficiently and provides concise responses
+2. Explanatory Claude explains its implementation choices and codebase patterns  
+3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
+      </CodeBlock>
+
+      <p className="text-lg leading-relaxed opacity-90 mb-6">
+        But what if you prefer <strong>Gemini CLI</strong> or <strong>Codex CLI</strong>? Do they offer similar flexibility?
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-semibold">
+        Short answer: Not natively, but with a little setup, you can replicate (and even enhance) these styles in both tools.
+      </p>
+
+      <p className="text-lg leading-relaxed opacity-90 mb-4">In this guide, you will learn:</p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90">
+        <li>Mimic all three styles in <strong>Gemini CLI</strong></li>
+        <li>Achieve the same in <strong>Codex CLI</strong></li>
+        <li>Ready-to-copy configuration files and one-command setup scripts</li>
+      </ul>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Understanding the Three Styles
+      </h2>
+      <div className="overflow-x-auto mb-6">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-anthropic-text/5">
+              <th className="text-left p-3 border border-anthropic-text/10 font-medium">Style</th>
+              <th className="text-left p-3 border border-anthropic-text/10 font-medium">Behavior</th>
+              <th className="text-left p-3 border border-anthropic-text/10 font-medium">Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-3 border border-anthropic-text/10 font-semibold">Default</td>
+              <td className="p-3 border border-anthropic-text/10 text-red-500">Fast, concise, task-focused</td>
+              <td className="p-3 border border-anthropic-text/10">Quick iterations</td>
+            </tr>
+            <tr className="bg-anthropic-text/[0.02]">
+              <td className="p-3 border border-anthropic-text/10 font-semibold">Explanatory</td>
+              <td className="p-3 border border-anthropic-text/10 text-orange-500">Explains reasoning, patterns</td>
+              <td className="p-3 border border-anthropic-text/10">Learning codebases</td>
+            </tr>
+            <tr>
+              <td className="p-3 border border-anthropic-text/10 font-semibold">Learning</td>
+              <td className="p-3 border border-anthropic-text/10 text-blue-500">Interactive mentor: pauses, asks you to code</td>
+              <td className="p-3 border border-anthropic-text/10">Hands-on practice</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Gemini CLI Setup
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6">
+        Gemini CLI shines with its support for <strong>custom slash commands</strong> and <strong>GEMINI.md</strong> persistent context files.
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4">Step 1: Create the Commands Directory</h3>
+      <CodeBlock>{`mkdir -p ~/.gemini/commands`}</CodeBlock>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4">Step 2: Create Configuration Files</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4">
+        Create TOML files inside <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">~/.gemini/commands/</code>:
+      </p>
+
+      <div className="space-y-6">
+        <div>
+          <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2">default.toml</h4>
+          <CodeBlock>
+{`description = "Default concise and efficient mode"
+prompt = """
+You are now in Default mode (Claude Code style).
+Complete the following coding task efficiently with concise responses:
+
+{{args}}
+
+No unnecessary explanations unless asked.
+"""`}
+          </CodeBlock>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2">explain.toml</h4>
+          <CodeBlock>
+{`description = "Explanatory mode: explains choices and patterns"
+prompt = """
+You are now in Explanatory mode.
+
+Task: {{args}}
+
+For this task:
+- Think step-by-step and explain your reasoning clearly.
+- Describe implementation choices, trade-offs, and patterns.
+- Then implement only after I confirm.
+"""`}
+          </CodeBlock>
+        </div>
+      </div>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4">Step 3: Use Your New Commands</h3>
+      <CodeBlock>
+{`/explain refactor the payment service to use async/await
+/learn implement JWT authentication
+/default add dark mode toggle`}
+      </CodeBlock>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Codex CLI Setup
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6">
+        Codex CLI uses <strong>profiles</strong>, <strong>personalities</strong>, and <strong>AGENTS.md</strong> files for customization.
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4">Step 1: Update Your Config</h3>
+      <CodeBlock>
+{`[profiles.default]
+personality = "pragmatic"
+approval_mode = "auto"
+
+[profiles.explanatory]
+personality = "friendly"
+approval_mode = "auto"
+
+[profiles.learning]
+personality = "friendly"
+approval_mode = "read-only"`}
+      </CodeBlock>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Final Thoughts
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 text-center italic">
+        "You do not need to switch tools to get the workflow you want. With a few config files and smart prompting, you can tailor any AI coding assistant to your learning style, team workflow, or project needs."
+      </p>
+    </>
+  );
+}
+
 const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
   "richfeyn-smart-jar": RichFeynPost,
+  "claude-style-replication": ClaudeStyleReplicationPost,
 };
 
 function setMetaByName(name: string, content: string) {
