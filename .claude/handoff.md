@@ -1,50 +1,52 @@
-<!-- agent-notes: { ctx: "session handoff for blog feature implementation", deps: [CLAUDE.md, docs/plans/], state: active, last: "2026-04-15" } -->
+---
+agent-notes: { ctx: "Session handoff for completed Sprint 1 tasks", deps: [docs/plans/sprint-1-plan.md, src/App.tsx], state: active, last: "coordinator@2026-04-16" }
+---
+
 # Session Handoff
 
-**Created:** 2026-04-15
-**Sprint:** 2
-**Wave:** Blog feature wave
-**Session summary:** Added a full blog section to the portfolio site with React Router, a blog listing page, and the first blog post (warehouse-routing-openenv) converted from the warehouse-routing-blog folder's HTML. Pushed to GitHub main.
+**Created:** 2026-04-16
+**Sprint:** 1
+**Wave:** Execution of App.tsx tasks
+**Session summary:** Successfully implemented the remaining sections in `src/App.tsx` according to `sprint-1-plan.md`, specifically the "What I Bring" pillars and "Select Projects" sections, optimized for ATS keywords, and fixed the CI testing hang issue.
 
 ## What Was Done
-- Installed `react-router-dom` for client-side routing
-- Created `src/blog/posts.ts` — registry of blog posts with metadata (slug, title, date, tags, excerpt)
-- Created `src/components/BlogList.tsx` — blog listing page at `/blog`
-- Created `src/components/BlogPost.tsx` — individual blog post viewer at `/blog/:slug`
-- Converted the warehouse-routing-blog `index.html` into a React component matching the site's design system (Crimson Pro + Inter, Anthropic color palette, motion animations)
-- Added "Blog" link to the top navigation bar on the homepage
-- Wrapped App in `BrowserRouter` with Routes: `/`, `/blog`, `/blog/:slug`
-- Build passes clean (`npm run build`), TypeScript type-check passes (`tsc --noEmit`)
-- Pushed commit `2927b91` to `https://github.com/mahadevaiahrashmi/mahadevaiahrashmi.github.io` main
+- Added "What I Bring" section emphasizing ML Delivery, Product Acumen, and Cross-Domain Adaptability.
+- Added "Select Projects" section featuring Warehouse Routing Agent and RichFeyn Smart Jar.
+- Ensured ATS optimization by using relevant keywords like LLMs, RAG, React Native, etc.
+- Updated `package.json` to use `vitest run` instead of `vitest` for the `"test"` script to prevent CI hanging.
+- Successfully passed the 15-item Done Gate (lint, typecheck, tests).
+- Committed and pushed all changes to `main`.
 
 ## Current State
-- **Branch:** main
-- **Last commit:** 2927b91 — feat: add blog section with warehouse routing openenv post
-- **Uncommitted changes:** none (working tree clean)
-- **Tests:** N/A (no test suite configured yet)
-- **Board status:** Issue #1 "Add blog section with real content" → **Done**. Issue #8 "Add blog section on the top navigation" → **Done** (also closed on GitHub). Both transitions applied via GraphQL to project #2 (Portfolio Website).
+- **Branch:** `main`
+- **Last commit:** `1e28e5b` (feat: enhance homepage with new skills and projects sections)
+- **Uncommitted changes:** None (only untracked docs/assets remaining).
+- **Tests:** 4 passing tests.
+- **Board status:** Board is not currently configured/verified via the CLI in this context, but local Sprint 1 plan tasks 1-7 are complete.
 
 ## Sprint Progress
-- **Wave plan:** Sprint 2 — blog + projects + impact metrics
-- **Completed this session:** #1 (blog section), #8 (blog nav link)
-- **Issues remaining in sprint 2:** #2 "Add projects section with case studies" (Ready), #3 "Fill in impact metrics with real numbers" (Ready)
-- **Next:** #2 or #3 from sprint 2 backlog
+- **Wave plan:** `docs/plans/sprint-1-plan.md`
+- **Current wave:** Sprint 1 — Complete
+- **Issues completed this session:**
+  - #2 Add "What I Bring" pillars section
+  - #5 Add projects placeholder section
+  - #7 ATS keyword audit and final pass
+  - CI Script Bugfix (Implicit from testing)
+- **Issues remaining in wave:** None from the `sprint-1-plan.md` list.
+- **Next wave:** Awaiting next sprint plan or user instruction.
 
 ## What To Do Next (in order)
-1. Read `docs/code-map.md` to orient
-2. Read `docs/product-context.md` for human's product philosophy
-3. Pick up sprint 2 issue #2 or #3 — both are in Ready status
-4. For #2 (projects section): Add a projects section to the homepage with case study cards, GitHub links, and technical artifacts. Follow the same pattern as the experience section — use `ExperienceItem`-style cards or create a `ProjectCard` component.
-5. For #3 (impact metrics): Work with Rashmi to get verified real numbers for the experience section impact lines (currently has placeholders like "25% new customer acquisition growth").
+1. Read `docs/scaffolds/code-map.md` (if scaffolded) or `docs/code-map.md` to orient.
+2. Read `docs/product-context.md` for the human's product philosophy.
+3. Review `docs/plans/sprint-1-plan.md` and confirm next sprint's goals or proceed to `/sprint-boundary` protocol if Sprint 1 is truly concluded and ready for review/archiving.
+4. Clean up any untracked files (`.codex`, `public/blog-assets/`, `richfeyn/`) if they are no longer needed or if they need to be added to `.gitignore`.
 
 ## Tracking Artifacts
-- No active tracking artifacts in `docs/tracking/` for this session.
+- Active tracking artifacts have been archived to `docs/tracking/archive/`.
 
 ## Proxy Decisions (Review Required)
-<!-- None made this session -->
+- None.
 
 ## Key Context
-- Blog posts are managed in `src/blog/posts.ts` — add new entries to the `blogPosts` array. Each entry needs a slug that matches the URL `/blog/<slug>`, and the `BlogPost` component currently only renders the warehouse-routing-openenv post. To add new posts, create a new component in `BlogPost.tsx` keyed on the slug, or refactor to a CMS/markdown-based approach.
-- The site uses GitHub Pages deployment via GitHub Actions on push to main — the deploy should have been triggered by the push.
-- `warehouse-routing-blog/` folder still exists in the repo with the original HTML — it can be cleaned up or kept as reference.
-- Navigation on blog pages shows "Home", "Blog", "Contact" — the "Experience" link is removed from blog pages since it's a homepage anchor and doesn't work from other routes.
+- The project board integrations might not be fully linked via standard `gh` setup; double check tracking integration setup if board interactions are required in the next session.
+- `vitest run` is required for CI instead of the default `vitest` interactive watch mode.
