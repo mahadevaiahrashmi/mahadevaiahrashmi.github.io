@@ -679,7 +679,7 @@ function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
       </p>
-      <CodeBlock title="Claude Code Styles" variant="grok">
+      <CodeBlock title="Output style" variant="grok">
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns  
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
