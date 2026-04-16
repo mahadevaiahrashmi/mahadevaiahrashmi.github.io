@@ -24,6 +24,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { blogPosts } from "./blog/posts";
 import BlogList from "./components/BlogList";
 import BlogPost from "./components/BlogPost";
+import ThemeToggle from "./components/ThemeToggle";
 
 const ExperienceItem = ({ title, company, companyUrl, period, impact, description, links }: any) => (
   <motion.div
@@ -78,15 +79,15 @@ function HomePage() {
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5">
+      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-serif text-xl font-medium tracking-tight">Rashmi Mahadevaiah</span>
-          <div className="flex gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
-            <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
-            <a href="#about-me" className="hover:opacity-100 transition-opacity">About Me</a>
-            <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
+          <div className="flex items-center gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
+            <a href="#about" className="hidden sm:inline hover:opacity-100 transition-opacity">About</a>
+            <a href="#experience" className="hidden sm:inline hover:opacity-100 transition-opacity">Experience</a>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
+            <ThemeToggle />
           </div>
         </div>
       </nav>

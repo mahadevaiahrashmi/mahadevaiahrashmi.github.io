@@ -1,17 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
 
+@layer base {
+  :root {
+    --bg-color: #fbfaf8;
+    --text-color: #1d1917;
+    --accent-color: #d97757;
+  }
+  
+  :root.dark {
+    --bg-color: #1d1917;
+    --text-color: #fbfaf8;
+    --accent-color: #e08b6f;
+  }
+}
+
 @theme {
   --font-serif: "Crimson Pro", serif;
   --font-sans: "Inter", sans-serif;
-  --color-anthropic-bg: #fbfaf8;
-  --color-anthropic-text: #1d1917;
-  --color-anthropic-accent: #d97757;
+  --color-anthropic-bg: var(--bg-color);
+  --color-anthropic-text: var(--text-color);
+  --color-anthropic-accent: var(--accent-color);
 }
 
 @layer base {
   body {
     @apply bg-anthropic-bg text-anthropic-text font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;

@@ -8,6 +8,7 @@ import { ArrowLeft, ExternalLink } from "lucide-react";
 import { useEffect, type ComponentType } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
+import ThemeToggle from "./ThemeToggle";
 
 const CodeBlock = ({ children }: { children: string }) => (
   <div className="my-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-lg p-4 overflow-x-auto">
@@ -523,15 +524,6 @@ function RichFeynPost() {
         Automating the repetitive to make room for what matters.
       </p>
 
-      <div className="my-12">
-        <img 
-          src="/blog-assets/richfeyn/Smart_jar.png" 
-          alt="RichFeyn Smart Jar" 
-          className="w-full rounded-2xl shadow-xl border border-anthropic-text/10"
-        />
-        <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn Smart Jar: Your kitchen, automated.</p>
-      </div>
-
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         In the fast-paced world of modern living, time is the most precious commodity. Yet, we still spend hours every month on the most repetitive of tasks: checking kitchen supplies, writing shopping lists, and hopping between multiple delivery apps.
       </p>
@@ -548,27 +540,18 @@ function RichFeynPost() {
         The RichFeyn Smart Jar isn't just a container; it's an intelligent inventory management system. By combining custom IoT hardware with computer vision and natural language processing, we created a device that knows exactly how much you have left and knows exactly when to get more.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-8 my-12">
-        <div className="space-y-6">
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">Save Time</h3>
-            <p className="opacity-80">No more manual inventory checks or list-making. The system handles the "what" and "when" of your kitchen supplies.</p>
-          </div>
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">Zero Stress</h3>
-            <p className="opacity-80">Just-in-time delivery ensures your staples arrive exactly when you need them, not when you've already run out mid-recipe.</p>
-          </div>
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">One-Time Setup</h3>
-            <p className="opacity-80">Configure your preferred retailers and time slots once, then let the automation take over.</p>
-          </div>
+      <div className="space-y-6 my-12">
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">Save Time</h3>
+          <p className="opacity-80">No more manual inventory checks or list-making. The system handles the "what" and "when" of your kitchen supplies.</p>
         </div>
-        <div className="flex items-center">
-          <img 
-            src="/blog-assets/richfeyn/How_smartjar_works.png" 
-            alt="How it works" 
-            className="rounded-xl shadow-lg border border-anthropic-text/10"
-          />
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">Zero Stress</h3>
+          <p className="opacity-80">Just-in-time delivery ensures your staples arrive exactly when you need them, not when you've already run out mid-recipe.</p>
+        </div>
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">One-Time Setup</h3>
+          <p className="opacity-80">Configure your preferred retailers and time slots once, then let the automation take over.</p>
         </div>
       </div>
 
@@ -580,35 +563,9 @@ function RichFeynPost() {
         Building a "set and forget" experience required a sophisticated tech stack. We utilized <strong>Computer Vision</strong> to accurately track inventory levels without requiring user input. Our backend uses <strong>NLP</strong> to process restocking prompts and interface with various grocery retailers autonomously.
       </p>
 
-      <div className="my-12">
-        <img 
-          src="/blog-assets/richfeyn/Your_inventory.png" 
-          alt="RichFeyn App Inventory" 
-          className="w-full rounded-2xl shadow-lg border border-anthropic-text/10"
-        />
-        <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn mobile app provides a real-time view of your entire pantry.</p>
-      </div>
-
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         Whether it's transforming phone camera images into professional visuals for SMEs or building cross-platform mobile apps with Python and React Native to automate household orders, RichFeyn has always been about applying cutting-edge AI to real-world problems.
       </p>
-
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        The Future of Living
-      </h2>
-
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
-        RichFeyn is more than a smart jar company. It's a partner in simplifying and enhancing everyday life. We believe that by automating the mundane, we empower people to thrive in a fast-paced world and focus on what truly matters.
-      </p>
-
-      <div className="flex gap-4 my-12 flex-wrap">
-        <div className="flex-1 min-w-[200px]">
-          <img src="/blog-assets/richfeyn/notification_feature.png" alt="Notifications" className="rounded-xl shadow-md border border-anthropic-text/10" />
-        </div>
-        <div className="flex-1 min-w-[200px]">
-          <img src="/blog-assets/richfeyn/Set_retailer_feature.png" alt="Retailer settings" className="rounded-xl shadow-md border border-anthropic-text/10" />
-        </div>
-      </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
         See It In Action
@@ -773,15 +730,16 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5">
+      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link to="/" className="font-serif text-xl font-medium tracking-tight hover:opacity-80 transition-opacity">
             Rashmi Mahadevaiah
           </Link>
-          <div className="flex gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
+          <div className="flex items-center gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="/#contact" className="hover:opacity-100 transition-opacity">Contact</a>
+            <ThemeToggle />
           </div>
         </div>
       </nav>

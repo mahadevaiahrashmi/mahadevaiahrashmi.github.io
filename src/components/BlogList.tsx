@@ -7,20 +7,22 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
+import ThemeToggle from "./ThemeToggle";
 
 export default function BlogList() {
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5">
+      <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link to="/" className="font-serif text-xl font-medium tracking-tight hover:opacity-80 transition-opacity">
             Rashmi Mahadevaiah
           </Link>
-          <div className="flex gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
+          <div className="flex items-center gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="/#contact" className="hover:opacity-100 transition-opacity">Contact</a>
+            <ThemeToggle />
           </div>
         </div>
       </nav>

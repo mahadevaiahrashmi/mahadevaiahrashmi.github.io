@@ -11,6 +11,19 @@
         window.history.replaceState(null, "", redirect);
       })();
     </script>
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>Rashmi Mahadevaiah | AI/ML Engineer & Product Leader</title>
     <meta name="description" content="Rashmi Mahadevaiah — AI/ML Engineer & Product Leader with 13+ years in LLMs, NLP, RAG, agentic AI, data science, and product management. IIT Madras alumni." />
     <meta name="keywords" content="AI ML Engineer, Machine Learning, LLM, NLP, RAG, Agentic AI, Data Science, Product Management, Python, Deep Learning, Computer Vision, NL2SQL" />
