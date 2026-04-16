@@ -17,7 +17,7 @@ export default function BlogList() {
           <Link to="/" className="font-serif text-xl font-medium tracking-tight hover:opacity-80 transition-opacity">
             Rashmi Mahadevaiah
           </Link>
-          <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
+          <div className="flex gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
             <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="/#contact" className="hover:opacity-100 transition-opacity">Contact</a>

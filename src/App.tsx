@@ -76,7 +76,7 @@ function HomePage() {
       <nav className="fixed top-0 w-full z-50 bg-anthropic-bg/80 backdrop-blur-sm border-b border-anthropic-text/5">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-serif text-xl font-medium tracking-tight">Rashmi Mahadevaiah</span>
-          <div className="flex gap-8 text-sm font-sans uppercase tracking-widest opacity-60">
+          <div className="flex gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
             <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
             <a href="#about-me" className="hover:opacity-100 transition-opacity">About Me</a>
             <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
@@ -388,4 +388,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
