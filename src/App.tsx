@@ -415,9 +415,9 @@ function HomePage() {
             >
               <div className="flex justify-between items-start mb-6">
                 <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">RichFeyn Smart Jar</h3>
-                <a href="https://www.richfeyn.com/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
+                <Link to="/blog/richfeyn-smart-jar" className="opacity-60 hover:opacity-100 transition-opacity">
                   <ExternalLink size={20} />
-                </a>
+                </Link>
               </div>
               <p className="text-lg leading-relaxed opacity-80 mb-6">
                 IoT-enabled smart jar with an automated reordering system. Utilized CV for inventory tracking and NLP to process natural language restocking prompts.
