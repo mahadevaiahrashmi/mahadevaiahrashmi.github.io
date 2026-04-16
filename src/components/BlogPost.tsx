@@ -186,7 +186,7 @@ function WarehouseRoutingPost() {
 
       <p className="text-lg leading-relaxed opacity-90 mb-4">The agent picks one of four moves per turn:</p>
 
-      <CodeBlock>
+      <CodeBlock title="Action Space (Python)">
 {`Action(move="N")  # north (row - 1)
 Action(move="S")  # south (row + 1)
 Action(move="E")  # east  (col + 1)
@@ -218,7 +218,7 @@ Action(move="W")  # west  (col - 1)`}
         warehouse-routing wraps a Pydantic-typed environment in a FastAPI shim, ships as a Docker image, and runs on Hugging Face Spaces. Pydantic enforces typed contracts at every boundary so a malformed action returns 422, never silent corruption:
       </p>
 
-      <CodeBlock>
+      <CodeBlock title="Pydantic Environment API (Python)">
 {`env = WarehouseRoutingEnvironment()
 obs = env.reset()
 # obs.tier="easy"  obs.sku_locations=[(3,2),(7,7),(4,4)]  obs.robot_pos=(0,0)
@@ -743,7 +743,7 @@ function ClaudeStyleReplicationPost() {
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 1: Create the Commands Directory</h3>
-      <CodeBlock>{`mkdir -p ~/.gemini/commands`}</CodeBlock>
+      <CodeBlock title="Setup Directory">{`mkdir -p ~/.gemini/commands`}</CodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 2: Create Configuration Files</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-sans text-anthropic-text">Create three TOML files inside the directory:</p>
@@ -751,7 +751,7 @@ function ClaudeStyleReplicationPost() {
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/default.toml</h4>
-          <CodeBlock>
+          <CodeBlock title="default.toml">
 {`description = "Default concise and efficient mode"
 prompt = """
 You are now in Default mode (Claude Code style).
@@ -766,7 +766,7 @@ No unnecessary explanations unless asked.
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/explain.toml</h4>
-          <CodeBlock>
+          <CodeBlock title="explain.toml">
 {`description = "Explanatory mode: explains choices and patterns"
 prompt = """
 You are now in Explanatory mode.
@@ -786,7 +786,7 @@ Be thorough but not overly verbose.
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/learn.toml</h4>
-          <CodeBlock>
+          <CodeBlock title="learn.toml">
 {`description = "Learning/Mentor mode: hands-on interactive practice"
 prompt = """
 You are now in Learning mode (mentor/tutor style).
@@ -797,7 +797,7 @@ For this task:
 - Break it into small, clear steps.
 - Explain the concept or next piece.
 - Pause and explicitly ask ME to write the small code snippet myself.
-- Review my code, give constructive feedback, and guide me to the next step.
+- Review my code, Calvert feedback, and guide me to the next step.
 - Only write/implement code yourself if I explicitly ask.
 
 Act like a patient coding instructor for hands-on learning.
@@ -811,7 +811,7 @@ Act like a patient coding instructor for hands-on learning.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 3: Use Your New Commands</h3>
-      <CodeBlock>
+      <CodeBlock title="Example Usage">
 {`/explain refactor the payment service to use async/await
 /learn implement JWT authentication with refresh tokens
 /default add dark mode toggle to the settings panel`}
@@ -819,14 +819,6 @@ Act like a patient coding instructor for hands-on learning.
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         After switching modes, continue the conversation naturally, or re-use the command anytime to reset context.
       </p>
-
-      <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent font-sans">Bonus: Project-Level Persistence</h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">Create a <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">GEMINI.md</code> file in your repo root to apply default behaviors across sessions:</p>
-      <CodeBlock>
-{`# GEMINI.md
-Default to concise responses unless instructed otherwise.
-When asked to explain, provide step-by-step reasoning.`}
-      </CodeBlock>
 
       <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
         Codex CLI Setup (OpenAI)
@@ -837,7 +829,7 @@ When asked to explain, provide step-by-step reasoning.`}
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-anthropic-text">Step 1: Update Your Config</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">Edit <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">~/.codex/config.toml</code>:</p>
-      <CodeBlock>
+      <CodeBlock title="config.toml">
 {`[profiles.default]
 personality = "pragmatic"
 approval_mode = "auto"
@@ -857,7 +849,7 @@ approval_mode = "read-only"`}
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-explain.md</h4>
-          <CodeBlock>
+          <CodeBlock title="AGENTS-explain.md">
 {`You are now in Explanatory mode.
 
 User task: $TASK
@@ -872,7 +864,7 @@ For this task:
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-learn.md</h4>
-          <CodeBlock>
+          <CodeBlock title="AGENTS-learn.md">
 {`You are now in Learning/Mentor mode.
 
 User task: $TASK
@@ -887,7 +879,7 @@ For this task:
       </div>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-anthropic-text">Step 3: Switch Styles in Practice</h3>
-      <CodeBlock>
+      <CodeBlock title="Practice Commands">
 {`# Switch profile and give task
 /profile explanatory
 implement user login with email verification
@@ -902,7 +894,7 @@ add shipping cost calculation based on weight and distance
         Learning Mode Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded font-sans">read-only</code> approval mode ensures Codex suggests changes rather than auto-applying them, perfect for hands-on practice.
       </p>
 
-      <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10 text-anthropic-text">
         One-Command Setup Scripts
       </h2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans font-semibold text-anthropic-text">
@@ -910,7 +902,7 @@ add shipping cost calculation based on weight and distance
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-center font-sans">Gemini CLI Setup Script</h3>
-      <CodeBlock>
+      <CodeBlock title="Gemini Setup Script (Bash)">
 {`mkdir -p ~/.gemini/commands && cat > ~/.gemini/commands/default.toml << 'EOF'
 description = "Default concise and efficient mode"
 prompt = """
@@ -962,7 +954,7 @@ echo "Gemini CLI styles installed. Run /commands reload to activate."`}
       </CodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-center font-sans">Codex CLI Setup Script</h3>
-      <CodeBlock>
+      <CodeBlock title="Codex Setup Script (Bash)">
 {`# Create Codex config directory and backup existing config
 mkdir -p ~/.codex
 [ -f ~/.codex/config.toml ] && cp ~/.codex/config.toml ~/.codex/config.toml.bak
@@ -1153,7 +1145,7 @@ const postContentBySlug: Record<string, ComponentType> = {
 };
 
 function setMetaByName(name: string, content: string) {
-  let tag = document.querySelector(`meta[name="\${name}"]`) as HTMLMetaElement | null;
+  let tag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
   if (!tag) {
     tag = document.createElement("meta");
     tag.setAttribute("name", name);
@@ -1163,7 +1155,7 @@ function setMetaByName(name: string, content: string) {
 }
 
 function setMetaByProperty(property: string, content: string) {
-  let tag = document.querySelector(`meta[property="\${property}"]`) as HTMLMetaElement | null;
+  let tag = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement | null;
   if (!tag) {
     tag = document.createElement("meta");
     tag.setAttribute("property", property);
@@ -1199,7 +1191,6 @@ export default function BlogPost() {
       document.title = "Post not found | Rashmi Mahadevaiah";
       setMetaByName("description", defaultDescription);
       setCanonical(`${window.location.origin}/blog`);
-
       return () => {
         document.title = previousTitle;
         if (previousCanonical) setCanonical(previousCanonical);
@@ -1208,7 +1199,6 @@ export default function BlogPost() {
 
     const url = `${window.location.origin}/blog/${post.slug}`;
     const title = `${post.title}: ${post.subtitle} | Rashmi Mahadevaiah`;
-
     const description = post.excerpt;
 
     document.title = title;
@@ -1232,7 +1222,6 @@ export default function BlogPost() {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       headline: `${post.title}: ${post.subtitle}`,
-
       description,
       datePublished: post.date,
       dateModified: post.date,
