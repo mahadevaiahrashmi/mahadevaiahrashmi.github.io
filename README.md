@@ -38,6 +38,12 @@ Output is written to `dist/`. This is what gets deployed to GitHub Pages.
 
 Deployment is automatic — push to `main` and GitHub Actions builds and deploys to GitHub Pages.
 
+SPA deep links are GitHub Pages-safe via a `404.html` redirect bootstrap:
+- `public/404.html` captures unknown paths and redirects to `/?redirect=<original-path>`
+- `index.html` restores the original path using `history.replaceState` before React bootstraps
+
+This keeps `BrowserRouter` URLs working for direct opens/refreshes such as `/blog` and `/blog/<slug>`.
+
 To manually verify the build before pushing:
 
 ```bash

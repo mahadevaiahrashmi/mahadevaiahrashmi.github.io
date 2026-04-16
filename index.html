@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var redirect = params.get("redirect");
+        if (!redirect) return;
+        window.history.replaceState(null, "", redirect);
+      })();
+    </script>
     <title>Rashmi Mahadevaiah | AI/ML Engineer & Product Leader</title>
     <meta name="description" content="Rashmi Mahadevaiah — AI/ML Engineer & Product Leader with 13+ years in LLMs, NLP, RAG, agentic AI, data science, and product management. IIT Madras alumni." />
     <meta name="keywords" content="AI ML Engineer, Machine Learning, LLM, NLP, RAG, Agentic AI, Data Science, Product Management, Python, Deep Learning, Computer Vision, NL2SQL" />
