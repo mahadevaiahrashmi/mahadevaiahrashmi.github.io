@@ -15,7 +15,10 @@ import {
   Heart,
   Instagram,
   Twitter,
-  FileText
+  FileText,
+  Brain,
+  Rocket,
+  Target
 } from "lucide-react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { blogPosts } from "./blog/posts";
@@ -178,7 +181,7 @@ function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-3xl space-y-6 text-lg font-serif leading-relaxed opacity-80"
+            className="max-w-3xl space-y-6 text-lg font-serif leading-relaxed opacity-80 mb-16"
           >
             <p>
               I'm an IIT Madras alumnus who fell in love with making machines understand human language and behavior.
@@ -195,6 +198,49 @@ function HomePage() {
               deep empathy for the people who use them — not from the technology itself.
             </p>
           </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-6 border border-anthropic-text/10 rounded-2xl bg-anthropic-text/5"
+            >
+              <Brain className="mb-4 text-anthropic-accent" size={28} />
+              <h3 className="text-xl font-serif font-medium mb-3">End-to-End ML Delivery</h3>
+              <p className="opacity-80 leading-relaxed">
+                From research and statistical models to deploying multi-agent LLM systems in production. I build robust architectures that scale.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-6 border border-anthropic-text/10 rounded-2xl bg-anthropic-text/5"
+            >
+              <Target className="mb-4 text-anthropic-accent" size={28} />
+              <h3 className="text-xl font-serif font-medium mb-3">Product & Business Acumen</h3>
+              <p className="opacity-80 leading-relaxed">
+                Founded an AI startup with deep empathy for user needs. I bridge the gap between technical metrics and real business impact.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="p-6 border border-anthropic-text/10 rounded-2xl bg-anthropic-text/5"
+            >
+              <Rocket className="mb-4 text-anthropic-accent" size={28} />
+              <h3 className="text-xl font-serif font-medium mb-3">Cross-Domain Adaptability</h3>
+              <p className="opacity-80 leading-relaxed">
+                Experience spanning computer vision, predictive analytics in banking, and agentic AI in SaaS. I adapt to solve the right problems.
+              </p>
+            </motion.div>
+          </div>
         </section>
 
         {featuredPost && (
@@ -325,6 +371,65 @@ function HomePage() {
                 "Built image processing and computer vision products for semiconductor wafer inspection using signal processing and machine learning algorithms, increasing defect capture rates from 80% to 90% and eliminating manual inspection workflows."
               ]}
             />
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic">Select Projects</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">Warehouse Routing Agent</h3>
+                <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
+                  <Github size={20} />
+                </a>
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                An open-source RL environment simulating warehouse logistics, built to test multi-agent LLM planning and routing efficiency in constrained spaces.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Python", "LLMs", "RAG", "Agentic AI"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">RichFeyn Smart Jar</h3>
+                <a href="https://www.richfeyn.com/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
+                  <ExternalLink size={20} />
+                </a>
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                IoT-enabled smart jar with an automated reordering system. Utilized CV for inventory tracking and NLP to process natural language restocking prompts.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Computer Vision", "IoT", "NLP", "React Native"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
