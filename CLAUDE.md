@@ -3,13 +3,11 @@
 
 ## Project Overview
 
-<!-- TODO: Replace this section with your project's overview after scaffolding -->
+**Project Name:** mahadevaiahrashmi.github.io
+**Description:** Personal portfolio website for Rashmi Mahadevaiah, featuring AI/ML engineering expertise, blog posts, and project case studies.
+**Tech Stack:** React 19 (TypeScript), Vite 6, Tailwind CSS 4, Motion (framer-motion), Lucide React, Vitest.
 
-**Project Name:** [Your Project Name]
-**Description:** [Brief description of what this project does]
-**Tech Stack:** [Language, framework, key libraries — update after running a scaffold command]
-
-**Codebase map:** `docs/code-map.md` — read this first to understand the package structure, public APIs, and data flow.
+**Codebase map:** `docs/scaffolds/code-map.md` — read this first to understand the package structure, public APIs, and data flow.
 
 > **Note:** Several paths referenced below (e.g., `docs/code-map.md`, `docs/tech-debt.md`, `docs/test-strategy.md`) live under `docs/scaffolds/` until you run a scaffold command, which moves them to their final locations.
 
