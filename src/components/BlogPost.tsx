@@ -727,6 +727,27 @@ For this task:
 """`}
           </CodeBlock>
         </div>
+
+        <div>
+          <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2">learn.toml</h4>
+          <CodeBlock>
+{`description = "Learning/Mentor mode: hands-on interactive practice"
+prompt = """
+You are now in Learning mode (mentor/tutor style).
+
+Task: {{args}}
+
+For this task:
+- Break it into small, clear steps.
+- Explain the concept or next piece.
+- Pause and explicitly ask ME to write the small code snippet myself.
+- Review my code, give constructive feedback, and guide me to the next step.
+- Only write/implement code yourself if I explicitly ask.
+
+Act like a patient coding instructor for hands-on learning.
+"""`}
+          </CodeBlock>
+        </div>
       </div>
 
       <h3 className="text-xl font-serif font-medium mt-8 mb-4">Step 3: Use Your New Commands</h3>
@@ -757,6 +778,50 @@ approval_mode = "auto"
 personality = "friendly"
 approval_mode = "read-only"`}
       </CodeBlock>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        One-Command Setup Scripts
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-4">
+        For rapid deployment, use these scripts to automatically generate all configuration files.
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4">Gemini CLI Setup Script</h3>
+      <CodeBlock>
+{`mkdir -p ~/.gemini/commands && cat > ~/.gemini/commands/default.toml << 'EOF'
+description = "Default concise and efficient mode"
+prompt = """
+You are now in Default mode (Claude Code style).
+Complete the following coding task efficiently with concise responses:
+{{args}}
+No unnecessary explanations unless asked.
+"""
+EOF
+
+# ... (similar blocks for explain.toml and learn.toml)
+
+echo "Gemini CLI styles installed. Run /commands reload to activate."`}
+      </CodeBlock>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Troubleshooting
+      </h2>
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-serif font-medium mb-2 text-anthropic-accent">Gemini CLI</h3>
+          <ul className="list-disc pl-6 space-y-1 opacity-80">
+            <li><strong>Command not recognized:</strong> Ensure you are using a recent version. Run <code className="bg-anthropic-text/5 px-1 py-0.5 rounded text-sm font-mono">gemini --version</code>.</li>
+            <li><strong>Windows compatibility:</strong> Run in Git Bash, WSL, or a Linux/macOS terminal.</li>
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-lg font-serif font-medium mb-2 text-anthropic-accent">Codex CLI</h3>
+          <ul className="list-disc pl-6 space-y-1 opacity-80">
+            <li><strong>Profile not applying:</strong> Ensure <code className="bg-anthropic-text/5 px-1 py-0.5 rounded text-sm font-mono">config.toml</code> syntax is valid.</li>
+            <li><strong>AGENTS.md ignored:</strong> Confirm the file is in the exact repository root.</li>
+          </ul>
+        </div>
+      </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
         Final Thoughts
