@@ -83,8 +83,9 @@ function HomePage() {
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-serif text-xl font-medium tracking-tight">Rashmi Mahadevaiah</span>
           <div className="flex items-center gap-4 sm:gap-8 text-[11px] sm:text-sm font-sans uppercase tracking-[0.14em] sm:tracking-widest opacity-60 whitespace-nowrap">
-            <a href="#about" className="hidden sm:inline hover:opacity-100 transition-opacity">About</a>
-            <a href="#experience" className="hidden sm:inline hover:opacity-100 transition-opacity">Experience</a>
+            <a href="#about" className="hover:opacity-100 transition-opacity">About</a>
+            <a href="#projects" className="hover:opacity-100 transition-opacity">Projects</a>
+            <a href="#experience" className="hover:opacity-100 transition-opacity">Experience</a>
             <Link to="/blog" className="hover:opacity-100 transition-opacity">Blog</Link>
             <a href="#contact" className="hover:opacity-100 transition-opacity">Contact</a>
             <ThemeToggle />
@@ -244,44 +245,69 @@ function HomePage() {
           </div>
         </section>
 
-        {featuredPost && (
-          <section id="writing" className="mb-32">
-            <div className="flex items-center gap-4 mb-10">
-              <h2 className="text-4xl font-serif italic">Latest Writing</h2>
-              <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-            </div>
+        {/* Projects Section */}
+        <section id="projects" className="mb-32">
+          <div className="flex items-center gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic">Select Projects</h2>
+            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+          </div>
 
-            <motion.article
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
             >
-              <Link
-                to={`/blog/${featuredPost.slug}`}
-                className="block border-y border-anthropic-text/10 py-8 hover:border-anthropic-accent/40 transition-colors group"
-              >
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {featuredPost.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">Warehouse Routing Agent</h3>
+                <div className="flex gap-4">
+                  <a href="https://rashmi-mahadevaiah-drone.hf.space/ui" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Live Demo">
+                    Live <ExternalLink size={14} />
+                  </a>
+                  <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity" title="Source Repo">
+                    <Github size={18} />
+                  </a>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-serif font-medium mb-3 group-hover:text-anthropic-accent transition-colors">
-                  {featuredPost.title}
-                </h3>
-                <p className="text-xl font-serif italic opacity-60 mb-4">{featuredPost.subtitle}</p>
-                <p className="text-lg leading-relaxed opacity-80 max-w-3xl mb-5">{featuredPost.excerpt}</p>
-                <div className="inline-flex items-center gap-2 text-sm font-sans uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
-                  Read article <ExternalLink size={14} />
-                </div>
-              </Link>
-            </motion.article>
-          </section>
-        )}
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                An open-source RL environment simulating warehouse logistics, built to test multi-agent LLM planning and routing efficiency in constrained spaces.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Python", "LLMs", "RAG", "Agentic AI"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">RichFeyn Smart Jar</h3>
+                <Link to="/blog/richfeyn-smart-jar" className="opacity-60 hover:opacity-100 transition-opacity" title="Case Study">
+                  <ExternalLink size={18} />
+                </Link>
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                IoT-enabled smart jar with an automated reordering system. Utilized CV for inventory tracking and NLP to process natural language restocking prompts.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Computer Vision", "IoT", "NLP", "React Native"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Experience Section */}
         <section id="experience" className="mb-32">
@@ -375,64 +401,44 @@ function HomePage() {
           </div>
         </section>
 
-        {/* Projects Section */}
-        <section id="projects" className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-serif italic">Select Projects</h2>
-            <div className="h-[1px] flex-1 bg-anthropic-text/10" />
-          </div>
+        {featuredPost && (
+          <section id="writing" className="mb-32">
+            <div className="flex items-center gap-4 mb-10">
+              <h2 className="text-4xl font-serif italic">Latest Writing</h2>
+              <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+            </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div
+            <motion.article
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
             >
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">Warehouse Routing Agent</h3>
-                <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity">
-                  <Github size={20} />
-                </a>
-              </div>
-              <p className="text-lg leading-relaxed opacity-80 mb-6">
-                An open-source RL environment simulating warehouse logistics, built to test multi-agent LLM planning and routing efficiency in constrained spaces.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {["Python", "LLMs", "RAG", "Agentic AI"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
-            >
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">RichFeyn Smart Jar</h3>
-                <Link to="/blog/richfeyn-smart-jar" className="opacity-60 hover:opacity-100 transition-opacity">
-                  <ExternalLink size={20} />
-                </Link>
-              </div>
-              <p className="text-lg leading-relaxed opacity-80 mb-6">
-                IoT-enabled smart jar with an automated reordering system. Utilized CV for inventory tracking and NLP to process natural language restocking prompts.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {["Computer Vision", "IoT", "NLP", "React Native"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
+              <Link
+                to={`/blog/${featuredPost.slug}`}
+                className="block border-y border-anthropic-text/10 py-8 hover:border-anthropic-accent/40 transition-colors group"
+              >
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {featuredPost.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-3xl md:text-4xl font-serif font-medium mb-3 group-hover:text-anthropic-accent transition-colors">
+                  {featuredPost.title}
+                </h3>
+                <p className="text-xl font-serif italic opacity-60 mb-4">{featuredPost.subtitle}</p>
+                <p className="text-lg leading-relaxed opacity-80 max-w-3xl mb-5">{featuredPost.excerpt}</p>
+                <div className="inline-flex items-center gap-2 text-sm font-sans uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+                  Read article <ExternalLink size={14} />
+                </div>
+              </Link>
+            </motion.article>
+          </section>
+        )}
 
         {/* Education Section */}
         <section id="education" className="mb-32">
