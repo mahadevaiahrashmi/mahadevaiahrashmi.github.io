@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Inter:wght@100..900&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -6,6 +5,8 @@
     --bg-color: #fbfaf8;
     --text-color: #1d1917;
     --accent-color: #d97757;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   }
   
   :root.dark {
@@ -16,8 +17,9 @@
 }
 
 @theme {
-  --font-serif: "Crimson Pro", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: var(--font-main);
+  --font-sans: var(--font-main);
+  --font-mono: var(--font-mono);
   --color-anthropic-bg: var(--bg-color);
   --color-anthropic-text: var(--text-color);
   --color-anthropic-accent: var(--accent-color);
@@ -27,8 +29,9 @@
   body {
     @apply bg-anthropic-bg text-anthropic-text font-sans antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.7;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-sans font-bold;
   }
 }
