@@ -24,4 +24,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "An OpenEnv-compatible gridworld for multi-stop AMR routing, an honest baseline, and a diagnosis of why prompting alone isn't enough.",
   },
+  {
+    slug: "richfeyn-smart-jar",
+    title: "RichFeyn: Building the Smartest Kitchen",
+    subtitle: "Automating the repetitive to make room for what matters",
+    date: "2024-07-20",
+    readTime: "8 min read",
+    tags: ["IoT", "Computer Vision", "Startup", "Automation"],
+    excerpt:
+      "How we built a smart reordering system that tracks inventory and restocks kitchen supplies autonomously, saving hours of manual shopping every month.",
+  },
 ];
