@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import App from "./App";
 
 function renderAt(path: string) {
@@ -8,6 +8,10 @@ function renderAt(path: string) {
 }
 
 describe("core route smoke tests", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   beforeEach(() => {
     document.head.querySelector("#article-ld-json")?.remove();
   });

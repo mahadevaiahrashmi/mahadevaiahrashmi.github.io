@@ -11,7 +11,6 @@ import {
   ExternalLink,
   MapPin,
   BookOpen,
-  Briefcase,
   Cpu,
   Heart,
   Instagram,
@@ -19,6 +18,7 @@ import {
   FileText
 } from "lucide-react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { blogPosts } from "./blog/posts";
 import BlogList from "./components/BlogList";
 import BlogPost from "./components/BlogPost";
 
@@ -70,6 +70,8 @@ const ExperienceItem = ({ title, company, companyUrl, period, impact, descriptio
 );
 
 function HomePage() {
+  const featuredPost = blogPosts[0];
+
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
@@ -139,6 +141,28 @@ function HomePage() {
                   <Linkedin size={16} /> LinkedIn
                 </a>
               </div>
+
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-sans uppercase tracking-widest opacity-60">
+                <Link to="/blog/warehouse-routing-openenv" className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity">
+                  Warehouse routing write-up <ExternalLink size={13} />
+                </Link>
+                <a
+                  href="https://github.com/mahadevaiahrashmi/play2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity"
+                >
+                  Source repo <ExternalLink size={13} />
+                </a>
+                <a
+                  href="https://rashmi-mahadevaiah-drone.hf.space/ui"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity"
+                >
+                  Live environment <ExternalLink size={13} />
+                </a>
+              </div>
             </div>
           </motion.div>
         </section>
@@ -173,6 +197,45 @@ function HomePage() {
           </motion.div>
         </section>
 
+        {featuredPost && (
+          <section id="writing" className="mb-32">
+            <div className="flex items-center gap-4 mb-10">
+              <h2 className="text-4xl font-serif italic">Latest Writing</h2>
+              <div className="h-[1px] flex-1 bg-anthropic-text/10" />
+            </div>
+
+            <motion.article
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                to={`/blog/${featuredPost.slug}`}
+                className="block border-y border-anthropic-text/10 py-8 hover:border-anthropic-accent/40 transition-colors group"
+              >
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {featuredPost.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <h3 className="text-3xl md:text-4xl font-serif font-medium mb-3 group-hover:text-anthropic-accent transition-colors">
+                  {featuredPost.title}
+                </h3>
+                <p className="text-xl font-serif italic opacity-60 mb-4">{featuredPost.subtitle}</p>
+                <p className="text-lg leading-relaxed opacity-80 max-w-3xl mb-5">{featuredPost.excerpt}</p>
+                <div className="inline-flex items-center gap-2 text-sm font-sans uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">
+                  Read article <ExternalLink size={14} />
+                </div>
+              </Link>
+            </motion.article>
+          </section>
+        )}
+
         {/* Experience Section */}
         <section id="experience" className="mb-32">
           <div className="flex items-center gap-4 mb-12">
@@ -192,6 +255,10 @@ function HomePage() {
                 "Developed 'Asimov', an AI-powered data science platform streamlining business analytics via NL2SQL with modular agents for statistical analysis, data visualization, and automated reporting.",
                 "Created AI solutions using NLP and machine learning for call center log analysis and automated sales improvement plans for the automotive sector."
               ]}
+              links={[
+                { label: "Warehouse routing write-up", url: "/blog/warehouse-routing-openenv" },
+                { label: "Source repo", url: "https://github.com/mahadevaiahrashmi/play2" }
+              ]}
             />
 
             <ExperienceItem
@@ -204,6 +271,9 @@ function HomePage() {
                 "Launched an AI product transforming phone camera images into professional catalogue visuals for SMEs using semantic analysis, image captioning, and computer vision models.",
                 "Developed an IoT-based smart jar with auto-reordering functionality, featuring an AI-powered cart generator using natural language processing and text prompt understanding.",
                 "Built cross-platform mobile applications with Python and React Native to track inventory and automate orders for busy households."
+              ]}
+              links={[
+                { label: "RichFeyn site", url: "https://www.richfeyn.com/" }
               ]}
             />
 

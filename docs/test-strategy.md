@@ -5,18 +5,19 @@ agent-notes: { ctx: "test strategy for static portfolio site", deps: [docs/plans
 # Test Strategy
 
 ## Approach
-This is a static React site with no business logic, no API calls, no user input.
+This is a static React site with light client-side routing, blog rendering, and deploy-specific routing behavior.
 
 ## Testing Levels
 - **Build verification:** `npm run build` succeeds with no errors
-- **Lint check:** `npm run lint` (tsc --noEmit) passes
+- **Lint check:** `npm run lint` runs ESLint with zero warnings
+- **Type check:** `npm run typecheck` runs `tsc --noEmit`
+- **Smoke check:** `npm run smoke` runs lint, typecheck, route tests, and production build
 - **Visual verification:** Manual check that site renders correctly
 - **ATS verification:** Manual review of text content for keyword coverage
 
 ## Not Applicable
-- Unit tests (no testable logic)
 - Integration tests (no backend)
-- E2E tests (static content only, no interactions beyond navigation)
+- Full E2E tests (routing smoke coverage is enough for the current surface)
 
-## Future (Sprint 2+)
-- If blog or interactive features are added, revisit test strategy
+## Future
+- Add browser-level deploy checks if the blog grows beyond static article pages
