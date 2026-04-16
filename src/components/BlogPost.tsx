@@ -10,7 +10,7 @@ import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
 import ThemeToggle from "./ThemeToggle";
 
-const CodeBlock = ({ children, title }: { children: string; title?: string }) => {
+const CodeBlock = ({ children, title, variant = "default" }: { children: string; title?: string; variant?: "default" | "grok" }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -31,12 +31,24 @@ const CodeBlock = ({ children, title }: { children: string; title?: string }) =>
     URL.revokeObjectURL(url);
   };
 
+  const isGrok = variant === "grok";
+
   return (
-    <div className="my-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-lg overflow-hidden">
+    <div className={`my-6 border rounded-lg overflow-hidden ${
+      isGrok 
+        ? "bg-[#0d1117] border-gray-800 shadow-2xl" 
+        : "bg-anthropic-text/5 border-anthropic-text/10"
+    }`}>
       {title && (
-        <div className="flex items-center justify-between px-4 py-2 border-b border-anthropic-text/10 bg-anthropic-text/[0.02]">
-          <span className="text-xs font-sans font-bold uppercase tracking-wider opacity-60 text-anthropic-text">{title}</span>
-          <div className="flex items-center gap-3 text-anthropic-text">
+        <div className={`flex items-center justify-between px-4 py-2 border-b ${
+          isGrok 
+            ? "bg-[#161b22] border-gray-800 text-gray-300" 
+            : "bg-anthropic-text/[0.02] border-anthropic-text/10 text-anthropic-text"
+        }`}>
+          <span className={`text-xs font-sans font-bold uppercase tracking-wider ${isGrok ? "opacity-100" : "opacity-60"}`}>
+            {title}
+          </span>
+          <div className="flex items-center gap-3">
             <button onClick={handleCopy} className="opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center" aria-label="Copy to clipboard" title="Copy code">
               {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
             </button>
@@ -47,7 +59,9 @@ const CodeBlock = ({ children, title }: { children: string; title?: string }) =>
         </div>
       )}
       <div className="p-4 overflow-x-auto">
-        <pre className="text-sm font-mono leading-relaxed whitespace-pre text-anthropic-text">{children}</pre>
+        <pre className={`text-sm font-mono leading-relaxed whitespace-pre ${
+          isGrok ? "text-[#e6edf3]" : "text-anthropic-text"
+        }`}>{children}</pre>
       </div>
     </div>
   );
@@ -665,7 +679,7 @@ function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
       </p>
-      <CodeBlock title="Claude Code Styles">
+      <CodeBlock title="Claude Code Styles" variant="grok">
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns  
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
@@ -743,7 +757,7 @@ function ClaudeStyleReplicationPost() {
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 1: Create the Commands Directory</h3>
-      <CodeBlock title="Setup Directory">{`mkdir -p ~/.gemini/commands`}</CodeBlock>
+      <CodeBlock title="Setup Directory" variant="grok">{`mkdir -p ~/.gemini/commands`}</CodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 2: Create Configuration Files</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-sans text-anthropic-text">Create three TOML files inside the directory:</p>
@@ -751,7 +765,7 @@ function ClaudeStyleReplicationPost() {
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/default.toml</h4>
-          <CodeBlock title="default.toml">
+          <CodeBlock title="default.toml" variant="grok">
 {`description = "Default concise and efficient mode"
 prompt = """
 You are now in Default mode (Claude Code style).
