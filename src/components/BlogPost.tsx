@@ -4,17 +4,54 @@
  */
 
 import { motion } from "motion/react";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { useEffect, type ComponentType } from "react";
+import { ArrowLeft, ExternalLink, Check, Copy, Download } from "lucide-react";
+import { useEffect, useState, type ComponentType } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
 import ThemeToggle from "./ThemeToggle";
 
-const CodeBlock = ({ children }: { children: string }) => (
-  <div className="my-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-lg p-4 overflow-x-auto">
-    <pre className="text-sm font-mono leading-relaxed whitespace-pre">{children}</pre>
-  </div>
-);
+const CodeBlock = ({ children, title }: { children: string; title?: string }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(children);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([children], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = title ? title.toLowerCase().replace(/\s+/g, "-") + ".txt" : "snippet.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="my-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-lg overflow-hidden">
+      {title && (
+        <div className="flex items-center justify-between px-4 py-2 border-b border-anthropic-text/10 bg-anthropic-text/[0.02]">
+          <span className="text-xs font-sans font-bold uppercase tracking-wider opacity-60 text-anthropic-text">{title}</span>
+          <div className="flex items-center gap-3 text-anthropic-text">
+            <button onClick={handleCopy} className="opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center" aria-label="Copy to clipboard" title="Copy code">
+              {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
+            </button>
+            <button onClick={handleDownload} className="opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center" aria-label="Download snippet" title="Download text">
+              <Download size={14} />
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="p-4 overflow-x-auto">
+        <pre className="text-sm font-mono leading-relaxed whitespace-pre text-anthropic-text">{children}</pre>
+      </div>
+    </div>
+  );
+};
 
 const Card = ({ emoji, title, color, question, code, outcome, insight }: {
   emoji: string;
@@ -628,7 +665,7 @@ function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
       </p>
-      <CodeBlock>
+      <CodeBlock title="Claude Code Styles">
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns  
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
