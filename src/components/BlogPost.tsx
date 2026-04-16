@@ -5,7 +5,7 @@
 
 import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, type ComponentType } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
 
@@ -512,7 +512,7 @@ assistant: N`}
   );
 }
 
-const postContentBySlug: Record<string, () => JSX.Element> = {
+const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
 };
 
