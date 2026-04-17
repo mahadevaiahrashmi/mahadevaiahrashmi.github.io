@@ -5,7 +5,7 @@
 
 import { motion } from "motion/react";
 import { ArrowLeft, ExternalLink, Check, Copy, Download, ChevronDown, ChevronRight, WrapText } from "lucide-react";
-import { useEffect, useState, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType, type ReactNode } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
 import ThemeToggle from "./ThemeToggle";
@@ -72,11 +72,13 @@ const ClaudeCodeBlock = ({
   title,
   language = "toml",
   plain = false,
+  codexScript = false,
 }: {
   children: string;
   title?: string;
   language?: string;
   plain?: boolean;
+  codexScript?: boolean;
 }) => {
   const [copied, setCopied] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -143,6 +145,98 @@ const ClaudeCodeBlock = ({
       return "text-zinc-800 dark:text-zinc-200";
     };
 
+    const rowWrap = (lineIndex: number, content: ReactNode) => (
+      <div
+        key={lineIndex}
+        className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
+      >
+        <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
+          {lineIndex + 1}
+        </span>
+        <span className="table-cell font-mono text-sm leading-relaxed break-all">
+          {content}
+        </span>
+      </div>
+    );
+
+    const PINK = "text-[#ff69b4]";
+    const GREEN = "text-emerald-700 dark:text-emerald-400";
+
+    if (codexScript) {
+      type Dir = "normal" | "pink" | "green" | "echo-start";
+      const dirs: Dir[] = [];
+      let state: "neutral" | "prompt" | "echo" = "neutral";
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (state === "neutral") {
+          if (/Guidelines\s*$/.test(trimmed)) {
+            dirs.push("normal");
+            state = "prompt";
+          } else if (/^echo\s+"/.test(trimmed)) {
+            dirs.push("echo-start");
+            state = /"\s*$/.test(trimmed.slice(5)) ? "neutral" : "echo";
+          } else {
+            dirs.push("normal");
+          }
+        } else if (state === "prompt") {
+          if (trimmed === "EOF") {
+            dirs.push("normal");
+            state = "neutral";
+          } else {
+            dirs.push("pink");
+          }
+        } else {
+          dirs.push("green");
+          if (/"\s*$/.test(trimmed)) state = "neutral";
+        }
+      }
+
+      return lines.map((line, lineIndex) => {
+        const dir = dirs[lineIndex];
+        if (dir === "pink") {
+          return rowWrap(
+            lineIndex,
+            <span className={PINK}>{line || "\u00A0"}</span>,
+          );
+        }
+        if (dir === "green") {
+          return rowWrap(
+            lineIndex,
+            <span className={GREEN}>{line || "\u00A0"}</span>,
+          );
+        }
+        if (dir === "echo-start") {
+          const match = line.match(/^(\s*echo\s+)(.*)$/);
+          if (match) {
+            const [, prefix, rest] = match;
+            return rowWrap(
+              lineIndex,
+              <>
+                {prefix.split(tokenizer).filter(Boolean).map((token, ti) => (
+                  <span key={`p-${ti}`} className={tokenClass(token)}>
+                    {token}
+                  </span>
+                ))}
+                <span className={GREEN}>{rest}</span>
+              </>,
+            );
+          }
+        }
+        const tokens = line.split(tokenizer).filter(Boolean);
+        return rowWrap(
+          lineIndex,
+          tokens.length
+            ? tokens.map((token, ti) => (
+                <span key={ti} className={tokenClass(token)}>
+                  {token}
+                </span>
+              ))
+            : "\u00A0",
+        );
+      });
+    }
+
     let insideTriple = false;
 
     return lines.map((line, lineIndex) => {
@@ -161,33 +255,23 @@ const ClaudeCodeBlock = ({
         segments.push({ text: line, inTriple: insideTriple });
       }
 
-      return (
-        <div
-          key={lineIndex}
-          className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
-        >
-          <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
-            {lineIndex + 1}
-          </span>
-
-          <span className="table-cell font-mono text-sm leading-relaxed break-all">
-            {segments.map((seg, segIdx) => {
-              if (seg.inTriple) {
-                return (
-                  <span key={segIdx} className="text-[#ff69b4]">
-                    {seg.text}
-                  </span>
-                );
-              }
-              const tokens = seg.text.split(tokenizer).filter(Boolean);
-              return tokens.map((token, tokenIndex) => (
-                <span key={`${segIdx}-${tokenIndex}`} className={tokenClass(token)}>
-                  {token}
-                </span>
-              ));
-            })}
-          </span>
-        </div>
+      return rowWrap(
+        lineIndex,
+        segments.map((seg, segIdx) => {
+          if (seg.inTriple) {
+            return (
+              <span key={segIdx} className={PINK}>
+                {seg.text}
+              </span>
+            );
+          }
+          const tokens = seg.text.split(tokenizer).filter(Boolean);
+          return tokens.map((token, tokenIndex) => (
+            <span key={`${segIdx}-${tokenIndex}`} className={tokenClass(token)}>
+              {token}
+            </span>
+          ));
+        }),
       );
     });
   };
@@ -1222,7 +1306,7 @@ echo "Gemini CLI styles installed. Run /commands reload to activate."`}
       </ClaudeCodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-center font-sans">Codex CLI Setup Script</h3>
-      <ClaudeCodeBlock title="Codex Setup Script (Bash)">
+      <ClaudeCodeBlock title="Codex Setup Script (Bash)" codexScript>
 {`# Create Codex config directory and backup existing config
 mkdir -p ~/.codex
 [ -f ~/.codex/config.toml ] && cp ~/.codex/config.toml ~/.codex/config.toml.bak
