@@ -883,12 +883,14 @@ function RichFeynPost() {
       </p>
 
       <div className="my-12">
-        <img
-          src="/blog-assets/richfeyn.png"
-          alt="RichFeyn Smart Jar"
-          className="w-full rounded-2xl shadow-xl border border-anthropic-text/10"
-        />
-        <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn Smart Jar: Your kitchen, automated.</p>
+        <video
+          controls
+          className="w-full rounded-2xl shadow-lg border border-anthropic-text/10"
+        >
+          <source src="/blog-assets/richfeyn/Richfeyn_demo_video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <p className="text-sm opacity-50 mt-4 text-center italic">A quick demonstration of the RichFeyn Smart Jar ecosystem.</p>
       </div>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
@@ -939,14 +941,12 @@ function RichFeynPost() {
       </h2>
       
       <div className="my-12">
-        <video 
-          controls 
-          className="w-full rounded-2xl shadow-lg border border-anthropic-text/10"
-        >
-          <source src="/blog-assets/richfeyn/Richfeyn_demo_video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <p className="text-sm opacity-50 mt-4 text-center italic">A quick demonstration of the RichFeyn Smart Jar ecosystem.</p>
+        <img
+          src="/blog-assets/richfeyn.png"
+          alt="RichFeyn Smart Jar"
+          className="w-full rounded-2xl shadow-xl border border-anthropic-text/10"
+        />
+        <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn Smart Jar: Your kitchen, automated.</p>
       </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
