@@ -67,6 +67,43 @@ const CodeBlock = ({ children, title, variant = "default" }: { children: string;
   );
 };
 
+const TOKENIZER =
+  /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
+
+const tokenClass = (token: string) => {
+  const trimmed = token.trim();
+  if (/^#{2,}\s/.test(trimmed)) return "text-zinc-900 dark:text-white font-medium";
+  if (/^["'].*["']$/.test(trimmed)) return "text-emerald-700 dark:text-emerald-400";
+  if (token.startsWith("{{") || /^\$[A-Z_]/.test(token))
+    return "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
+  if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token))
+    return "text-indigo-700 dark:text-indigo-400";
+  if (token.startsWith("#")) return "text-lime-700 dark:text-lime-400";
+  if (token.length > 1 && token.startsWith("/")) return "text-orange-600 dark:text-orange-400";
+  if (token === "=" || token === ":") return "text-violet-700 dark:text-violet-400";
+  if (/^\d+\.?\d*$/.test(trimmed)) return "text-cyan-700 dark:text-cyan-400";
+  if (token.includes(".") && !token.includes(" ")) return "text-sky-700 dark:text-sky-400";
+  if (["default", "explanatory", "learning", "friendly", "pragmatic"].includes(trimmed.toLowerCase()))
+    return "text-amber-700 dark:text-amber-400";
+  if (["if", "const", "export", "import", "function", "return", "for", "while"].includes(trimmed))
+    return "text-fuchsia-700 dark:text-fuchsia-400";
+  if (/^[A-Z]/.test(trimmed)) return "text-blue-700 dark:text-blue-400";
+  return "text-zinc-800 dark:text-zinc-200";
+};
+
+const InlineCode = ({ children }: { children: string }) => {
+  const tokens = children.split(TOKENIZER).filter(Boolean);
+  return (
+    <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">
+      {tokens.map((token, i) => (
+        <span key={i} className={tokenClass(token)}>
+          {token}
+        </span>
+      ))}
+    </code>
+  );
+};
+
 const ClaudeCodeBlock = ({
   children,
   title,
@@ -121,29 +158,7 @@ const ClaudeCodeBlock = ({
       ));
     }
 
-    const tokenizer =
-      /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
-
-    const tokenClass = (token: string) => {
-      const trimmed = token.trim();
-      if (/^#{2,}\s/.test(trimmed)) return "text-zinc-900 dark:text-white font-medium";
-      if (/^["'].*["']$/.test(trimmed)) return "text-emerald-700 dark:text-emerald-400";
-      if (token.startsWith("{{") || /^\$[A-Z_]/.test(token))
-        return "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
-      if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token))
-        return "text-indigo-700 dark:text-indigo-400";
-      if (token.startsWith("#")) return "text-lime-700 dark:text-lime-400";
-      if (token.length > 1 && token.startsWith("/")) return "text-orange-600 dark:text-orange-400";
-      if (token === "=" || token === ":") return "text-violet-700 dark:text-violet-400";
-      if (/^\d+\.?\d*$/.test(trimmed)) return "text-cyan-700 dark:text-cyan-400";
-      if (token.includes(".") && !token.includes(" ")) return "text-sky-700 dark:text-sky-400";
-      if (["default", "explanatory", "learning", "friendly", "pragmatic"].includes(trimmed.toLowerCase()))
-        return "text-amber-700 dark:text-amber-400";
-      if (["if", "const", "export", "import", "function", "return", "for", "while"].includes(trimmed))
-        return "text-fuchsia-700 dark:text-fuchsia-400";
-      if (/^[A-Z]/.test(trimmed)) return "text-blue-700 dark:text-blue-400";
-      return "text-zinc-800 dark:text-zinc-200";
-    };
+    const tokenizer = TOKENIZER;
 
     const rowWrap = (lineIndex: number, content: ReactNode) => (
       <div
@@ -445,7 +460,7 @@ function WarehouseRoutingPost() {
       </h2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        Classical TSP solvers — Held-Karp, Lin-Kernighan, Concorde — are decades-old and effectively perfect on small instances. If you hand a model the SKU coordinates, the obstacles, and the warehouse, you don't need a language model at all; you call <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">python_tsp</code> and you're done. That's exactly what our oracle does, which is why it scores 1.000.
+        Classical TSP solvers — Held-Karp, Lin-Kernighan, Concorde — are decades-old and effectively perfect on small instances. If you hand a model the SKU coordinates, the obstacles, and the warehouse, you don't need a language model at all; you call <InlineCode>python_tsp</InlineCode> and you're done. That's exactly what our oracle does, which is why it scores 1.000.
       </p>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
@@ -462,7 +477,7 @@ function WarehouseRoutingPost() {
       </h2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        An autonomous mobile robot in a fulfillment center has a deceptively simple loop: pick up packing material at the warehouse, drive to each SKU pick location in some order, then return to the packing station. The hard part is the ordering — visiting <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">n</code> SKUs has <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">n!</code> possible tours, and the floor is full of static obstacles (shelves, conveyors, charging stations) that constrain which paths are even possible.
+        An autonomous mobile robot in a fulfillment center has a deceptively simple loop: pick up packing material at the warehouse, drive to each SKU pick location in some order, then return to the packing station. The hard part is the ordering — visiting <InlineCode>n</InlineCode> SKUs has <InlineCode>n!</InlineCode> possible tours, and the floor is full of static obstacles (shelves, conveyors, charging stations) that constrain which paths are even possible.
       </p>
 
       <p className="text-lg leading-relaxed opacity-90 mb-4">warehouse-routing-openenv distills this to a 2D gridworld:</p>
@@ -499,9 +514,9 @@ Action(move="W")  # west  (col - 1)`}
       </p>
 
       <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90">
-        <li><code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">POST /reset</code> — start a new episode, return the initial observation</li>
-        <li><code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">POST /step</code> — execute one action, return observation + reward + done flag</li>
-        <li><code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">GET /state</code> — session metadata (episode id, step count)</li>
+        <li><InlineCode>POST /reset</InlineCode> — start a new episode, return the initial observation</li>
+        <li><InlineCode>POST /step</InlineCode> — execute one action, return observation + reward + done flag</li>
+        <li><InlineCode>GET /state</InlineCode> — session metadata (episode id, step count)</li>
       </ul>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
@@ -518,7 +533,7 @@ obs = env.step(Action(move="E"))
       </CodeBlock>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        On top of this, we mount a self-contained SVG grid viewer at <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/ui</code>: vanilla JS, no Gradio, no extra deps. It polls <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/state</code>, calls <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/reset</code> and <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/step</code> via fetch, and renders the warehouse, SKUs (visited and not), obstacles, robot, and a breadcrumb trail. You can drive an episode with the on-screen d-pad or your arrow keys.
+        On top of this, we mount a self-contained SVG grid viewer at <InlineCode>/ui</InlineCode>: vanilla JS, no Gradio, no extra deps. It polls <InlineCode>/state</InlineCode>, calls <InlineCode>/reset</InlineCode> and <InlineCode>/step</InlineCode> via fetch, and renders the warehouse, SKUs (visited and not), obstacles, robot, and a breadcrumb trail. You can drive an episode with the on-screen d-pad or your arrow keys.
       </p>
 
       {/* Reward Architecture */}
@@ -527,7 +542,7 @@ obs = env.step(Action(move="E"))
       </h2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        Three components combine on every step. The constants live in <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">reward.py</code> and are deliberately small so the shaping doesn't dominate the terminal score:
+        Three components combine on every step. The constants live in <InlineCode>reward.py</InlineCode> and are deliberately small so the shaping doesn't dominate the terminal score:
       </p>
 
       <div className="overflow-x-auto mb-6">
@@ -570,7 +585,7 @@ obs = env.step(Action(move="E"))
       </div>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        The terminal bonus is the load-bearing piece. Because it scales as <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">optimal_length / agent_steps</code>, an agent that takes the optimal tour scores exactly 1.0; an agent that takes twice as many steps scores 0.5; an agent that fails scores below zero. This is the same ratio the grader uses for the final episode score, so the RL signal and the leaderboard metric are aligned by construction.
+        The terminal bonus is the load-bearing piece. Because it scales as <InlineCode>optimal_length / agent_steps</InlineCode>, an agent that takes the optimal tour scores exactly 1.0; an agent that takes twice as many steps scores 0.5; an agent that fails scores below zero. This is the same ratio the grader uses for the final episode score, so the RL signal and the leaderboard metric are aligned by construction.
       </p>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
@@ -644,7 +659,7 @@ obs = env.step(Action(move="E"))
       </h2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        We ran <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">inference.py</code> against Groq's <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">llama-3.3-70b-versatile</code> with the default prompt: a system message describing the task and the current observation as JSON. Three failure modes accounted for the 0.000 score.
+        We ran <InlineCode>inference.py</InlineCode> against Groq's <InlineCode>llama-3.3-70b-versatile</InlineCode> with the default prompt: a system message describing the task and the current observation as JSON. Three failure modes accounted for the 0.000 score.
       </p>
 
       <div className="flex gap-4 my-6 flex-wrap">
@@ -696,7 +711,7 @@ assistant: N`}
       </div>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        The third card is the diagnosis. The first two are symptoms. Our default <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">OpenAIPolicy.choose</code> sends only the current observation, asks for a single letter, and gets one. The model has no scratchpad and no view of its own past moves. Even Llama 3.3 70B, which has no trouble doing this kind of reasoning when shown context, can't recover from feedback it isn't shown.
+        The third card is the diagnosis. The first two are symptoms. Our default <InlineCode>OpenAIPolicy.choose</InlineCode> sends only the current observation, asks for a single letter, and gets one. The model has no scratchpad and no view of its own past moves. Even Llama 3.3 70B, which has no trouble doing this kind of reasoning when shown context, can't recover from feedback it isn't shown.
       </p>
 
       {/* The Learning Space */}
@@ -769,7 +784,7 @@ assistant: N`}
         <div>
           <h3 className="text-xl font-serif font-medium mb-3">Chain-of-thought before action.</h3>
           <p className="text-lg leading-relaxed opacity-90">
-            Raise <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">max_tokens</code> from 4 to ~200 and let the model reason about which direction makes spatial sense before emitting the letter. Larger models often plan a multi-step route in the scratchpad and then execute it. This is layered on top of history, not instead of it.
+            Raise <InlineCode>max_tokens</InlineCode> from 4 to ~200 and let the model reason about which direction makes spatial sense before emitting the letter. Larger models often plan a multi-step route in the scratchpad and then execute it. This is layered on top of history, not instead of it.
           </p>
         </div>
         <div>
@@ -792,7 +807,7 @@ assistant: N`}
       </h2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
-        The environment runs on Hugging Face Spaces as a Docker image. The default <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/web</code> route was the openenv-stock Gradio interface; we re-pointed the App tab to <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">/ui</code>, our SVG grid viewer, so the landing page shows the world directly:
+        The environment runs on Hugging Face Spaces as a Docker image. The default <InlineCode>/web</InlineCode> route was the openenv-stock Gradio interface; we re-pointed the App tab to <InlineCode>/ui</InlineCode>, our SVG grid viewer, so the landing page shows the world directly:
       </p>
 
       <ul className="list-disc pl-6 mb-6 space-y-3 text-lg leading-relaxed opacity-90">
@@ -803,7 +818,7 @@ assistant: N`}
           <strong>Direct grid viewer</strong>: <a href="https://rashmi-mahadevaiah-drone.hf.space/ui" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline inline-flex items-center gap-1">rashmi-mahadevaiah-drone.hf.space/ui <ExternalLink size={14} /></a> — the SVG UI without the HF wrapper
         </li>
         <li>
-          <strong>Inference baseline</strong>: <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">python inference.py --max-variations 3</code> with <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono">GROQ_API_KEY</code> set reproduces the 0.000 result
+          <strong>Inference baseline</strong>: <InlineCode>python inference.py --max-variations 3</InlineCode> with <InlineCode>GROQ_API_KEY</InlineCode> set reproduces the 0.000 result
         </li>
         <li>
           <strong>Source</strong>: <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline inline-flex items-center gap-1">github.com/mahadevaiahrashmi/play2 <ExternalLink size={14} /></a> — full source, ADRs, and tracking artifacts
@@ -973,7 +988,7 @@ function ClaudeStyleReplicationPost() {
         <li><strong>Learning:</strong> Interactive/mentor style — it pauses and asks you to write small pieces of code for hands-on practice.</li>
       </ul>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
-        You typically switch it with a command like <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">/output-style explanatory</code> or via a menu.
+        You typically switch it with a command like <InlineCode>/output-style explanatory</InlineCode> or via a menu.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">
@@ -985,7 +1000,7 @@ function ClaudeStyleReplicationPost() {
       <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
         <li><strong>Plan Mode</strong> (read-only research/planning before changes — safe for exploration).</li>
         <li><strong>Approval/safety modes</strong> (e.g., safe/default vs. more autonomous/YOLO).</li>
-        <li><strong>Interactive vs. non-interactive mode</strong> (<code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">-p</code> for one-shot prompts).</li>
+        <li><strong>Interactive vs. non-interactive mode</strong> (<InlineCode>-p</InlineCode> for one-shot prompts).</li>
         <li><strong>Custom system instructions</strong> or slash commands you can define yourself.</li>
       </ul>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
@@ -1002,7 +1017,7 @@ function ClaudeStyleReplicationPost() {
         It also does not have the exact Default/Explanatory/Learning trio. Closest things:
       </p>
       <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
-        <li><strong>Personalities</strong> (e.g., friendly, pragmatic, or custom via config) that affect tone and how collaborative/supportive it feels. You can set a default in <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">~/.codex/config.toml</code> or switch with <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">/personality</code>.</li>
+        <li><strong>Personalities</strong> (e.g., friendly, pragmatic, or custom via config) that affect tone and how collaborative/supportive it feels. You can set a default in <InlineCode>~/.codex/config.toml</InlineCode> or switch with <InlineCode>/personality</InlineCode>.</li>
         <li><strong>Approval/execution modes</strong> (suggest-only, auto-edit, full-auto, etc.).</li>
         <li><strong>Verbosity/reasoning controls</strong> in config.</li>
       </ul>
@@ -1149,7 +1164,7 @@ Act like a patient coding instructor for hands-on learning.
       </div>
 
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-sans text-anthropic-text">
-        Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded">{"{{args}}"}</code> placeholder automatically injects whatever you type after the command, making <code className="font-mono">/explain refactor auth</code> work seamlessly.
+        Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded">{"{{args}}"}</code> placeholder automatically injects whatever you type after the command, making <InlineCode>/explain refactor auth</InlineCode> work seamlessly.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 3: Use Your New Commands</h3>
@@ -1170,7 +1185,7 @@ Act like a patient coding instructor for hands-on learning.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-anthropic-text">Step 1: Update Your Config</h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">Edit <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">~/.codex/config.toml</code>:</p>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">Edit <InlineCode>~/.codex/config.toml</InlineCode>:</p>
       <ClaudeCodeBlock title="config.toml">
 {`[profiles.default]
 personality = "pragmatic"
@@ -1367,12 +1382,12 @@ Usage:
         How to Use the Setup Scripts
       </h2>
       <ol className="list-decimal pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
-        <li><strong>Create the script file:</strong> <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">touch setup-cli-styles.sh && nano setup-cli-styles.sh</code></li>
+        <li><strong>Create the script file:</strong> <InlineCode>touch setup-cli-styles.sh && nano setup-cli-styles.sh</InlineCode></li>
         <li><strong>Paste the relevant script</strong> into the editor, save, and exit.</li>
-        <li><strong>Make it executable:</strong> <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">chmod +x setup-cli-styles.sh</code></li>
-        <li><strong>Run it:</strong> <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">./setup-cli-styles.sh</code></li>
-        <li><strong>Verify installation:</strong> Gemini: <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">ls -la ~/.gemini/commands/</code>. Codex: <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">cat ~/.codex/config.toml</code>.</li>
-        <li><strong>Activate in CLI:</strong> Gemini: Run <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">gemini</code> then <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">/commands reload</code>. Codex: Start a session with <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">codex --profile explanatory</code>.</li>
+        <li><strong>Make it executable:</strong> <InlineCode>chmod +x setup-cli-styles.sh</InlineCode></li>
+        <li><strong>Run it:</strong> <InlineCode>./setup-cli-styles.sh</InlineCode></li>
+        <li><strong>Verify installation:</strong> Gemini: <InlineCode>ls -la ~/.gemini/commands/</InlineCode>. Codex: <InlineCode>cat ~/.codex/config.toml</InlineCode>.</li>
+        <li><strong>Activate in CLI:</strong> Gemini: Run <InlineCode>gemini</InlineCode> then <InlineCode>/commands reload</InlineCode>. Codex: Start a session with <InlineCode>codex --profile explanatory</InlineCode>.</li>
       </ol>
 
       <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-sans text-anthropic-text">
@@ -1439,17 +1454,17 @@ Usage:
         <div>
           <h3 className="text-lg font-bold mb-2 text-anthropic-accent underline font-sans">Gemini CLI</h3>
           <ul className="list-disc pl-6 space-y-1 opacity-80 font-sans">
-            <li><strong>Command not recognized:</strong> Ensure you are using a recent version. Run <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">gemini --version</code>. Some versions require commands in <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">~/.config/gemini/commands/</code> instead.</li>
+            <li><strong>Command not recognized:</strong> Ensure you are using a recent version. Run <InlineCode>gemini --version</InlineCode>. Some versions require commands in <InlineCode>~/.config/gemini/commands/</InlineCode> instead.</li>
             <li><strong>Windows compatibility:</strong> Run in Git Bash, WSL, or a Linux/macOS terminal. PowerShell requires adapting the heredoc syntax.</li>
-            <li><strong>Permission denied:</strong> Run <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">chmod +x setup-cli-styles.sh</code> again.</li>
+            <li><strong>Permission denied:</strong> Run <InlineCode>chmod +x setup-cli-styles.sh</InlineCode> again.</li>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-bold mb-2 text-anthropic-accent underline font-sans">Codex CLI</h3>
           <ul className="list-disc pl-6 space-y-1 opacity-80 font-sans">
-            <li><strong>Profile not applying:</strong> Ensure <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">config.toml</code> syntax is valid. Run <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">codex --help</code> to verify flag support.</li>
-            <li><strong>AGENTS.md ignored:</strong> Confirm the file is in the exact repository root and named <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">AGENTS.md</code>.</li>
-            <li><strong>Read-only mode not working:</strong> Some CLI versions use <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">approval_mode = "ask"</code> instead of <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">"read-only"</code>.</li>
+            <li><strong>Profile not applying:</strong> Ensure <InlineCode>config.toml</InlineCode> syntax is valid. Run <InlineCode>codex --help</InlineCode> to verify flag support.</li>
+            <li><strong>AGENTS.md ignored:</strong> Confirm the file is in the exact repository root and named <InlineCode>AGENTS.md</InlineCode>.</li>
+            <li><strong>Read-only mode not working:</strong> Some CLI versions use <InlineCode>approval_mode = "ask"</InlineCode> instead of <InlineCode>"read-only"</InlineCode>.</li>
           </ul>
         </div>
       </div>
