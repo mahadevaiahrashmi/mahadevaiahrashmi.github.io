@@ -883,9 +883,9 @@ function RichFeynPost() {
       </p>
 
       <div className="my-12">
-        <img 
-          src="/blog-assets/richfeyn/Smart_jar.png" 
-          alt="RichFeyn Smart Jar" 
+        <img
+          src="/blog-assets/richfeyn.png"
+          alt="RichFeyn Smart Jar"
           className="w-full rounded-2xl shadow-xl border border-anthropic-text/10"
         />
         <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn Smart Jar: Your kitchen, automated.</p>
@@ -907,27 +907,18 @@ function RichFeynPost() {
         The RichFeyn Smart Jar isn't just a container; it's an intelligent inventory management system. By combining custom IoT hardware with computer vision and natural language processing, we created a device that knows exactly how much you have left and knows exactly when to get more.
       </p>
 
-      <div className="grid md:grid-cols-2 gap-8 my-12">
-        <div className="space-y-6">
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">Save Time</h3>
-            <p className="opacity-80">No more manual inventory checks or list-making. The system handles the "what" and "when" of your kitchen supplies.</p>
-          </div>
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">Zero Stress</h3>
-            <p className="opacity-80">Just-in-time delivery ensures your staples arrive exactly when you need them, not when you've already run out mid-recipe.</p>
-          </div>
-          <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
-            <h3 className="font-serif text-xl mb-2">One-Time Setup</h3>
-            <p className="opacity-80">Configure your preferred retailers and time slots once, then let the automation take over.</p>
-          </div>
+      <div className="grid md:grid-cols-3 gap-6 my-12">
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">Save Time</h3>
+          <p className="opacity-80">No more manual inventory checks or list-making. The system handles the "what" and "when" of your kitchen supplies.</p>
         </div>
-        <div className="flex items-center">
-          <img 
-            src="/blog-assets/richfeyn/How_smartjar_works.png" 
-            alt="How it works" 
-            className="rounded-xl shadow-lg border border-anthropic-text/10"
-          />
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">Zero Stress</h3>
+          <p className="opacity-80">Just-in-time delivery ensures your staples arrive exactly when you need them, not when you've already run out mid-recipe.</p>
+        </div>
+        <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
+          <h3 className="font-serif text-xl mb-2">One-Time Setup</h3>
+          <p className="opacity-80">Configure your preferred retailers and time slots once, then let the automation take over.</p>
         </div>
       </div>
 
