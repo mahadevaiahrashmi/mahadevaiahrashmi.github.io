@@ -104,8 +104,44 @@ const ClaudeCodeBlock = ({
     const tokenizer =
       /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
 
+    const tokenClass = (token: string) => {
+      const trimmed = token.trim();
+      if (/^#{2,}\s/.test(trimmed)) return "text-zinc-900 dark:text-white font-medium";
+      if (/^["'].*["']$/.test(trimmed)) return "text-emerald-700 dark:text-emerald-400";
+      if (token.startsWith("{{") || /^\$[A-Z_]/.test(token))
+        return "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
+      if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token))
+        return "text-indigo-700 dark:text-indigo-400";
+      if (token.startsWith("#")) return "text-lime-700 dark:text-lime-400";
+      if (token.length > 1 && token.startsWith("/")) return "text-orange-600 dark:text-orange-400";
+      if (token === "=" || token === ":") return "text-violet-700 dark:text-violet-400";
+      if (/^\d+\.?\d*$/.test(trimmed)) return "text-cyan-700 dark:text-cyan-400";
+      if (token.includes(".") && !token.includes(" ")) return "text-sky-700 dark:text-sky-400";
+      if (["default", "explanatory", "learning", "friendly", "pragmatic"].includes(trimmed.toLowerCase()))
+        return "text-amber-700 dark:text-amber-400";
+      if (["if", "const", "export", "import", "function", "return", "for", "while"].includes(trimmed))
+        return "text-fuchsia-700 dark:text-fuchsia-400";
+      if (/^[A-Z]/.test(trimmed)) return "text-blue-700 dark:text-blue-400";
+      return "text-zinc-800 dark:text-zinc-200";
+    };
+
+    let insideTriple = false;
+
     return lines.map((line, lineIndex) => {
-      const tokens = line.split(tokenizer).filter(Boolean);
+      const parts = line.split(/(""")/);
+      const segments: { text: string; inTriple: boolean }[] = [];
+      for (const part of parts) {
+        if (part === "") continue;
+        if (part === '"""') {
+          segments.push({ text: part, inTriple: true });
+          insideTriple = !insideTriple;
+        } else {
+          segments.push({ text: part, inTriple: insideTriple });
+        }
+      }
+      if (segments.length === 0) {
+        segments.push({ text: line, inTriple: insideTriple });
+      }
 
       return (
         <div
@@ -117,50 +153,20 @@ const ClaudeCodeBlock = ({
           </span>
 
           <span className="table-cell font-mono text-sm leading-relaxed break-all">
-            {tokens.map((token, tokenIndex) => {
-              let colorClass = "text-zinc-800 dark:text-zinc-200";
-              const trimmed = token.trim();
-
-              if (/^#{2,}\s/.test(trimmed)) {
-                colorClass = "text-zinc-900 dark:text-white font-medium";
-              } else if (/^["'].*["']$/.test(trimmed)) {
-                colorClass = "text-emerald-700 dark:text-emerald-400";
-              } else if (token.startsWith("{{") || /^\$[A-Z_]/.test(token)) {
-                colorClass =
-                  "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
-              } else if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token)) {
-                colorClass = "text-indigo-700 dark:text-indigo-400";
-              } else if (token.startsWith("#")) {
-                colorClass = "text-lime-700 dark:text-lime-400";
-              } else if (token.length > 1 && token.startsWith("/")) {
-                colorClass = "text-orange-600 dark:text-orange-400";
-              } else if (token === "=" || token === ":") {
-                colorClass = "text-violet-700 dark:text-violet-400";
-              } else if (/^\d+\.?\d*$/.test(trimmed)) {
-                colorClass = "text-cyan-700 dark:text-cyan-400";
-              } else if (token.includes(".") && !token.includes(" ")) {
-                colorClass = "text-sky-700 dark:text-sky-400";
-              } else if (
-                ["default", "explanatory", "learning", "friendly", "pragmatic"].includes(
-                  trimmed.toLowerCase(),
-                )
-              ) {
-                colorClass = "text-amber-700 dark:text-amber-400";
-              } else if (
-                ["if", "const", "export", "import", "function", "return", "for", "while"].includes(
-                  trimmed,
-                )
-              ) {
-                colorClass = "text-fuchsia-700 dark:text-fuchsia-400";
-              } else if (/^[A-Z]/.test(trimmed)) {
-                colorClass = "text-blue-700 dark:text-blue-400";
+            {segments.map((seg, segIdx) => {
+              if (seg.inTriple) {
+                return (
+                  <span key={segIdx} className="text-[#ff69b4]">
+                    {seg.text}
+                  </span>
+                );
               }
-
-              return (
-                <span key={tokenIndex} className={colorClass}>
+              const tokens = seg.text.split(tokenizer).filter(Boolean);
+              return tokens.map((token, tokenIndex) => (
+                <span key={`${segIdx}-${tokenIndex}`} className={tokenClass(token)}>
                   {token}
                 </span>
-              );
+              ));
             })}
           </span>
         </div>
@@ -862,6 +868,58 @@ function ClaudeStyleReplicationPost() {
 2. Explanatory Claude explains its implementation choices and codebase patterns
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
       </ClaudeCodeBlock>
+
+      <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">
+        Claude Code (from Anthropic)
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
+        It lets you switch how the AI "talks" to you during coding sessions:
+      </p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
+        <li><strong>Default:</strong> Fast, concise, task-focused responses.</li>
+        <li><strong>Explanatory:</strong> Explains choices, patterns, and reasoning in more detail.</li>
+        <li><strong>Learning:</strong> Interactive/mentor style — it pauses and asks you to write small pieces of code for hands-on practice.</li>
+      </ul>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
+        You typically switch it with a command like <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">/output-style explanatory</code> or via a menu.
+      </p>
+
+      <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">
+        Gemini CLI (Google)
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
+        It does not have these three built-in communication styles. It focuses more on other controls:
+      </p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
+        <li><strong>Plan Mode</strong> (read-only research/planning before changes — safe for exploration).</li>
+        <li><strong>Approval/safety modes</strong> (e.g., safe/default vs. more autonomous/YOLO).</li>
+        <li><strong>Interactive vs. non-interactive mode</strong> (<code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">-p</code> for one-shot prompts).</li>
+        <li><strong>Custom system instructions</strong> or slash commands you can define yourself.</li>
+      </ul>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
+        You can influence style by prompting it directly (e.g., "explain your choices" or "act as a tutor and let me code parts myself") or by overriding the core system prompt in advanced setups.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
+        It's more about workflow modes (planning, autonomy, tools) than changing the "voice" between concise vs. teaching.
+      </p>
+
+      <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">
+        Codex CLI (OpenAI)
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
+        It also does not have the exact Default/Explanatory/Learning trio. Closest things:
+      </p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-sans text-anthropic-text">
+        <li><strong>Personalities</strong> (e.g., friendly, pragmatic, or custom via config) that affect tone and how collaborative/supportive it feels. You can set a default in <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">~/.codex/config.toml</code> or switch with <code className="font-mono bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm">/personality</code>.</li>
+        <li><strong>Approval/execution modes</strong> (suggest-only, auto-edit, full-auto, etc.).</li>
+        <li><strong>Verbosity/reasoning controls</strong> in config.</li>
+      </ul>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">
+        You can guide it with custom prompts or by asking explicitly for explanations or interactive pairing.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
+        Codex leans toward configurable autonomy and tone, but not the same structured "learning mentor" mode as Claude.
+      </p>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         But what if you prefer <strong>Gemini CLI</strong> or <strong>Codex CLI</strong>? Do they offer similar flexibility?
