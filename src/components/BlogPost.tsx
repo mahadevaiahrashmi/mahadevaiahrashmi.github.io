@@ -178,16 +178,26 @@ const ClaudeCodeBlock = ({
     const GREEN = "text-emerald-700 dark:text-emerald-400";
 
     if (codexScript) {
-      type Dir = "normal" | "pink" | "green" | "echo-start";
+      type Dir = "normal" | "pink" | "green" | "echo-start" | "plain";
       const dirs: Dir[] = [];
-      let state: "neutral" | "prompt" | "echo" = "neutral";
+      let state: "neutral" | "prompt" | "echo" | "plain" = "neutral";
 
       for (const line of lines) {
         const trimmed = line.trim();
-        if (state === "neutral") {
+        if (state === "plain") {
+          if (trimmed === "EOF") {
+            dirs.push("normal");
+            state = "neutral";
+          } else {
+            dirs.push("plain");
+          }
+        } else if (state === "neutral") {
           if (/^echo\s+"/.test(trimmed)) {
             dirs.push("echo-start");
             state = /"\s*$/.test(trimmed.slice(5)) ? "neutral" : "echo";
+          } else if (/^You are now in Explanatory mode/.test(trimmed)) {
+            dirs.push("plain");
+            state = "plain";
           } else {
             dirs.push("normal");
           }
@@ -209,6 +219,12 @@ const ClaudeCodeBlock = ({
           return rowWrap(
             lineIndex,
             <span className={GREEN}>{line || "\u00A0"}</span>,
+          );
+        }
+        if (dir === "plain") {
+          return rowWrap(
+            lineIndex,
+            <span className="text-zinc-800 dark:text-zinc-200">{line || "\u00A0"}</span>,
           );
         }
         if (dir === "echo-start") {
@@ -1164,7 +1180,7 @@ Act like a patient coding instructor for hands-on learning.
       </div>
 
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-sans text-anthropic-text">
-        Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded">{"{{args}}"}</code> placeholder automatically injects whatever you type after the command, making <InlineCode>/explain refactor auth</InlineCode> work seamlessly.
+        Pro Tip: The <InlineCode>{"{{args}}"}</InlineCode> placeholder automatically injects whatever you type after the command, making <InlineCode>/explain refactor auth</InlineCode> work seamlessly.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 3: Use Your New Commands</h3>
@@ -1248,7 +1264,7 @@ add shipping cost calculation based on weight and distance
 /personality friendly`}
       </ClaudeCodeBlock>
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-sans text-anthropic-text">
-        Learning Mode Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded font-sans">read-only</code> approval mode ensures Codex suggests changes rather than auto-applying them, perfect for hands-on practice.
+        Learning Mode Pro Tip: The <InlineCode>read-only</InlineCode> approval mode ensures Codex suggests changes rather than auto-applying them, perfect for hands-on practice.
       </p>
 
       <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10 text-anthropic-text">
