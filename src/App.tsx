@@ -148,17 +148,6 @@ function HomePage() {
               </div>
 
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-sans uppercase tracking-widest opacity-60">
-                <Link to="/blog/warehouse-routing-openenv" className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity">
-                  Warehouse routing write-up <ExternalLink size={13} />
-                </Link>
-                <a
-                  href="https://github.com/mahadevaiahrashmi/play2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity"
-                >
-                  Source repo <ExternalLink size={13} />
-                </a>
                 <a
                   href="https://rashmi-mahadevaiah-drone.hf.space/ui"
                   target="_blank"
@@ -328,10 +317,6 @@ function HomePage() {
                 "Developed 'Asimov', an AI-powered data science platform streamlining business analytics via NL2SQL with modular agents for statistical analysis, data visualization, and automated reporting.",
                 "Created AI solutions using NLP and machine learning for call center log analysis and automated sales improvement plans for the automotive sector."
               ]}
-              links={[
-                { label: "Warehouse routing write-up", url: "/blog/warehouse-routing-openenv" },
-                { label: "Source repo", url: "https://github.com/mahadevaiahrashmi/play2" }
-              ]}
             />
 
             <ExperienceItem
@@ -344,9 +329,6 @@ function HomePage() {
                 "Launched an AI product transforming phone camera images into professional catalogue visuals for SMEs using semantic analysis, image captioning, and computer vision models.",
                 "Developed an IoT-based smart jar with auto-reordering functionality, featuring an AI-powered cart generator using natural language processing and text prompt understanding.",
                 "Built cross-platform mobile applications with Python and React Native to track inventory and automate orders for busy households."
-              ]}
-              links={[
-                { label: "RichFeyn site", url: "https://www.richfeyn.com/" }
               ]}
             />
 
