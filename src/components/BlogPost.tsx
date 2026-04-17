@@ -101,19 +101,77 @@ const ClaudeCodeBlock = ({
   const highlightCode = (text: string) => {
     const lines = text.trim().split("\n");
 
-    return lines.map((line, lineIndex) => (
-      <div
-        key={lineIndex}
-        className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
-      >
-        <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
-          {lineIndex + 1}
-        </span>
-        <span className="table-cell font-mono text-sm leading-relaxed break-all text-zinc-800 dark:text-zinc-200">
-          {line || "\u00A0"}
-        </span>
-      </div>
-    ));
+    const tokenizer =
+      /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
+
+    const tokenClass = (token: string) => {
+      const trimmed = token.trim();
+      if (/^#{2,}\s/.test(trimmed)) return "text-zinc-900 dark:text-white font-medium";
+      if (/^["'].*["']$/.test(trimmed)) return "text-emerald-700 dark:text-emerald-400";
+      if (token.startsWith("{{") || /^\$[A-Z_]/.test(token))
+        return "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
+      if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token))
+        return "text-indigo-700 dark:text-indigo-400";
+      if (token.startsWith("#")) return "text-lime-700 dark:text-lime-400";
+      if (token.length > 1 && token.startsWith("/")) return "text-orange-600 dark:text-orange-400";
+      if (token === "=" || token === ":") return "text-violet-700 dark:text-violet-400";
+      if (/^\d+\.?\d*$/.test(trimmed)) return "text-cyan-700 dark:text-cyan-400";
+      if (token.includes(".") && !token.includes(" ")) return "text-sky-700 dark:text-sky-400";
+      if (["default", "explanatory", "learning", "friendly", "pragmatic"].includes(trimmed.toLowerCase()))
+        return "text-amber-700 dark:text-amber-400";
+      if (["if", "const", "export", "import", "function", "return", "for", "while"].includes(trimmed))
+        return "text-fuchsia-700 dark:text-fuchsia-400";
+      if (/^[A-Z]/.test(trimmed)) return "text-blue-700 dark:text-blue-400";
+      return "text-zinc-800 dark:text-zinc-200";
+    };
+
+    let insideTriple = false;
+
+    return lines.map((line, lineIndex) => {
+      const parts = line.split(/(""")/);
+      const segments: { text: string; inTriple: boolean }[] = [];
+      for (const part of parts) {
+        if (part === "") continue;
+        if (part === '"""') {
+          segments.push({ text: part, inTriple: true });
+          insideTriple = !insideTriple;
+        } else {
+          segments.push({ text: part, inTriple: insideTriple });
+        }
+      }
+      if (segments.length === 0) {
+        segments.push({ text: line, inTriple: insideTriple });
+      }
+
+      return (
+        <div
+          key={lineIndex}
+          className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
+        >
+          <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
+            {lineIndex + 1}
+          </span>
+
+          <span className="table-cell font-mono text-sm leading-relaxed break-all">
+            {segments.map((seg, segIdx) => {
+              if (seg.inTriple) {
+                return (
+                  <span key={segIdx} className="text-[#ff69b4]">
+                    {seg.text}
+                  </span>
+                );
+              }
+              const tokens = seg.text.split(tokenizer).filter(Boolean);
+              return tokens.map((token, tokenIndex) => (
+                <span key={`${segIdx}-${tokenIndex}`} className={tokenClass(token)}>
+                  {token}
+                </span>
+              ));
+            })}
+          </span>
+        </div>
+      );
+    });
   };
 
   return (
@@ -1312,6 +1370,9 @@ Usage:
       </p>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         The key takeaway? <strong>You do not need to switch tools to get the workflow you want.</strong> With a few config files and smart prompting, you can tailor any AI coding assistant to your learning style, team workflow, or project needs.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
+        Which style do you use most? Default for speed, Explanatory for clarity, or Learning for growth? Share your thoughts or your own custom prompts.
       </p>
 
       <div className="mt-16 pt-8 border-t border-anthropic-text/10 opacity-60 text-sm font-sans text-anthropic-text">
