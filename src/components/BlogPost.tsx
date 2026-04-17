@@ -4,7 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { ArrowLeft, ExternalLink, Check, Copy, Download } from "lucide-react";
+import { ArrowLeft, ExternalLink, Check, Copy, Download, ChevronDown, ChevronRight, WrapText } from "lucide-react";
 import { useEffect, useState, type ComponentType } from "react";
 import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
@@ -63,6 +63,197 @@ const CodeBlock = ({ children, title, variant = "default" }: { children: string;
           isGrok ? "text-[#e6edf3]" : "text-anthropic-text"
         }`}>{children}</pre>
       </div>
+    </div>
+  );
+};
+
+const ClaudeCodeBlock = ({
+  children,
+  title,
+  language = "toml",
+}: {
+  children: string;
+  title?: string;
+  language?: string;
+}) => {
+  const [copied, setCopied] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [wrap, setWrap] = useState(false);
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(children.trim());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([children], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = title ? title.toLowerCase().replace(/\s+/g, "-") + ".txt" : "snippet.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const highlightCode = (text: string) => {
+    const lines = text.trim().split("\n");
+
+    return lines.map((line, lineIndex) => {
+      const tokens = line
+        .split(/(\s+|[=:]|\{|\}|\[|\]|\(|\)|<|>|\/|{{|}}|\.|#|"[^"]*"|'[^']*')/)
+        .filter(Boolean);
+
+      return (
+        <div
+          key={lineIndex}
+          className="table-row group-hover:bg-zinc-900/50 transition-colors"
+        >
+          <span className="table-cell pr-6 text-right text-zinc-500 select-none w-10 font-mono text-xs">
+            {lineIndex + 1}
+          </span>
+
+          <span className="table-cell font-mono text-sm leading-relaxed break-all">
+            {tokens.map((token, tokenIndex) => {
+              let colorClass = "text-zinc-200";
+              const trimmed = token.trim();
+
+              if (/^["'].*["']$/.test(trimmed)) {
+                colorClass = "text-emerald-400";
+              } else if (
+                token.startsWith("/") ||
+                trimmed === "/explain" ||
+                trimmed === "/learn" ||
+                trimmed === "/profile" ||
+                trimmed === "/default"
+              ) {
+                colorClass = "text-orange-400";
+              } else if (token.includes(".") && !token.includes(" ") && !token.includes("{{")) {
+                colorClass = "text-sky-400";
+              } else if (
+                token.includes("{{") ||
+                token.includes("}}") ||
+                trimmed === "{{args}}" ||
+                trimmed === "$TASK"
+              ) {
+                colorClass =
+                  "text-rose-400 bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
+              } else if (token === "=" || token === ":") {
+                colorClass = "text-violet-400";
+              } else if (token.startsWith("#")) {
+                colorClass = "text-lime-400";
+              } else if (
+                ["default", "explanatory", "learning", "friendly", "pragmatic"].includes(
+                  trimmed.toLowerCase(),
+                )
+              ) {
+                colorClass = "text-amber-400";
+              } else if (/^\d+$/.test(trimmed)) {
+                colorClass = "text-cyan-400";
+              } else if (/^[A-Z]/.test(trimmed) && !token.includes(".")) {
+                colorClass = "text-blue-400";
+              } else if (
+                ["if", "const", "export", "import", "function", "return", "for", "while"].includes(
+                  trimmed,
+                )
+              ) {
+                colorClass = "text-fuchsia-400";
+              } else if (token.includes("~/.") || token.endsWith(".md") || token.endsWith(".toml")) {
+                colorClass = "text-indigo-400";
+              }
+
+              return (
+                <span key={tokenIndex} className={colorClass}>
+                  {token}
+                </span>
+              );
+            })}
+          </span>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div className="relative group my-6 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-xl">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900 border-b border-zinc-800">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-500" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+            <div className="w-3 h-3 rounded-full bg-green-500" />
+          </div>
+          <span className="ml-3 text-xs text-zinc-400 font-mono tracking-tight">
+            {(title ?? language).toUpperCase()}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setWrap((v) => !v)}
+            className={`flex items-center px-2 py-1 text-xs transition-all rounded-md hover:bg-zinc-800 ${
+              wrap ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-100"
+            }`}
+            aria-label={wrap ? "Disable word wrap" : "Enable word wrap"}
+            title={wrap ? "Disable word wrap" : "Enable word wrap"}
+          >
+            <WrapText className="w-4 h-4" />
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setCollapsed((v) => !v)}
+            className="flex items-center px-2 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            aria-label={collapsed ? "Expand code" : "Collapse code"}
+            title={collapsed ? "Expand" : "Collapse"}
+          >
+            {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={copyToClipboard}
+            className="flex items-center gap-1.5 px-3 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            aria-label="Copy to clipboard"
+          >
+            {copied ? (
+              <>
+                <Check className="w-4 h-4" /> Copied!
+              </>
+            ) : (
+              <>
+                <Copy className="w-4 h-4" /> Copy
+              </>
+            )}
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleDownload}
+            className="flex items-center px-2 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            aria-label="Download snippet"
+            title="Download text"
+          >
+            <Download className="w-4 h-4" />
+          </motion.button>
+        </div>
+      </div>
+
+      {!collapsed && (
+        <pre
+          className={`p-5 font-mono text-[15px] leading-[1.65] text-zinc-200 ${
+            wrap ? "whitespace-pre-wrap" : "overflow-x-auto"
+          }`}
+        >
+          <code className={`table w-full ${wrap ? "table-fixed" : ""}`}>
+            {highlightCode(children)}
+          </code>
+        </pre>
+      )}
     </div>
   );
 };
@@ -679,11 +870,11 @@ function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
       </p>
-      <CodeBlock title="Output style" variant="grok">
+      <ClaudeCodeBlock title="Output style">
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
-2. Explanatory Claude explains its implementation choices and codebase patterns  
+2. Explanatory Claude explains its implementation choices and codebase patterns
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         But what if you prefer <strong>Gemini CLI</strong> or <strong>Codex CLI</strong>? Do they offer similar flexibility?
@@ -757,7 +948,7 @@ function ClaudeStyleReplicationPost() {
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 1: Create the Commands Directory</h3>
-      <CodeBlock title="Setup Directory" variant="grok">{`mkdir -p ~/.gemini/commands`}</CodeBlock>
+      <ClaudeCodeBlock title="Setup Directory">{`mkdir -p ~/.gemini/commands`}</ClaudeCodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 2: Create Configuration Files</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-sans text-anthropic-text">Create three TOML files inside the directory:</p>
@@ -765,7 +956,7 @@ function ClaudeStyleReplicationPost() {
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/default.toml</h4>
-          <CodeBlock title="default.toml" variant="grok">
+          <ClaudeCodeBlock title="default.toml">
 {`description = "Default concise and efficient mode"
 prompt = """
 You are now in Default mode (Claude Code style).
@@ -775,12 +966,12 @@ Complete the following coding task efficiently with concise responses:
 
 No unnecessary explanations unless asked.
 """`}
-          </CodeBlock>
+          </ClaudeCodeBlock>
         </div>
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/explain.toml</h4>
-          <CodeBlock title="explain.toml">
+          <ClaudeCodeBlock title="explain.toml">
 {`description = "Explanatory mode: explains choices and patterns"
 prompt = """
 You are now in Explanatory mode.
@@ -795,12 +986,12 @@ For this task:
 
 Be thorough but not overly verbose.
 """`}
-          </CodeBlock>
+          </ClaudeCodeBlock>
         </div>
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline text-anthropic-text">~/.gemini/commands/learn.toml</h4>
-          <CodeBlock title="learn.toml">
+          <ClaudeCodeBlock title="learn.toml">
 {`description = "Learning/Mentor mode: hands-on interactive practice"
 prompt = """
 You are now in Learning mode (mentor/tutor style).
@@ -816,7 +1007,7 @@ For this task:
 
 Act like a patient coding instructor for hands-on learning.
 """`}
-          </CodeBlock>
+          </ClaudeCodeBlock>
         </div>
       </div>
 
@@ -825,11 +1016,11 @@ Act like a patient coding instructor for hands-on learning.
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 3: Use Your New Commands</h3>
-      <CodeBlock title="Example Usage">
+      <ClaudeCodeBlock title="Example Usage">
 {`/explain refactor the payment service to use async/await
 /learn implement JWT authentication with refresh tokens
 /default add dark mode toggle to the settings panel`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         After switching modes, continue the conversation naturally, or re-use the command anytime to reset context.
       </p>
@@ -843,7 +1034,7 @@ Act like a patient coding instructor for hands-on learning.
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-anthropic-text">Step 1: Update Your Config</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">Edit <code className="bg-anthropic-text/5 px-1.5 py-0.5 rounded text-sm font-mono font-bold font-sans">~/.codex/config.toml</code>:</p>
-      <CodeBlock title="config.toml">
+      <ClaudeCodeBlock title="config.toml">
 {`[profiles.default]
 personality = "pragmatic"
 approval_mode = "auto"
@@ -855,7 +1046,7 @@ approval_mode = "auto"
 [profiles.learning]
 personality = "friendly"
 approval_mode = "read-only"`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent">Step 2: Create Project-Level Style Files</h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-sans text-anthropic-text">In your repository root, add these Markdown files:</p>
@@ -863,7 +1054,7 @@ approval_mode = "read-only"`}
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-explain.md</h4>
-          <CodeBlock title="AGENTS-explain.md">
+          <ClaudeCodeBlock title="AGENTS-explain.md">
 {`You are now in Explanatory mode.
 
 User task: $TASK
@@ -873,12 +1064,12 @@ For this task:
 - Describe implementation choices, patterns, trade-offs, and codebase fit.
 - Provide educational insights.
 - Then implement only after I confirm.`}
-          </CodeBlock>
+          </ClaudeCodeBlock>
         </div>
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-learn.md</h4>
-          <CodeBlock title="AGENTS-learn.md">
+          <ClaudeCodeBlock title="AGENTS-learn.md">
 {`You are now in Learning/Mentor mode.
 
 User task: $TASK
@@ -888,12 +1079,12 @@ For this task:
 - Explain the concept, then ask ME to write the code myself.
 - Review my code, give feedback, and guide iteratively.
 - Only implement if I explicitly ask.`}
-          </CodeBlock>
+          </ClaudeCodeBlock>
         </div>
       </div>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-anthropic-text">Step 3: Switch Styles in Practice</h3>
-      <CodeBlock title="Practice Commands">
+      <ClaudeCodeBlock title="Practice Commands">
 {`# Switch profile and give task
 /profile explanatory
 implement user login with email verification
@@ -903,7 +1094,7 @@ add shipping cost calculation based on weight and distance
 
 # Use personality for tone adjustment
 /personality friendly`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-sans text-anthropic-text">
         Learning Mode Pro Tip: The <code className="font-mono bg-anthropic-accent/10 px-1 rounded font-sans">read-only</code> approval mode ensures Codex suggests changes rather than auto-applying them, perfect for hands-on practice.
       </p>
@@ -916,7 +1107,7 @@ add shipping cost calculation based on weight and distance
       </p>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-center font-sans">Gemini CLI Setup Script</h3>
-      <CodeBlock title="Gemini Setup Script (Bash)">
+      <ClaudeCodeBlock title="Gemini Setup Script (Bash)">
 {`mkdir -p ~/.gemini/commands && cat > ~/.gemini/commands/default.toml << 'EOF'
 description = "Default concise and efficient mode"
 prompt = """
@@ -965,10 +1156,10 @@ Act like a patient coding instructor for hands-on learning.
 EOF
 
 echo "Gemini CLI styles installed. Run /commands reload to activate."`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <h3 className="text-xl font-sans font-bold mt-8 mb-4 text-anthropic-accent text-center font-sans">Codex CLI Setup Script</h3>
-      <CodeBlock title="Codex Setup Script (Bash)">
+      <ClaudeCodeBlock title="Codex Setup Script (Bash)">
 {`# Create Codex config directory and backup existing config
 mkdir -p ~/.codex
 [ -f ~/.codex/config.toml ] && cp ~/.codex/config.toml ~/.codex/config.toml.bak
@@ -1033,7 +1224,7 @@ echo "Codex CLI styles installed successfully.
 Usage:
   1. Switch styles: codex --profile [default|explanatory|learning]
   2. Add AGENTS-*.md files to your project root for persistent context"`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <h2 className="text-2xl font-sans font-bold mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-sans text-anthropic-text">
         How to Use the Setup Scripts
