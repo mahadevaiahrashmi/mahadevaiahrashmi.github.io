@@ -101,10 +101,11 @@ const ClaudeCodeBlock = ({
   const highlightCode = (text: string) => {
     const lines = text.trim().split("\n");
 
+    const tokenizer =
+      /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
+
     return lines.map((line, lineIndex) => {
-      const tokens = line
-        .split(/(\s+|[=:]|\{|\}|\[|\]|\(|\)|<|>|\/|{{|}}|\.|#|"[^"]*"|'[^']*')/)
-        .filter(Boolean);
+      const tokens = line.split(tokenizer).filter(Boolean);
 
       return (
         <div
@@ -120,48 +121,39 @@ const ClaudeCodeBlock = ({
               let colorClass = "text-zinc-200";
               const trimmed = token.trim();
 
-              if (/^["'].*["']$/.test(trimmed)) {
+              if (/^#{2,}\s/.test(trimmed)) {
+                colorClass = "text-white font-medium";
+              } else if (/^["'].*["']$/.test(trimmed)) {
                 colorClass = "text-emerald-400";
-              } else if (
-                token.startsWith("/") ||
-                trimmed === "/explain" ||
-                trimmed === "/learn" ||
-                trimmed === "/profile" ||
-                trimmed === "/default"
-              ) {
-                colorClass = "text-orange-400";
-              } else if (token.includes(".") && !token.includes(" ") && !token.includes("{{")) {
-                colorClass = "text-sky-400";
-              } else if (
-                token.includes("{{") ||
-                token.includes("}}") ||
-                trimmed === "{{args}}" ||
-                trimmed === "$TASK"
-              ) {
+              } else if (token.startsWith("{{") || /^\$[A-Z_]/.test(token)) {
                 colorClass =
                   "text-rose-400 bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
-              } else if (token === "=" || token === ":") {
-                colorClass = "text-violet-400";
+              } else if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token)) {
+                colorClass = "text-indigo-400";
               } else if (token.startsWith("#")) {
                 colorClass = "text-lime-400";
+              } else if (token.length > 1 && token.startsWith("/")) {
+                colorClass = "text-orange-400";
+              } else if (token === "=" || token === ":") {
+                colorClass = "text-violet-400";
+              } else if (/^\d+\.?\d*$/.test(trimmed)) {
+                colorClass = "text-cyan-400";
+              } else if (token.includes(".") && !token.includes(" ")) {
+                colorClass = "text-sky-400";
               } else if (
                 ["default", "explanatory", "learning", "friendly", "pragmatic"].includes(
                   trimmed.toLowerCase(),
                 )
               ) {
                 colorClass = "text-amber-400";
-              } else if (/^\d+$/.test(trimmed)) {
-                colorClass = "text-cyan-400";
-              } else if (/^[A-Z]/.test(trimmed) && !token.includes(".")) {
-                colorClass = "text-blue-400";
               } else if (
                 ["if", "const", "export", "import", "function", "return", "for", "while"].includes(
                   trimmed,
                 )
               ) {
                 colorClass = "text-fuchsia-400";
-              } else if (token.includes("~/.") || token.endsWith(".md") || token.endsWith(".toml")) {
-                colorClass = "text-indigo-400";
+              } else if (/^[A-Z]/.test(trimmed)) {
+                colorClass = "text-blue-400";
               }
 
               return (
@@ -179,16 +171,9 @@ const ClaudeCodeBlock = ({
   return (
     <div className="relative group my-6 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-xl">
       <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900 border-b border-zinc-800">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500" />
-            <div className="w-3 h-3 rounded-full bg-green-500" />
-          </div>
-          <span className="ml-3 text-xs text-zinc-400 font-mono tracking-tight">
-            {(title ?? language).toUpperCase()}
-          </span>
-        </div>
+        <span className="text-xs text-zinc-400 font-mono tracking-tight">
+          {(title ?? language).toUpperCase()}
+        </span>
 
         <div className="flex items-center gap-1">
           <motion.button
