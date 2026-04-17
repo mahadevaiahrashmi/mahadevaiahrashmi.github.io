@@ -71,10 +71,12 @@ const ClaudeCodeBlock = ({
   children,
   title,
   language = "toml",
+  plain = false,
 }: {
   children: string;
   title?: string;
   language?: string;
+  plain?: boolean;
 }) => {
   const [copied, setCopied] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -100,6 +102,22 @@ const ClaudeCodeBlock = ({
 
   const highlightCode = (text: string) => {
     const lines = text.trim().split("\n");
+
+    if (plain) {
+      return lines.map((line, lineIndex) => (
+        <div
+          key={lineIndex}
+          className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
+        >
+          <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
+            {lineIndex + 1}
+          </span>
+          <span className="table-cell font-mono text-sm leading-relaxed break-all text-zinc-800 dark:text-zinc-200">
+            {line || "\u00A0"}
+          </span>
+        </div>
+      ));
+    }
 
     const tokenizer =
       /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
@@ -863,7 +881,7 @@ function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-sans text-anthropic-text">
         If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
       </p>
-      <ClaudeCodeBlock title="Output style">
+      <ClaudeCodeBlock title="Output style" plain>
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
@@ -1099,7 +1117,7 @@ approval_mode = "read-only"`}
       <div className="space-y-8 font-sans">
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-explain.md</h4>
-          <ClaudeCodeBlock title="AGENTS-explain.md">
+          <ClaudeCodeBlock title="AGENTS-explain.md" plain>
 {`You are now in Explanatory mode.
 
 User task: $TASK
@@ -1114,7 +1132,7 @@ For this task:
 
         <div>
           <h4 className="text-sm font-sans uppercase tracking-widest opacity-60 mb-2 font-bold underline font-sans text-anthropic-text">AGENTS-learn.md</h4>
-          <ClaudeCodeBlock title="AGENTS-learn.md">
+          <ClaudeCodeBlock title="AGENTS-learn.md" plain>
 {`You are now in Learning/Mentor mode.
 
 User task: $TASK
