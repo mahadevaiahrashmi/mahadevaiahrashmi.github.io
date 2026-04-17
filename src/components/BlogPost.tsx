@@ -110,50 +110,50 @@ const ClaudeCodeBlock = ({
       return (
         <div
           key={lineIndex}
-          className="table-row group-hover:bg-zinc-900/50 transition-colors"
+          className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
         >
-          <span className="table-cell pr-6 text-right text-zinc-500 select-none w-10 font-mono text-xs">
+          <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
             {lineIndex + 1}
           </span>
 
           <span className="table-cell font-mono text-sm leading-relaxed break-all">
             {tokens.map((token, tokenIndex) => {
-              let colorClass = "text-zinc-200";
+              let colorClass = "text-zinc-800 dark:text-zinc-200";
               const trimmed = token.trim();
 
               if (/^#{2,}\s/.test(trimmed)) {
-                colorClass = "text-white font-medium";
+                colorClass = "text-zinc-900 dark:text-white font-medium";
               } else if (/^["'].*["']$/.test(trimmed)) {
-                colorClass = "text-emerald-400";
+                colorClass = "text-emerald-700 dark:text-emerald-400";
               } else if (token.startsWith("{{") || /^\$[A-Z_]/.test(token)) {
                 colorClass =
-                  "text-rose-400 bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
+                  "text-rose-700 dark:text-rose-400 bg-zinc-200 dark:bg-zinc-800/80 px-1.5 py-0.5 rounded font-medium";
               } else if (token.startsWith("~/") || /\.(md|toml|ts|tsx|jsx?|json|sh|py|txt)$/.test(token)) {
-                colorClass = "text-indigo-400";
+                colorClass = "text-indigo-700 dark:text-indigo-400";
               } else if (token.startsWith("#")) {
-                colorClass = "text-lime-400";
+                colorClass = "text-lime-700 dark:text-lime-400";
               } else if (token.length > 1 && token.startsWith("/")) {
-                colorClass = "text-orange-400";
+                colorClass = "text-orange-600 dark:text-orange-400";
               } else if (token === "=" || token === ":") {
-                colorClass = "text-violet-400";
+                colorClass = "text-violet-700 dark:text-violet-400";
               } else if (/^\d+\.?\d*$/.test(trimmed)) {
-                colorClass = "text-cyan-400";
+                colorClass = "text-cyan-700 dark:text-cyan-400";
               } else if (token.includes(".") && !token.includes(" ")) {
-                colorClass = "text-sky-400";
+                colorClass = "text-sky-700 dark:text-sky-400";
               } else if (
                 ["default", "explanatory", "learning", "friendly", "pragmatic"].includes(
                   trimmed.toLowerCase(),
                 )
               ) {
-                colorClass = "text-amber-400";
+                colorClass = "text-amber-700 dark:text-amber-400";
               } else if (
                 ["if", "const", "export", "import", "function", "return", "for", "while"].includes(
                   trimmed,
                 )
               ) {
-                colorClass = "text-fuchsia-400";
+                colorClass = "text-fuchsia-700 dark:text-fuchsia-400";
               } else if (/^[A-Z]/.test(trimmed)) {
-                colorClass = "text-blue-400";
+                colorClass = "text-blue-700 dark:text-blue-400";
               }
 
               return (
@@ -169,9 +169,9 @@ const ClaudeCodeBlock = ({
   };
 
   return (
-    <div className="relative group my-6 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-xl">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900 border-b border-zinc-800">
-        <span className="text-xs text-zinc-400 font-mono tracking-tight">
+    <div className="relative group my-6 rounded-2xl overflow-hidden border border-zinc-300 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 shadow-xl">
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-100 dark:bg-zinc-900 border-b border-zinc-300 dark:border-zinc-800">
+        <span className="text-xs text-zinc-500 dark:text-zinc-400 font-mono tracking-tight">
           {(title ?? language).toUpperCase()}
         </span>
 
@@ -180,8 +180,10 @@ const ClaudeCodeBlock = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setWrap((v) => !v)}
-            className={`flex items-center px-2 py-1 text-xs transition-all rounded-md hover:bg-zinc-800 ${
-              wrap ? "text-emerald-400" : "text-zinc-400 hover:text-zinc-100"
+            className={`flex items-center px-2 py-1 text-xs transition-all rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800 ${
+              wrap
+                ? "text-emerald-600 dark:text-emerald-400"
+                : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
             }`}
             aria-label={wrap ? "Disable word wrap" : "Enable word wrap"}
             title={wrap ? "Disable word wrap" : "Enable word wrap"}
@@ -192,7 +194,7 @@ const ClaudeCodeBlock = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setCollapsed((v) => !v)}
-            className="flex items-center px-2 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            className="flex items-center px-2 py-1 text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800"
             aria-label={collapsed ? "Expand code" : "Collapse code"}
             title={collapsed ? "Expand" : "Collapse"}
           >
@@ -202,7 +204,7 @@ const ClaudeCodeBlock = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={copyToClipboard}
-            className="flex items-center gap-1.5 px-3 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            className="flex items-center gap-1.5 px-3 py-1 text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800"
             aria-label="Copy to clipboard"
           >
             {copied ? (
@@ -219,7 +221,7 @@ const ClaudeCodeBlock = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleDownload}
-            className="flex items-center px-2 py-1 text-xs text-zinc-400 hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-800"
+            className="flex items-center px-2 py-1 text-xs text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-800"
             aria-label="Download snippet"
             title="Download text"
           >
@@ -230,7 +232,7 @@ const ClaudeCodeBlock = ({
 
       {!collapsed && (
         <pre
-          className={`p-5 font-mono text-[15px] leading-[1.65] text-zinc-200 ${
+          className={`p-5 font-mono text-[15px] leading-[1.65] text-zinc-800 dark:text-zinc-200 ${
             wrap ? "whitespace-pre-wrap" : "overflow-x-auto"
           }`}
         >
