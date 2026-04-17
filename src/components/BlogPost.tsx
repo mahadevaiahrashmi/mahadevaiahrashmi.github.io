@@ -170,21 +170,11 @@ const ClaudeCodeBlock = ({
       for (const line of lines) {
         const trimmed = line.trim();
         if (state === "neutral") {
-          if (/Guidelines\s*$/.test(trimmed)) {
-            dirs.push("normal");
-            state = "prompt";
-          } else if (/^echo\s+"/.test(trimmed)) {
+          if (/^echo\s+"/.test(trimmed)) {
             dirs.push("echo-start");
             state = /"\s*$/.test(trimmed.slice(5)) ? "neutral" : "echo";
           } else {
             dirs.push("normal");
-          }
-        } else if (state === "prompt") {
-          if (trimmed === "EOF") {
-            dirs.push("normal");
-            state = "neutral";
-          } else {
-            dirs.push("pink");
           }
         } else {
           dirs.push("green");
