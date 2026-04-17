@@ -963,7 +963,7 @@ function RichFeynPost() {
 function ClaudeStyleReplicationPost() {
   return (
     <>
-      <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tight mb-6 leading-tight text-anthropic-text">
+      <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight mb-6 leading-tight">
         Replicating Claude Code's Communication Styles in Gemini CLI & Codex CLI: A Complete Guide
       </h1>
 
