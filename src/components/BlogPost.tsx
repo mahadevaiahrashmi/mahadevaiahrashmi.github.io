@@ -195,7 +195,7 @@ const ClaudeCodeBlock = ({
           if (/^echo\s+"/.test(trimmed)) {
             dirs.push("echo-start");
             state = /"\s*$/.test(trimmed.slice(5)) ? "neutral" : "echo";
-          } else if (/^You are now in Explanatory mode/.test(trimmed)) {
+          } else if (/^You are now in (Explanatory|Learning|Default)/.test(trimmed)) {
             dirs.push("plain");
             state = "plain";
           } else {
