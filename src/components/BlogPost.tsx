@@ -507,12 +507,12 @@ function WarehouseRoutingPost() {
 
       <p className="text-lg leading-relaxed opacity-90 mb-4">The agent picks one of four moves per turn:</p>
 
-      <CodeBlock title="Action Space (Python)">
+      <ClaudeCodeBlock title="Action Space (Python)">
 {`Action(move="N")  # north (row - 1)
 Action(move="S")  # south (row + 1)
 Action(move="E")  # east  (col + 1)
 Action(move="W")  # west  (col - 1)`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         That's the entire action space. No tools, no SQL, no JOINs — just spatial reasoning under partial information.
@@ -539,14 +539,14 @@ Action(move="W")  # west  (col - 1)`}
         warehouse-routing wraps a Pydantic-typed environment in a FastAPI shim, ships as a Docker image, and runs on Hugging Face Spaces. Pydantic enforces typed contracts at every boundary so a malformed action returns 422, never silent corruption:
       </p>
 
-      <CodeBlock title="Pydantic Environment API (Python)">
+      <ClaudeCodeBlock title="Pydantic Environment API (Python)">
 {`env = WarehouseRoutingEnvironment()
 obs = env.reset()
 # obs.tier="easy"  obs.sku_locations=[(3,2),(7,7),(4,4)]  obs.robot_pos=(0,0)
 
 obs = env.step(Action(move="E"))
 # obs.robot_pos=(0,1)  reward=-0.01  done=false`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         On top of this, we mount a self-contained SVG grid viewer at <InlineCode>/ui</InlineCode>: vanilla JS, no Gradio, no extra deps. It polls <InlineCode>/state</InlineCode>, calls <InlineCode>/reset</InlineCode> and <InlineCode>/step</InlineCode> via fetch, and renders the warehouse, SKUs (visited and not), obstacles, robot, and a breadcrumb trail. You can drive an episode with the on-screen d-pad or your arrow keys.
