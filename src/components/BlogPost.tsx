@@ -10,63 +10,6 @@ import { Link, useParams } from "react-router-dom";
 import { blogPosts } from "../blog/posts";
 import ThemeToggle from "./ThemeToggle";
 
-const CodeBlock = ({ children, title, variant = "default" }: { children: string; title?: string; variant?: "default" | "grok" }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(children);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleDownload = () => {
-    const blob = new Blob([children], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = title ? title.toLowerCase().replace(/\s+/g, "-") + ".txt" : "snippet.txt";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
-  const isGrok = variant === "grok";
-
-  return (
-    <div className={`my-6 border rounded-lg overflow-hidden ${
-      isGrok 
-        ? "bg-[#0d1117] border-gray-800 shadow-2xl" 
-        : "bg-anthropic-text/5 border-anthropic-text/10"
-    }`}>
-      {title && (
-        <div className={`flex items-center justify-between px-4 py-2 border-b ${
-          isGrok 
-            ? "bg-[#161b22] border-gray-800 text-gray-300" 
-            : "bg-anthropic-text/[0.02] border-anthropic-text/10 text-anthropic-text"
-        }`}>
-          <span className={`text-xs font-sans font-bold uppercase tracking-wider ${isGrok ? "opacity-100" : "opacity-60"}`}>
-            {title}
-          </span>
-          <div className="flex items-center gap-3">
-            <button onClick={handleCopy} className="opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center" aria-label="Copy to clipboard" title="Copy code">
-              {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
-            </button>
-            <button onClick={handleDownload} className="opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center" aria-label="Download snippet" title="Download text">
-              <Download size={14} />
-            </button>
-          </div>
-        </div>
-      )}
-      <div className="p-4 overflow-x-auto">
-        <pre className={`text-sm font-mono leading-relaxed whitespace-pre ${
-          isGrok ? "text-[#e6edf3]" : "text-anthropic-text"
-        }`}>{children}</pre>
-      </div>
-    </div>
-  );
-};
-
 const TOKENIZER =
   /(\s+|"[^"]*"|'[^']*'|\{\{[^}]*\}\}|\$[A-Z_][A-Z0-9_]*|~\/[\w./-]+|[\w.-]+\.(?:md|toml|ts|tsx|js|jsx|json|sh|py|txt)|\/[a-z][\w-]*|#[^\n]*|[=:|]|\{|\}|\[|\]|\(|\)|<|>|\/)/;
 
