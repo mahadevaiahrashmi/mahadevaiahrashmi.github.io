@@ -99,8 +99,15 @@ Commit and push after every reasonable chunk of work. One commit per issue. Conv
 ## Tracking
 
 <!-- tracking-adapter: github-projects -->
-<!-- project-number: -->
-<!-- project-owner: -->
+<!-- project-number: 2 -->
+<!-- project-owner: mahadevaiahrashmi -->
+<!-- project-node-id: PVT_kwHOATydZs4BT93E -->
+<!-- status-field-id: PVTSSF_lAHOATydZs4BT93EzhBJKwU -->
+<!-- status-option-backlog: 70ad870c -->
+<!-- status-option-ready: 1a2d8fca -->
+<!-- status-option-in-progress: bd1c3313 -->
+<!-- status-option-in-review: 1077c21c -->
+<!-- status-option-done: 0ac4a958 -->
 
 **Adapter docs:** `docs/integrations/README.md`
 **Status flow:** Backlog → Ready → In Progress → In Review → Done
