@@ -1485,9 +1485,9 @@ function StatuslinePost() {
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Here's what one live line looks like:
       </p>
-      <CodeBlock title="example status line">
+      <ClaudeCodeBlock title="example status line">
 {`Opus 4.7 | portfolio@main (+42 -7) | 48k/200k (24%) | effort: med | 5h 31% @18:30 IST | 7d 62% @Apr 24, 09:00 IST`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Read left-to-right, each piece is answering a question you'd otherwise have to stop and check:
       </p>
@@ -1531,7 +1531,7 @@ function StatuslinePost() {
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         The script uses a small utility called <InlineCode>jq</InlineCode> to read JSON. Most computers don't have it preinstalled. Run the line that matches your operating system:
       </p>
-      <CodeBlock title="install jq">
+      <ClaudeCodeBlock title="install jq">
 {`# macOS (requires Homebrew — brew.sh)
 brew install jq
 
@@ -1540,7 +1540,7 @@ sudo apt install -y jq
 
 # Fedora
 sudo dnf install -y jq`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
         Step 2 — Download the script
@@ -1548,12 +1548,12 @@ sudo dnf install -y jq`}
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Save the script into Claude Code's config folder (<InlineCode>~/.claude/</InlineCode>) and mark it executable:
       </p>
-      <CodeBlock title="download statusline.sh">
+      <ClaudeCodeBlock title="download statusline.sh">
 {`mkdir -p ~/.claude
 curl -L -o ~/.claude/statusline.sh \\
   https://raw.githubusercontent.com/daniel3303/ClaudeCodeStatusLine/main/statusline.sh
 chmod +x ~/.claude/statusline.sh`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
 
       <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
         Step 3 — Tell Claude Code to use it
@@ -1561,14 +1561,14 @@ chmod +x ~/.claude/statusline.sh`}
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Open the file <InlineCode>~/.claude/settings.json</InlineCode> in any text editor. If the file doesn't exist yet, create a new one. Add the following block:
       </p>
-      <CodeBlock title="~/.claude/settings.json">
+      <ClaudeCodeBlock title="~/.claude/settings.json">
 {`{
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
   }
 }`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
         If your <InlineCode>settings.json</InlineCode> already has other settings inside the outer braces, just add the <InlineCode>statusLine</InlineCode> block as another entry (don't forget the comma between entries).
       </p>
@@ -1589,9 +1589,9 @@ chmod +x ~/.claude/statusline.sh`}
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Open <InlineCode>~/.claude/statusline.sh</InlineCode> in a text editor and search for <InlineCode>TZ=</InlineCode>. You'll find several lines that look like this:
       </p>
-      <CodeBlock title="before">
+      <ClaudeCodeBlock title="before">
 {`formatted=$(TZ=UTC date -d "@$epoch" +"%H:%M" ...)`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Replace <InlineCode>UTC</InlineCode> with your own <em>IANA timezone name</em>. Some common ones:
       </p>
@@ -1617,9 +1617,9 @@ chmod +x ~/.claude/statusline.sh`}
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         So for someone in Bengaluru, the line becomes:
       </p>
-      <CodeBlock title="after">
+      <ClaudeCodeBlock title="after">
 {`formatted=$(TZ=Asia/Kolkata date -d "@$epoch" +"%H:%M" ...)`}
-      </CodeBlock>
+      </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
         Replace <strong>every</strong> <InlineCode>TZ=UTC</InlineCode> in the file the same way (your editor's "Find & Replace" button makes this painless). Save the file, restart Claude Code, and reset times now read in your local clock. That's also the only change that ships in <a href="https://github.com/mahadevaiahrashmi/mahadevaiahrashmi.github.io/blob/main/.claude/statusline.sh" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">the Kolkata-pinned version</a> on this site — a single find-and-replace, nothing more.
       </p>
