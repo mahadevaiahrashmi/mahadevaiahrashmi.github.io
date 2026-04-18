@@ -146,17 +146,6 @@ function HomePage() {
                   <Linkedin size={16} /> LinkedIn
                 </a>
               </div>
-
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-sans uppercase tracking-widest opacity-60">
-                <a
-                  href="https://rashmi-mahadevaiah-drone.hf.space/ui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:opacity-100 transition-opacity"
-                >
-                  Live environment <ExternalLink size={13} />
-                </a>
-              </div>
             </div>
           </motion.div>
         </section>
@@ -183,10 +172,6 @@ function HomePage() {
               I've spent the last 13+ years across the full ML lifecycle: from exploratory data science and statistical modeling
               at Axis Bank and TCS, to founding an AI startup (RichFeyn) that shipped three products across computer vision, IoT, and mobile,
               to building multi-agent AI orchestration systems at KOGO.ai that process thousands of sales leads autonomously.
-            </p>
-            <p>
-              Outside of AI, I'm a yoga practitioner, a runner, and someone who believes the best products come from
-              deep empathy for the people who use them — not from the technology itself.
             </p>
           </motion.div>
 
@@ -237,7 +222,7 @@ function HomePage() {
         {/* Projects Section */}
         <section id="projects" className="mb-32">
           <div className="flex items-center gap-4 mb-12">
-            <h2 className="text-4xl font-serif italic">Select Projects</h2>
+            <h2 className="text-4xl font-serif italic">Projects</h2>
             <div className="h-[1px] flex-1 bg-anthropic-text/10" />
           </div>
 
