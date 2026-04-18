@@ -1,76 +1,79 @@
 ---
-agent-notes: { ctx: "session handoff - 2026-04-18 blog content work (OpenEnv beginner post + snippet colorization)", deps: [src/components/BlogPost.tsx, src/blog/posts.ts, CLAUDE.md], state: active, last: "coordinator@2026-04-18" }
+agent-notes: { ctx: "session handoff - 2026-04-18 tech-debt batch (#29/#28/#30/#31) + project board wire-up", deps: [CLAUDE.md, src/components/BlogPost.tsx, src/blog/post-metadata.ts, src/blog/post-registry.ts], state: active, last: "coordinator@2026-04-18" }
 ---
 
 # Session Handoff
 
 **Created:** 2026-04-18
-**Sprint:** No active sprint. Sprint 3 informally closed (see prior handoff); Sprint 4 not yet planned. This session was ad-hoc blog content work, not sprint-scoped.
-**Wave:** n/a
-**Session summary:** Added a new beginner-friendly OpenEnv setup walkthrough (`openenv-play2-setup`), colorized code snippets in the statusline and warehouse-routing blog posts by swapping `CodeBlock` → `ClaudeCodeBlock`, and drafted-then-deleted a `warehouse-routing-explained` beginner post per user direction. All work committed and pushed across three clean commits.
+**Sprint:** No active sprint. Sprint 3 closed informally in prior sessions. Sprint 4 not yet planned.
+**Wave:** n/a — this session executed the open tech-debt backlog as a batch, then wired in the project board.
+**Session summary:** Shipped four tech-debt issues as sequential single-issue commits (#29 split, #28 prose extraction, #30 smoke-test selector fix, #31 posts.ts rename), then wired the existing "Portfolio Website" GitHub Project (#2) into `CLAUDE.md` and backfilled #25–#31 onto the board.
 
 ## What Was Done
 
-### Blog snippet colorization — `src/components/BlogPost.tsx`
-- Swapped all 6 `CodeBlock` uses in `StatuslinePost` to `ClaudeCodeBlock` so the snippets pick up the colored tokenizer (strings emerald, paths indigo, numbers cyan, comments lime). Commit `6579405`.
-- Swapped 2 `CodeBlock` uses in `WarehouseRoutingPost` (Action Space, Pydantic Environment API) to `ClaudeCodeBlock` for the same styling. Commit `d11008b`.
-- The base `CodeBlock` component (declared at `src/components/BlogPost.tsx:13`) is now unreferenced by any post. Left in place as a utility but worth deleting in a cleanup pass if it stays unused.
+### Issue #29 — Split `BlogPost.tsx` into per-slug files (commit `5dec568`)
+- Shrank `src/components/BlogPost.tsx` from 2,673 → 207 lines (router + meta helpers only).
+- Extracted 6 post components to `src/blog/posts/<slug>.tsx` (one per blog post).
+- Moved the slug→component map out to `src/blog/post-registry.ts` to satisfy `react-refresh/only-export-components`.
+- Split shared code-block token regex into `src/components/blog-tokenizer.ts` for the same lint reason.
+- Added regression test `src/blog/posts.registry.test.ts`: slug-drift check + `it.each` mount smoke across all 6 post components.
 
-### New blog post — `OpenEnvPlay2SetupPost`
-- Slug: `openenv-play2-setup`. Title: "Run the Warehouse Robot Experiment on Your Own Computer". 10 min read, dated 2026-04-18, tags `["OpenEnv","Tutorial","Setup","Beginner"]`.
-- Beginner walkthrough of cloning and running https://github.com/mahadevaiahrashmi/play2 locally. Covers: what OpenEnv is in plain English, prerequisites (git / python 3.12+ / docker), clone + `uv sync` (or `pip install -e`), `pytest`, dry-run inference, docker build + run on port 8000, curl poke + browser `/ui`, optional HF-token-driven AI run, HF Spaces deployment, and troubleshooting.
-- Component added at `src/components/BlogPost.tsx:~874`, registered in `postContentBySlug` at the bottom of the file, metadata entry added to `src/blog/posts.ts`. Cross-links to `warehouse-routing-openenv` (technical deep-dive). Commit `d483a45`.
+### Issue #28 — Extract shared prose primitives (commit `3827b1f`)
+- New module `src/components/blog-prose.tsx`: `PostH2`, `PostH3`, `PostP`, `PostUL`, `PostOL`. Append-only `className` contract (caller extras concatenated after base; never replace).
+- Pinned each primitive's exact class string in `src/components/blog-prose.test.tsx` (6 tests) — catches accidental class-string drift.
+- Migrated all 6 post files to import the primitives. Byte-faithful content preserved.
 
-### Drafted-then-deleted beginner post — `warehouse-routing-explained`
-- A beginner-friendly rewrite of the warehouse-routing research post was drafted in-session. User said "delete warehouse-routing-explained blog" — component, posts.ts entry, slug-map registration, and cross-references from `OpenEnvPlay2SetupPost` all removed before any commit. The deletion was never committed separately because the post was never committed in the first place. No trace remains in git history.
-- **Implication:** If a beginner-friendly in-blog companion to the warehouse research post is wanted later, it'll need to be re-drafted from scratch or pulled from jsonl transcript `/home/mahad/.claude/projects/-home-mahad-test-mahadevaiahrashmi-github-io/80de6592-63eb-4a81-8926-49c5272f9256.jsonl`.
+### Issue #30 — Fix ambiguous smoke-test link selector (commit `25e2060`)
+- `src/App.smoke.test.tsx` "renders blog index" now queries by `href="/blog/warehouse-routing-openenv"` instead of title regex (two posts matched the old regex once `build-warehouse-routing-openenv` landed).
 
-### Commits this session (all pushed to `origin/main`)
-- `6579405 style(blog): colorize code snippets in statusline post`
-- `d11008b style(blog): colorize code snippets in warehouse-routing post`
-- `d483a45 feat(blog): add OpenEnv play2 setup walkthrough for beginners`
+### Issue #31 — Rename `posts.ts` → `post-metadata.ts` (commit `731161f`)
+- Eliminates `src/blog/posts.ts` vs. `src/blog/posts/` naming collision. Updated imports in `App.tsx`, `BlogList.tsx`, `BlogPost.tsx`, `posts.registry.test.ts`.
+
+### Board wire-up (commit `544e9c5`)
+- Discovered the GitHub Project "Portfolio Website" (#2, owner `mahadevaiahrashmi`) already existed with all 5 required statuses configured.
+- Populated `CLAUDE.md` tracking block with project-number, project-owner, project-node-id, status-field-id, and all 5 status option IDs (eliminates per-session field-list lookups).
+- Added #25, #26, #27 to the board as **Backlog**.
+- Backfilled #28, #29, #30, #31 to the board as **Done** for history.
 
 ## Current State
 - **Branch:** `main` — clean, in sync with `origin/main`.
-- **Last commit:** `d483a45 feat(blog): add OpenEnv play2 setup walkthrough for beginners`.
+- **Last commit:** `544e9c5 chore: wire Portfolio Website project board into CLAUDE.md`.
 - **Uncommitted changes:** none.
-- **Tests:** type-check (`npx tsc --noEmit`) clean after each commit. Vitest not re-run this session — all changes are content, no logic touched.
-- **Board status:** still no GitHub Project board. `CLAUDE.md:102-103` `project-number` / `project-owner` still commented out — inherited blocker from prior handoff, unchanged.
-- **Deploy:** push to `main` triggers `.github/workflows/deploy.yml` (~40s). All three new commits should land on the live site after that window.
-- **Blog index:** 5 posts total. Order: `warehouse-routing-openenv`, `openenv-play2-setup` (new), `richfeyn-smart-jar`, `claude-code-statusline`, `claude-style-replication`.
+- **Tests:** 17 passing across 3 test files (`blog-prose.test.tsx` 6, `App.smoke.test.tsx` 4, `posts.registry.test.ts` 7).
+- **Board status:** 22 items on project #2. 19 Done + 3 Backlog (#25, #26, #27). Pre-flight check now passes — Grace can issue transitions directly using the cached IDs in `CLAUDE.md`.
 
 ## Sprint Progress
-- **Wave plan:** none active.
-- **Current wave:** n/a — this was an ad-hoc content session, not sprint-scoped.
-- **Issues completed this session:** none (no board).
-- **Issues remaining in wave:** n/a.
-- **Next wave / Sprint 4:** still not planned. Inherited "decide on board setup" decision from the prior handoff remains open.
+- **Wave plan:** none. `docs/sprints/` does not exist; prior plans lived in `docs/plans/` and are all closed.
+- **Current wave:** n/a.
+- **Issues completed this session:** #29, #28, #30, #31.
+- **Issues remaining:** #25, #26, #27 (all Backlog, all open).
+- **Next wave / Sprint 4:** not yet planned. User was offered Sprint 4 kickoff at end of session but handed off instead.
 
 ## What To Do Next (in order)
-1. **Read `docs/scaffolds/code-map.md`** to orient. Package layout is unchanged this session.
-2. **Read `docs/product-context.md`** (last updated 2026-04-15 per prior handoffs) for product philosophy.
-3. **Visually verify the three new commits on the live site** once GitHub Pages finishes deploying `d483a45`: open `/blog/openenv-play2-setup`, `/blog/claude-code-statusline`, and `/blog/warehouse-routing-openenv`. The colored snippet rendering in the statusline post's "example status line" block (pipes, `%`, numbers) was not dev-server-verified in this session — worth a visual check. If the styling looks off there, it can be changed to `<ClaudeCodeBlock ... plain>` to fall back to plain monospace while keeping the chrome.
-4. **Consider deleting the now-unused `CodeBlock` helper** at `src/components/BlogPost.tsx:13-68`. No posts reference it any more. Small, low-risk cleanup.
-5. **Unchanged from prior handoff:** decide on board setup (full GitHub Project board / board-free sprint boundary / informal closure). `/sprint-boundary` Step 0 still blocks on missing board config until this is resolved.
-6. **Unchanged from prior handoff:** Sprint 4 planning has not been kicked off. No `docs/plans/sprint-4-plan.md` exists.
-7. **Open tech-debt (inherited, not touched this session):**
-   - Issue #28 — extract `PostH2` / `PostP` primitives to kill Tailwind class duplication across post components. This session's new `OpenEnvPlay2SetupPost` adds yet another copy of the same class strings; the issue is more pressing than before.
-   - Issue #29 — split `BlogPost.tsx` into per-slug files. File is now ~2,136 lines (up from ~1,700+ in the prior handoff).
+1. **Read `docs/scaffolds/code-map.md`** (per `CLAUDE.md` first-line directive) to orient on package layout. Note: `src/components/BlogPost.tsx` is now a router shell (207 lines); post bodies live in `src/blog/posts/*.tsx`; metadata in `src/blog/post-metadata.ts`; slug→component map in `src/blog/post-registry.ts`. Any future code-map update should reflect this.
+2. **Read `docs/product-context.md`** (last updated 2026-04-07 by pat) for product philosophy — conservative scope appetite, no theme/style/font/color changes, ATS-parseable text is a hard requirement.
+3. **Sprint 4 planning / `/sprint-boundary`.** Board is now wired, pre-flight passes. The three open Backlog issues ready to be pulled into Sprint 4:
+   - **#25** — UX: Re-order homepage sections for better conversion
+   - **#26** — CONTENT: Restore hero images to RichFeyn blog
+   - **#27** — UX: Add Live Demo link to Warehouse Routing card
+   Run `/sprint-boundary` to close Sprint 3 formally and scope Sprint 4, OR pick one of the three issues directly and execute under the per-item workflow (Session Entry Protocol still applies: Pat+Grace check, Architecture Gate if any decision, Tara tests first).
+4. **Per-item workflow reminder** (now that the board is live): before writing any code for an issue, move it **Backlog → Ready → In Progress** on the board (cached option IDs are in `CLAUDE.md`). After commit, move to **In Review** for the 3-lens review, then **Done** after the Done Gate. Skipping "In Review" is a process violation per `CLAUDE.md`.
+5. **Optional cleanup:** the `agent-notes` comment on `src/components/BlogPost.tsx:1` still references `posts.registry.test.ts` via a path in its key — verify it still accurately describes the file after the #29/#31 moves. Low priority.
 
 ## Tracking Artifacts
-- `docs/tracking/archive/sprint-1/` — archive only.
-- `docs/plans/sprint-1-plan.md`, `docs/plans/sprint-3-plan.md` — both closed/archived in prior sessions.
-- No new tracking artifacts produced this session.
+- `docs/tracking/archive/sprint-1/2026-04-07-portfolio-website-discovery.md` — archive only.
+- No new tracking artifacts produced this session (tech-debt batch did not require phase artifacts).
+- `docs/product-context.md` — last updated 2026-04-07 by pat.
 
 ## Proxy Decisions (Review Required)
 - None. User was available throughout.
 
 ## Key Context
-- **Blog component file size:** `src/components/BlogPost.tsx` is now ~2,136 lines. Tech-debt #29 for splitting is increasingly worth doing before adding further posts.
-- **`CodeBlock` vs `ClaudeCodeBlock`:** `ClaudeCodeBlock` is now the house style for every post. `CodeBlock` (line 13) has no remaining callers but is still defined. The two components differ in whether the TOKENIZER-driven color classes are applied to the snippet body.
-- **Warehouse experiment blog coverage** is now: `warehouse-routing-openenv` (technical research post, 2025-04-15) + `openenv-play2-setup` (beginner setup walkthrough, 2026-04-18). No "explainer" middle-ground post — that was drafted-then-deleted per user direction.
-- **`OpenEnvPlay2SetupPost` references external docs** (docker.com, python.org, huggingface.co/join, git-scm.com). These are stable URLs, but if one breaks the fix is a one-line edit in the component.
-- **Cross-link shape in `OpenEnvPlay2SetupPost`:** uses `<Link to="/blog/warehouse-routing-openenv">` for the in-app cross-link, `<a href="https://github.com/...">` for external. Follow the same pattern if adding further cross-links.
-- **Prior-session context still relevant:** `.claude/statusline.sh` is the `1.2.1-IST` simplified fork, `jq` is installed, blog post section anchors in `BlogPost.tsx` have shifted because of the new component (use the grep lines from this file rather than the prior handoff's anchors).
-- **Vite + GitHub Pages deploy:** push to `main` triggers `.github/workflows/deploy.yml` (~40s). Hard refresh (Ctrl+Shift+R) to see changes.
-- **`.env` was opened in the IDE** during this session's closeout. It's gitignored (`.env.example` is the template, committed separately). Nothing in this session touched `.env`.
+- **Board IDs are cached in `CLAUDE.md:101-109`.** Don't re-run `gh project field-list` every session — read from there. If the board is ever recreated, the cached IDs become stale and must be refreshed.
+- **Blog architecture is now modular.** Adding a new post = (1) append entry to `src/blog/post-metadata.ts`, (2) create `src/blog/posts/<slug>.tsx` using the `blog-prose` primitives + `blog-helpers` components, (3) register in `src/blog/post-registry.ts`. The `posts.registry.test.ts` drift test will fail if steps 1 and 3 don't match.
+- **Shared prose primitives (`blog-prose.tsx`) use append-only `className`.** Caller extras are concatenated after the base string, never replace it. Tests pin the exact class strings — edits there require matching test updates.
+- **`blog-tokenizer.ts` exists only to satisfy `react-refresh/only-export-components`.** Don't re-merge its exports back into `blog-helpers.tsx`.
+- **`postContentBySlug` lives in `post-registry.ts`, not `BlogPost.tsx`.** Same reason — mixing a constant export with a component export in one module trips the lint rule.
+- **Smoke tests:** `App.smoke.test.tsx` queries blog links by `href` attribute, not by text — don't regress this (see #30).
+- **Commit pattern this session:** one issue per commit, message ends with `Closes #N`, `Co-Authored-By: Claude Opus 4.7`. All pushed to `main`; GitHub Pages auto-deploys via `.github/workflows/deploy.yml` (~40s).
+- **Test command:** `npm test` runs vitest in watch-free mode in this environment. Full suite ~13s.
