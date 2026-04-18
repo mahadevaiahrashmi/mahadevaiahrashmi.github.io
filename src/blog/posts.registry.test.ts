@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "regression guard: blogPosts slugs match postContentBySlug keys and each post renders cleanly", deps: ["src/blog/posts.ts", "src/blog/post-registry.ts", "react-router-dom", "@testing-library/react"], state: active, last: "tara@2026-04-18", key: ["protects #29 split of BlogPost.tsx from slug drift and render-time regressions"] }
+// agent-notes: { ctx: "regression guard: blogPosts slugs match postContentBySlug keys and each post renders cleanly", deps: ["src/blog/post-metadata.ts", "src/blog/post-registry.ts", "react-router-dom", "@testing-library/react"], state: active, last: "tara@2026-04-18", key: ["protects #29 split of BlogPost.tsx from slug drift and render-time regressions"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -8,7 +8,7 @@ import { createElement } from "react";
 import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { blogPosts } from "./posts";
+import { blogPosts } from "./post-metadata";
 import { postContentBySlug } from "./post-registry";
 
 describe("blog post registry", () => {

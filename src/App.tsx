@@ -21,7 +21,7 @@ import {
   Target
 } from "lucide-react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { blogPosts } from "./blog/posts";
+import { blogPosts } from "./blog/post-metadata";
 import BlogList from "./components/BlogList";
 import BlogPost from "./components/BlogPost";
 import ThemeToggle from "./components/ThemeToggle";

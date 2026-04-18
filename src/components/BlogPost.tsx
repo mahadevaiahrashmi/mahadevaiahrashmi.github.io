@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "blog post router; registry lives in ../blog/post-registry, post bodies in ../blog/posts/*", deps: ["motion/react", "lucide-react", "react-router-dom", "../blog/posts", "../blog/post-registry", "./ThemeToggle"], state: active, last: "sato@2026-04-18", key: ["#29 split: bodies extracted to per-slug files; registry moved out to satisfy react-refresh lint"] }
+// agent-notes: { ctx: "blog post router; registry lives in ../blog/post-registry, post bodies in ../blog/posts/*", deps: ["motion/react", "lucide-react", "react-router-dom", "../blog/post-metadata", "../blog/post-registry", "./ThemeToggle"], state: active, last: "sato@2026-04-18", key: ["#29 split: bodies extracted to per-slug files; registry moved out to satisfy react-refresh lint"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { blogPosts } from "../blog/posts";
+import { blogPosts } from "../blog/post-metadata";
 import { postContentBySlug } from "../blog/post-registry";
 import ThemeToggle from "./ThemeToggle";
 

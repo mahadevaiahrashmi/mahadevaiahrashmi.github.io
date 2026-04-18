@@ -1,3 +1,4 @@
+// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-04-18", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
