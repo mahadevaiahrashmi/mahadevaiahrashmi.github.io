@@ -25,7 +25,10 @@ describe("core route smoke tests", () => {
   it("renders blog index", () => {
     renderAt("/blog");
     expect(screen.getByRole("heading", { name: "Blog" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Warehouse Routing OpenEnv/i })).toBeInTheDocument();
+    const warehouseLink = screen
+      .getAllByRole("link")
+      .find((el) => el.getAttribute("href") === "/blog/warehouse-routing-openenv");
+    expect(warehouseLink).toBeDefined();
   });
 
   it("renders valid blog post", () => {
