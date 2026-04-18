@@ -1,10 +1,11 @@
-// agent-notes: { ctx: "Claude style replication blog post content", deps: ["../../components/blog-helpers"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split"] }
+// agent-notes: { ctx: "Claude style replication blog post content", deps: ["../../components/blog-helpers", "../../components/blog-prose"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { InlineCode, ClaudeCodeBlock } from "../../components/blog-helpers";
+import { PostH2, PostH3, PostP, PostUL, PostOL } from "../../components/blog-prose";
 
 export default function ClaudeStyleReplicationPost() {
   return (
@@ -17,16 +18,16 @@ export default function ClaudeStyleReplicationPost() {
         Published: April 2026 | Reading Time: ~8 minutes
       </p>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The idea in one paragraph
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         AI coding assistants that run in your terminal — like <strong>Claude Code</strong> (from Anthropic), <strong>Gemini CLI</strong> (from Google), and <strong>Codex CLI</strong> (from OpenAI) — are basically "chat with an AI that can also read and write the files on your laptop." A useful feature Anthropic shipped early is a <em>voice switcher</em>: a single command lets you tell Claude "just do it, no chatter" or "explain your thinking as you go" or "teach me — make me write the code myself." The other two tools don't ship this feature by default. The good news: you can add it yourself in about five minutes of copy-paste. This post shows you how, in plain language.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What are these three voices?
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Claude Code calls them <em>output styles</em>. Here's what the menu looks like inside Claude Code:
       </p>
@@ -38,18 +39,18 @@ export default function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Think of these as three moods you can put your helper in, depending on what you're doing:
       </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      <PostUL>
         <li><strong>Default</strong> — the quick, efficient mode. You say "add dark mode to the settings page"; it adds dark mode. Minimal chatter. Best when you know exactly what you want and just need it done.</li>
         <li><strong>Explanatory</strong> — the thoughtful colleague mode. Same task, but the helper explains <em>why</em> it picked a particular approach, what trade-offs matter, and how the change fits the rest of the codebase. Best when you're learning a new project or reviewing unfamiliar code.</li>
         <li><strong>Learning</strong> — the patient tutor mode. The helper breaks the task into bite-sized pieces, explains one piece, then <em>stops</em> and asks you to write that piece yourself. It reviews your attempt and guides you to the next step. Best when you want to genuinely improve your skills, not just get the job done.</li>
-      </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostUL>
+      <PostP>
         Inside Claude Code you switch modes with <InlineCode>/output-style explanatory</InlineCode> (or similar). Gemini and Codex don't have a button like this. So what we're going to do is create our own version — three little "presets" you can summon with a short command.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         When to use which voice — a cheat sheet
-      </h2>
+      </PostH2>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
           <thead>
@@ -79,23 +80,23 @@ export default function ClaudeStyleReplicationPost() {
         </table>
       </div>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Set it up in Gemini CLI
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Gemini CLI has a really handy feature: you can invent your own <strong>slash commands</strong>. <InlineCode>/explain</InlineCode> and <InlineCode>/learn</InlineCode> don't exist by default — but after this setup, they will, and they'll do exactly what their names suggest.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         Each command lives as a small file in a folder Gemini watches. The file just holds a short note saying "when this command is used, behave this way." No programming, no bash. Ready? Open your terminal and follow along.
-      </p>
+      </PostP>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1 — Make the folder where commands live</h3>
+      <PostH3>Step 1 — Make the folder where commands live</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Copy-paste this and press Enter. It creates an empty folder inside your home directory called <InlineCode>.gemini/commands</InlineCode>:
       </p>
       <ClaudeCodeBlock title="create the folder">{`mkdir -p ~/.gemini/commands`}</ClaudeCodeBlock>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2 — Create three tiny files, one per voice</h3>
+      <PostH3>Step 2 — Create three tiny files, one per voice</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-serif">Each file is a few lines of plain text. Create them one at a time in any text editor (VS Code, TextEdit, Notepad — anything). Save each one into the folder you just made, with the exact filename shown below.</p>
 
       <div className="space-y-8 font-serif">
@@ -160,7 +161,7 @@ Act like a patient coding instructor for hands-on learning.
         What is <InlineCode>{"{{args}}"}</InlineCode>? It's a placeholder. Whatever you type after the command name gets slotted in. So typing <InlineCode>/explain refactor the login page</InlineCode> sends your task ("refactor the login page") into that slot, and the voice preset wraps around it.
       </p>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3 — Try them out</h3>
+      <PostH3>Step 3 — Try them out</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Start Gemini CLI (just type <InlineCode>gemini</InlineCode>) and try any of these:
       </p>
@@ -169,18 +170,18 @@ Act like a patient coding instructor for hands-on learning.
 /learn implement user sign-up with email verification
 /default add a dark-mode toggle to the settings panel`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         That's it — you now have three voices. Switch anytime mid-conversation. If a command is unrecognised, type <InlineCode>/commands reload</InlineCode> to make Gemini pick up the new files.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Set it up in Codex CLI
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Codex CLI takes a slightly different approach: instead of slash commands, it has <strong>profiles</strong>. A profile is a named bundle of settings — think of it like switching between "work email" and "personal email" on your phone. We'll create three profiles, one per voice, and switch between them with a flag.
-      </p>
+      </PostP>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1 — Edit Codex's settings file</h3>
+      <PostH3>Step 1 — Edit Codex's settings file</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Codex keeps its settings in <InlineCode>~/.codex/config.toml</InlineCode>. If the file doesn't exist yet, create it. Open it in a text editor and paste this in:
       </p>
@@ -198,16 +199,16 @@ personality = "friendly"
 approval_mode = "read-only"`}
       </ClaudeCodeBlock>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         What you just did: told Codex "here are three named setups." <InlineCode>personality</InlineCode> controls the tone. <InlineCode>approval_mode</InlineCode> controls whether Codex auto-applies changes (<InlineCode>auto</InlineCode>) or only suggests them (<InlineCode>read-only</InlineCode>). The learning profile uses <InlineCode>read-only</InlineCode> on purpose — you're the one writing code in that mode, not Codex.
-      </p>
+      </PostP>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2 — Add the "how to behave" notes per project</h3>
+      <PostH3>Step 2 — Add the "how to behave" notes per project</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">Profiles set the tone, but we also want Codex to follow specific instructions in each mode. Codex reads a file called <InlineCode>AGENTS.md</InlineCode> from your project folder and treats it like a standing brief. Create the following short Markdown files in the root of any project where you want these voices available:</p>
 
       <div className="space-y-8 font-serif">
         <div>
-          <h4 className="text-sm font-serif uppercase tracking-widest opacity-60 mb-2 font-bold underline font-serif">AGENTS-explain.md</h4>
+          <h4 className="text-sm font-serif uppercase tracking-widest opacity-60 mb-2 font-bold underline">AGENTS-explain.md</h4>
           <ClaudeCodeBlock title="AGENTS-explain.md" plain>
 {`You are now in Explanatory mode.
 
@@ -222,7 +223,7 @@ For this task:
         </div>
 
         <div>
-          <h4 className="text-sm font-serif uppercase tracking-widest opacity-60 mb-2 font-bold underline font-serif">AGENTS-learn.md</h4>
+          <h4 className="text-sm font-serif uppercase tracking-widest opacity-60 mb-2 font-bold underline">AGENTS-learn.md</h4>
           <ClaudeCodeBlock title="AGENTS-learn.md" plain>
 {`You are now in Learning/Mentor mode.
 
@@ -237,7 +238,7 @@ For this task:
         </div>
       </div>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3 — Start Codex in the voice you want</h3>
+      <PostH3>Step 3 — Start Codex in the voice you want</PostH3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Launch Codex with a profile flag, and it'll use that voice for the whole session:
       </p>
@@ -255,9 +256,9 @@ codex --profile default`}
         Inside a Codex session, you can also switch mid-conversation with <InlineCode>/profile explanatory</InlineCode> (no restart required).
       </p>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Want to skip all the typing? Use a one-click script
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         If creating each file manually sounds tedious, the scripts below create everything for you in one go. Each one is a small shell script — just three steps:
       </p>
@@ -270,7 +271,7 @@ codex --profile default`}
         Everything else is taken care of. You can safely re-run the script if something goes wrong — it'll overwrite the files with fresh copies.
       </p>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent text-center font-serif">Gemini CLI Setup Script</h3>
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent text-center">Gemini CLI Setup Script</h3>
       <ClaudeCodeBlock title="Gemini Setup Script (Bash)">
 {`mkdir -p ~/.gemini/commands && cat > ~/.gemini/commands/default.toml << 'EOF'
 description = "Default concise and efficient mode"
@@ -322,7 +323,7 @@ EOF
 echo "Gemini CLI styles installed. Run /commands reload to activate."`}
       </ClaudeCodeBlock>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent text-center font-serif">Codex CLI Setup Script</h3>
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent text-center">Codex CLI Setup Script</h3>
       <ClaudeCodeBlock title="Codex Setup Script (Bash)" codexScript>
 {`# Create Codex config directory and backup existing config
 mkdir -p ~/.codex
@@ -390,21 +391,21 @@ Usage:
   2. Add AGENTS-*.md files to your project root for persistent context"`}
       </ClaudeCodeBlock>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
+      <PostH2>
         How to run the script step by step
-      </h2>
-      <ol className="list-decimal pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      </PostH2>
+      <PostOL>
         <li><strong>Create an empty file</strong> called <InlineCode>setup-cli-styles.sh</InlineCode> — in any text editor, on your Desktop, or wherever is convenient.</li>
         <li><strong>Copy the relevant script above</strong> (Gemini or Codex) and paste it into that file. Save.</li>
         <li><strong>Open a terminal</strong> and navigate to the file's folder (for example, <InlineCode>cd ~/Desktop</InlineCode> if you saved it there).</li>
         <li><strong>Run it</strong> by typing: <InlineCode>bash setup-cli-styles.sh</InlineCode></li>
         <li><strong>Check the result</strong>. For Gemini, type <InlineCode>ls ~/.gemini/commands/</InlineCode> — you should see three files. For Codex, type <InlineCode>cat ~/.codex/config.toml</InlineCode> — you should see the three profiles.</li>
         <li><strong>Use it</strong>. Start Gemini with <InlineCode>gemini</InlineCode> and run <InlineCode>/commands reload</InlineCode>; start Codex with <InlineCode>codex --profile explanatory</InlineCode>.</li>
-      </ol>
+      </PostOL>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
+      <PostH2>
         Which tool should you use?
-      </h2>
+      </PostH2>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
           <thead>
@@ -459,9 +460,9 @@ Usage:
         </ul>
       </div>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
+      <PostH2>
         If something goes wrong
-      </h2>
+      </PostH2>
       <div className="space-y-6 font-serif">
         <div>
           <h3 className="text-lg font-bold mb-2 text-anthropic-accent underline font-serif">Gemini CLI</h3>
@@ -481,15 +482,15 @@ Usage:
         </div>
       </div>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
+      <PostH2>
         That's it — you've got three voices
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Claude Code got this feature first, but after a few minutes of setup, Gemini and Codex match it. The real benefit isn't the feature itself — it's the reminder that these tools are genuinely customisable. You're not locked into whatever mood the vendor decided was the default. If you want your coding helper to pause and teach you, just tell it to. Save that instruction as a command or a profile, and never re-type it.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         Start in whichever voice fits today's task, switch when the task changes. The whole point of a voice switcher is that no single voice is right all the time.
-      </p>
+      </PostP>
 
       <div className="mt-16 pt-8 border-t border-anthropic-text/10 opacity-60 text-sm font-serif">
         <p className="font-bold mb-4 font-serif">Resources:</p>

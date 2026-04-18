@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Warehouse Routing OpenEnv blog post content", deps: ["lucide-react", "../../components/blog-helpers"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split"] }
+// agent-notes: { ctx: "Warehouse Routing OpenEnv blog post content", deps: ["lucide-react", "../../components/blog-helpers", "../../components/blog-prose"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -6,6 +6,7 @@
 
 import { ExternalLink } from "lucide-react";
 import { InlineCode, ClaudeCodeBlock, Card, ColdOpenPanel } from "../../components/blog-helpers";
+import { PostH2 } from "../../components/blog-prose";
 
 export default function WarehouseRoutingPost() {
   return (
@@ -19,9 +20,9 @@ export default function WarehouseRoutingPost() {
       </p>
 
       {/* Cold Open */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Oracle vs Frontier Llama, Cold
-      </h2>
+      </PostH2>
 
       <div className="flex gap-4 my-6 flex-wrap">
         <ColdOpenPanel
@@ -62,9 +63,9 @@ export default function WarehouseRoutingPost() {
       </p>
 
       {/* The Gap */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The Gap
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         Classical TSP solvers — Held-Karp, Lin-Kernighan, Concorde — are decades-old and effectively perfect on small instances. If you hand a model the SKU coordinates, the obstacles, and the warehouse, you don't need a language model at all; you call <InlineCode>python_tsp</InlineCode> and you're done. That's exactly what our oracle does, which is why it scores 1.000.
@@ -79,9 +80,9 @@ export default function WarehouseRoutingPost() {
       </p>
 
       {/* What a Warehouse Robot Actually Does */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What a Warehouse Robot Actually Does
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         An autonomous mobile robot in a fulfillment center has a deceptively simple loop: pick up packing material at the warehouse, drive to each SKU pick location in some order, then return to the packing station. The hard part is the ordering — visiting <InlineCode>n</InlineCode> SKUs has <InlineCode>n!</InlineCode> possible tours, and the floor is full of static obstacles (shelves, conveyors, charging stations) that constrain which paths are even possible.
@@ -110,9 +111,9 @@ Action(move="W")  # west  (col - 1)`}
       </p>
 
       {/* Built on OpenEnv */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Built on OpenEnv
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         <a href="https://github.com/meta-pytorch/OpenEnv" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline inline-flex items-center gap-1">
@@ -144,9 +145,9 @@ obs = env.step(Action(move="E"))
       </p>
 
       {/* Reward Architecture */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Reward Architecture
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         Three components combine on every step. The constants live in <InlineCode>reward.py</InlineCode> and are deliberately small so the shaping doesn't dominate the terminal score:
@@ -200,9 +201,9 @@ obs = env.step(Action(move="E"))
       </p>
 
       {/* Curriculum */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Curriculum: Easy → Medium → Hard
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         warehouse-routing ships with a deterministic curriculum runner. The agent starts on Easy (small grid, few SKUs, no obstacles) and must master a tier — three successful variations in a row — before the runner promotes it to Medium and then Hard. Within a tier, every variation is generated from a deterministic seed so runs are reproducible.
@@ -213,9 +214,9 @@ obs = env.step(Action(move="E"))
       </p>
 
       {/* Baselines */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Baselines
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">Three policies frame the learning space:</p>
 
@@ -261,9 +262,9 @@ obs = env.step(Action(move="E"))
       </p>
 
       {/* What the Llama Baseline Did Wrong */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What the Llama Baseline Did Wrong
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         We ran <InlineCode>inference.py</InlineCode> against Groq's <InlineCode>llama-3.3-70b-versatile</InlineCode> with the default prompt: a system message describing the task and the current observation as JSON. Three failure modes accounted for the 0.000 score.
@@ -322,9 +323,9 @@ assistant: N`}
       </p>
 
       {/* The Learning Space */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The Learning Space
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">The interesting region is between the two zero-scoring baselines and the perfect oracle:</p>
 
@@ -377,9 +378,9 @@ assistant: N`}
       </p>
 
       {/* Next Steps */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Next Steps
-      </h2>
+      </PostH2>
 
       <div className="space-y-6">
         <div>
@@ -409,9 +410,9 @@ assistant: N`}
       </div>
 
       {/* Try It Yourself */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Try It Yourself
-      </h2>
+      </PostH2>
 
       <p className="text-lg leading-relaxed opacity-90 mb-6">
         The environment runs on Hugging Face Spaces as a Docker image. The default <InlineCode>/web</InlineCode> route was the openenv-stock Gradio interface; we re-pointed the App tab to <InlineCode>/ui</InlineCode>, our SVG grid viewer, so the landing page shows the world directly:
@@ -433,9 +434,9 @@ assistant: N`}
       </ul>
 
       {/* Discussion */}
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Discussion
-      </h2>
+      </PostH2>
 
       <div className="space-y-6">
         <div>

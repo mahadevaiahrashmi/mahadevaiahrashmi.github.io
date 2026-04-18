@@ -1,8 +1,10 @@
-// agent-notes: { ctx: "RichFeyn Smart Jar blog post content", deps: [], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split"] }
+// agent-notes: { ctx: "RichFeyn Smart Jar blog post content", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
+
+import { PostH2, PostP } from "../../components/blog-prose";
 
 export default function RichFeynPost() {
   return (
@@ -26,21 +28,21 @@ export default function RichFeynPost() {
         <p className="text-sm opacity-50 mt-4 text-center italic">A quick demonstration of the RichFeyn Smart Jar ecosystem.</p>
       </div>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         In the fast-paced world of modern living, time is the most precious commodity. Yet, we still spend hours every month on the most repetitive of tasks: checking kitchen supplies, writing shopping lists, and hopping between multiple delivery apps.
-      </p>
+      </PostP>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         <strong>RichFeyn</strong> was founded with a single, powerful mission: to redefine what's possible by streamlining and automating these daily routines. Our flagship product, the <strong>Smart Jar</strong>, is the first step toward a truly autonomous kitchen.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Never Run Out Again
-      </h2>
+      </PostH2>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         The RichFeyn Smart Jar isn't just a container; it's an intelligent inventory management system. By combining custom IoT hardware with computer vision and natural language processing, we created a device that knows exactly how much you have left and knows exactly when to get more.
-      </p>
+      </PostP>
 
       <div className="grid md:grid-cols-3 gap-6 my-12">
         <div className="p-6 bg-anthropic-text/5 border border-anthropic-text/10 rounded-xl">
@@ -57,22 +59,22 @@ export default function RichFeynPost() {
         </div>
       </div>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The Technology Behind the Jar
-      </h2>
+      </PostH2>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         Building a "set and forget" experience required a sophisticated tech stack. We utilized <strong>Computer Vision</strong> to accurately track inventory levels without requiring user input. Our backend uses <strong>NLP</strong> to process restocking prompts and interface with various grocery retailers autonomously.
-      </p>
+      </PostP>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         Whether it's transforming phone camera images into professional visuals for SMEs or building cross-platform mobile apps with Python and React Native to automate household orders, RichFeyn has always been about applying cutting-edge AI to real-world problems.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         See It In Action
-      </h2>
-      
+      </PostH2>
+
       <div className="my-12">
         <img
           src="/blog-assets/richfeyn.png"
@@ -82,13 +84,13 @@ export default function RichFeynPost() {
         <p className="text-sm opacity-50 mt-4 text-center italic">The RichFeyn Smart Jar: Your kitchen, automated.</p>
       </div>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The Future of Living
-      </h2>
+      </PostH2>
 
-      <p className="text-lg leading-relaxed opacity-90 mb-6">
+      <PostP>
         RichFeyn is more than a smart jar company. It's a partner in simplifying and enhancing everyday life. We believe that by automating the mundane, we empower people to thrive in a fast-paced world and focus on what truly matters.
-      </p>
+      </PostP>
     </>
   );
 }

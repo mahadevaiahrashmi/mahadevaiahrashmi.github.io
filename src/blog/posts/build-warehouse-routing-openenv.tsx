@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Build-from-scratch warehouse routing OpenEnv tutorial blog post content", deps: ["lucide-react", "react-router-dom", "../../components/blog-helpers"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split"] }
+// agent-notes: { ctx: "Build-from-scratch warehouse routing OpenEnv tutorial blog post content", deps: ["lucide-react", "react-router-dom", "../../components/blog-helpers", "../../components/blog-prose"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -7,6 +7,7 @@
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InlineCode, ClaudeCodeBlock } from "../../components/blog-helpers";
+import { PostH2, PostP, PostUL, PostOL } from "../../components/blog-prose";
 
 export default function BuildWarehouseRoutingPost() {
   return (
@@ -19,32 +20,32 @@ export default function BuildWarehouseRoutingPost() {
         How the <Link to="/blog/warehouse-routing-openenv" className="text-anthropic-accent hover:underline">Warehouse Routing OpenEnv</Link> was built — explained so a high schooler can read it, understand it, and build their own copy in an afternoon.
       </p>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What you'll build, in one paragraph
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         A small Python project that draws a tiny warehouse on a grid, drops in a pretend robot, and turns the whole thing into a <strong>web service any AI can talk to</strong>. The AI sends "move north" or "move east" — your service moves the robot, hands back what it sees, and gives it a number that says "good job" or "bad idea." That's it. Five short files, around 150 lines of Python. The same shape that <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">play2</a> uses for the real research — just trimmed down so you can read every line.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         <strong>What's assumed:</strong> you can install Python and you've typed at least one command into a terminal. That's all. We'll explain Pydantic, FastAPI, and the OpenEnv contract as they appear.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What is an "environment"?
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Think of an <strong>environment</strong> the way a sports coach thinks about a <em>training ground</em>. The athlete (an AI) shows up and practices; the training ground decides what happens. The athlete punts the ball — the ground says where it lands. The athlete sinks a putt — the ground says "+1 point." The athlete trips over their own feet — the ground says "−1 point." After the session, the athlete (hopefully) plays better.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         Our training ground is a 6×6 warehouse. The athlete is some AI. What we're building is the <em>ground</em>: the rules of the world, the score-keeper, and the doorway the athlete walks through to use it.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Agent vs environment — the two roles
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Two characters, that's it. The whole field of AI training pivots on the line between them, so it's worth getting the names straight up front.
-      </p>
+      </PostP>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
           <thead>
@@ -68,50 +69,50 @@ export default function BuildWarehouseRoutingPost() {
           </tbody>
         </table>
       </div>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         Crucially, <strong>they live on opposite sides of a wall</strong>. The agent never reaches into the environment to read its private variables; the environment never reads the agent's private thoughts. They only ever exchange two things — an observation and an action — through a fixed doorway. That doorway is what OpenEnv standardizes.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         Why be so strict? Because if an environment can be talked to in <em>exactly one way</em>, then any agent that knows that way can practice in any environment. Swap the warehouse for a chess board; swap the language model for a tiny neural network; the wall doesn't move. Standards make experiments comparable.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The reinforcement-learning loop, in plain English
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         Think about how you learned to ride a bike. Nobody handed you a manual. You wobbled, fell, got back up, leaned a different way, and slowly your brain figured out which moves kept you upright. That's <strong>reinforcement learning (RL)</strong> in one paragraph: try a thing, see what happens, get a feeling about how well that went, and over many tries, do more of what worked.
-      </p>
+      </PostP>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Formally, it's a four-step loop that repeats until the round is over:
       </p>
-      <ol className="list-decimal pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      <PostOL>
         <li><strong>Observe.</strong> The agent sees the current state of the world (where the robot is, where the shelves are, which ones are still unvisited).</li>
         <li><strong>Act.</strong> The agent picks an action from its allowed list (here: N, S, E, or W).</li>
         <li><strong>Receive.</strong> The environment applies the action and hands back a new observation, a reward number, and a "is the round over?" flag.</li>
         <li><strong>Learn (optional).</strong> If the agent is a learning algorithm, it updates its strategy: actions that led to high rewards get a bit more likely; actions that led to low rewards get a bit less likely.</li>
-      </ol>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostOL>
+      <PostP>
         Repeat. Then repeat across thousands of rounds. The point of an environment is to make this loop <em>cheap</em>: a real warehouse robot can fall over a hundred times before lunch and break itself; a simulated robot can fall over a million times before lunch and just print a log line.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         A few words you'll see in any RL paper, all of which we just defined:
-      </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      </PostP>
+      <PostUL>
         <li><strong>Episode</strong> — one round, from <InlineCode>reset</InlineCode> until <InlineCode>done=true</InlineCode>.</li>
         <li><strong>Policy</strong> — the agent's current strategy. "If I see X, do Y." For a language model, the policy is the model itself.</li>
         <li><strong>Return</strong> — the total reward an agent collects across one episode. Maximizing this, on average, is the whole goal.</li>
         <li><strong>Reward shaping</strong> — picking the small per-step rewards (like <InlineCode>−0.01</InlineCode> per move and <InlineCode>+0.10</InlineCode> per shelf visited) so the agent gets useful feedback before the round ends. Done badly, agents learn to game the shape rather than win the game; we'll see why this matters in <InlineCode>reward.py</InlineCode>.</li>
-      </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostUL>
+      <PostP>
         That's the conceptual backdrop. Now back to the contract that lets the agent and environment actually talk.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The three-rule contract OpenEnv asks for
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         <a href="https://github.com/meta-pytorch/OpenEnv" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">OpenEnv</a> is Meta's standard for "training grounds." It only asks for three things, and every environment in the world has to answer them the same way:
-      </p>
+      </PostP>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
           <thead>
@@ -140,13 +141,13 @@ export default function BuildWarehouseRoutingPost() {
           </tbody>
         </table>
       </div>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         That's the entire contract. Any AI that knows OpenEnv can talk to any environment that follows it — your warehouse robot today, a chess board tomorrow, a fake browser the day after. The "plug shape" is the same.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         The five-file game plan
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Each file has one job. Read top to bottom and the project unfolds in order:
       </p>
@@ -158,13 +159,13 @@ export default function BuildWarehouseRoutingPost() {
   env.py        # plug models + sim + reward into the OpenEnv shape
   server.py     # turn env.py into a real web service`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         That's the same split <a href="https://github.com/mahadevaiahrashmi/play2/tree/main/src/warehouse_routing" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">play2 uses in production</a> — they have a few extra files for harder grids, optimal-path math, and a curriculum, but the core is these five.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         How the pieces fit together
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Same five files, drawn as a picture. The agent on the left is whatever AI you point at the service; the dashed box on the right is everything you're about to build:
       </p>
@@ -225,13 +226,13 @@ export default function BuildWarehouseRoutingPost() {
           <line x1="590" y1="211" x2="590" y2="228" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1.4" markerEnd="url(#bw-arrow-faint)" />
         </svg>
       </div>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         Read the diagram top-down inside the dashed box: <strong>env.py</strong> sits on top because it's the public face — the OpenEnv contract. It delegates the actual move to <strong>sim.py</strong>, which uses the data shapes from <strong>models.py</strong> and asks <strong>reward.py</strong> for a number on the way out. The arrows on the left are the only thing the AI agent ever sees — pure HTTP, in and out.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 0 — Make a folder and install the ingredients
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         You'll need <strong>Python 3.12 or newer</strong>. Check with <InlineCode>python --version</InlineCode>; if it's older, grab the latest from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">python.org/downloads</a>. Then in a terminal:
       </p>
@@ -245,24 +246,24 @@ pip install pydantic fastapi uvicorn "openenv-core[core]>=0.2.2"`}
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         What each ingredient does:
       </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      <PostUL>
         <li><strong>pydantic</strong> — describes the shape of your data and yells loudly if anyone sends garbage. Like a bouncer for JSON.</li>
         <li><strong>fastapi</strong> — turns Python functions into web endpoints. Used internally by OpenEnv.</li>
         <li><strong>uvicorn</strong> — the actual web server that runs your FastAPI app.</li>
         <li><strong>openenv-core</strong> — Meta's library. Gives you a base class to fill in, then builds the standard <InlineCode>/reset</InlineCode>, <InlineCode>/step</InlineCode>, <InlineCode>/state</InlineCode> endpoints for free.</li>
-      </ul>
+      </PostUL>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 1 — Describe the world (<InlineCode>models.py</InlineCode>)
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Before anything moves, we need to say <em>what the world looks like</em>. Three small data shapes:
       </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+      <PostUL>
         <li><InlineCode>Cell</InlineCode> — a single grid square: a row and a column.</li>
         <li><InlineCode>Observation</InlineCode> — the snapshot the robot sees: grid size, where the warehouse is, where the SKUs are, where the robot is, which SKUs it's already visited.</li>
         <li><InlineCode>Action</InlineCode> — what the robot is allowed to do: move N, S, E, or W.</li>
-      </ul>
+      </PostUL>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Pydantic lets us describe each shape in a few lines. The <InlineCode>Literal["N", "S", "E", "W"]</InlineCode> bit means "if anyone sends anything other than those four letters, reject it." That single line removes a whole category of bugs.
       </p>
@@ -294,13 +295,13 @@ class Observation(_Observation):
 class Action(_Action):
     move: Move`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         We're inheriting <InlineCode>_Observation</InlineCode> and <InlineCode>_Action</InlineCode> from OpenEnv so our shapes plug into its server. Everything else is regular Pydantic. <InlineCode>Field(ge=0)</InlineCode> means "this number must be ≥ 0" — try sending a row of −5 and Pydantic returns a polite HTTP 422 instead of corrupting your state.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 2 — Make the world tick (<InlineCode>sim.py</InlineCode>)
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         This file holds the rules of physics for our tiny warehouse. Given an action, it figures out where the robot ends up, whether the move was legal, and whether the round is over. No reward math, no AI — just bookkeeping.
       </p>
@@ -355,13 +356,13 @@ class Grid:
         )
         return StepResult(self.obs, invalid=False, newly_visited=newly, done=done)`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         A few things worth pointing out: <InlineCode>model_copy(update=...)</InlineCode> creates a new Observation with some fields replaced — Pydantic objects are immutable on purpose, which means accidental edits become impossible. The "round is over" rule is "all SKUs visited <em>and</em> back at the warehouse." Going home before visiting everything doesn't count.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 3 — Score the robot (<InlineCode>reward.py</InlineCode>)
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         After every move, the robot wants a number. A good number means "do more of that"; a bad one means "stop." Picking the right numbers is more art than science — too generous and the robot learns to stall for partial credit, too stingy and it never figures out what works. The play2 reward function uses four constants:
       </p>
@@ -420,13 +421,13 @@ def compute_reward(result: StepResult, optimal_length: int) -> float:
             reward += -0.20                     # ran out of time
     return reward`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         For our toy version, <InlineCode>optimal_length</InlineCode> can be a fixed number you compute once by hand for the layout — say <strong>10</strong> for the 6×6 grid below. The full play2 repo computes it on the fly using a classical algorithm called Held-Karp; you can read about that in the <Link to="/blog/warehouse-routing-openenv" className="text-anthropic-accent hover:underline">research write-up</Link>.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 4 — Plug into OpenEnv (<InlineCode>env.py</InlineCode>)
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         OpenEnv gives us a base class called <InlineCode>Environment</InlineCode> with two empty methods: <InlineCode>reset</InlineCode> and <InlineCode>step</InlineCode>. We fill them in, and OpenEnv handles the HTTP plumbing.
       </p>
@@ -478,13 +479,13 @@ class MiniWarehouseEnv(Environment):
     def state(self) -> State:
         return _STATE`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         That's the entire OpenEnv adapter. Everything in <InlineCode>reset</InlineCode> and <InlineCode>step</InlineCode> is your own logic; the base class will take care of turning it into HTTP for you in the next file.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 5 — Serve it on the web (<InlineCode>server.py</InlineCode>)
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         This is the part that turns five files of Python into a real web service. Eight lines:
       </p>
@@ -507,13 +508,13 @@ app = create_app(
       <ClaudeCodeBlock title="start the web service">
 {`uvicorn mini_warehouse.server:app --host 0.0.0.0 --port 8000`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         You should see a banner ending with <InlineCode>Application startup complete</InlineCode>. The training ground is live at <InlineCode>http://localhost:8000</InlineCode>. Leave it running.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Step 6 — Drive it with curl
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Open a <strong>second</strong> terminal. Reset the world and take one step east:
       </p>
@@ -536,23 +537,23 @@ curl -X POST http://localhost:8000/step \\
 # N N N N N W           → return to the warehouse at (0,0)
 # the last response will have done=true and a big positive reward`}
       </ClaudeCodeBlock>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         That's it. You just played the game an AI would play, by hand, against your own server. Anything that can speak HTTP — a Python script, a curl loop, a 70-billion-parameter language model — can do exactly the same dance.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         What you've actually built
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostH2>
+      <PostP>
         A real OpenEnv environment. Not a demo, not a toy — the same plug shape that <a href="https://github.com/mahadevaiahrashmi/play2" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">play2 ships to Hugging Face</a>. Five Python files, around 150 lines, doing five honest jobs: describe the world, run the rules, score the player, plug into the contract, serve it over the web.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      </PostP>
+      <PostP>
         Take a moment for that. People have written entire research papers using environments smaller than this one.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Where the real play2 goes further
-      </h2>
+      </PostH2>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Once your version runs, the play2 repo extends it in five directions. Each one is a single file you can read on its own:
       </p>
@@ -563,13 +564,13 @@ curl -X POST http://localhost:8000/step \\
         <li><strong>Curriculum</strong> (<InlineCode>curriculum.py</InlineCode>) — easy 8×8 grids with no obstacles, then medium 16×16 with some, then hard 24×24 with many. The runner only promotes the AI after three wins in a row at the current level.</li>
         <li><strong>A browser viewer</strong> (<InlineCode>server/ui.py</InlineCode>) — an SVG grid you can drive with arrow keys at <InlineCode>/ui</InlineCode>, no extra libraries.</li>
       </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+      <PostP>
         Add them one at a time. Each one is a self-contained idea, and your existing five files don't have to change much to absorb it.
-      </p>
+      </PostP>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         If something goes wrong
-      </h2>
+      </PostH2>
       <ul className="list-disc pl-6 mb-6 space-y-3 text-lg leading-relaxed opacity-90 font-serif">
         <li><strong><InlineCode>ModuleNotFoundError: mini_warehouse</InlineCode>.</strong> Run uvicorn from the folder <em>above</em> <InlineCode>mini_warehouse/</InlineCode>, not from inside it. The dotted name <InlineCode>mini_warehouse.server</InlineCode> only works if Python can see the folder.</li>
         <li><strong>Pydantic complains "field required: warehouse".</strong> You probably forgot to send <InlineCode>{`-d '{}'`}</InlineCode> on a <InlineCode>/step</InlineCode> request, or the <InlineCode>action</InlineCode> wrapper. The body must look like <InlineCode>{`{"action":{"move":"E"}}`}</InlineCode>, not just <InlineCode>{`{"move":"E"}`}</InlineCode>.</li>
@@ -578,9 +579,9 @@ curl -X POST http://localhost:8000/step \\
         <li><strong>The server starts but <InlineCode>/step</InlineCode> 500s.</strong> Almost always "step before reset." Hit <InlineCode>/reset</InlineCode> first; the server tells you so in the traceback.</li>
       </ul>
 
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+      <PostH2>
         Where to go next
-      </h2>
+      </PostH2>
       <ul className="list-disc pl-6 mb-6 space-y-3 text-lg leading-relaxed opacity-90 font-serif">
         <li><Link to="/blog/openenv-play2-setup" className="text-anthropic-accent hover:underline">Run the full play2 experiment on your laptop</Link> — same shape as what you just built, plus the curriculum, the browser viewer, and an optional AI player. Fifteen minutes.</li>
         <li><Link to="/blog/warehouse-routing-openenv" className="text-anthropic-accent hover:underline">Why a 70B Llama plays this like a random walk</Link> — the research deep-dive. Honest baselines, failure modes, and what the next experiment should be.</li>
