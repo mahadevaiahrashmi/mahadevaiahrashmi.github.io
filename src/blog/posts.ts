@@ -35,6 +35,16 @@ export const blogPosts: BlogPost[] = [
       "The warehouse-robot-vs-AI experiment runs on your laptop in about fifteen minutes. Here's what OpenEnv is, what the play2 repo does, and every copy-paste command you need — no prior Python, Docker, or bash knowledge required.",
   },
   {
+    slug: "build-warehouse-routing-openenv",
+    title: "Build the Warehouse Robot Environment, From Scratch",
+    subtitle: "How the Warehouse Routing OpenEnv was built — explained so a high schooler can read it, understand it, and build their own copy in an afternoon",
+    date: "2026-04-18",
+    readTime: "14 min read",
+    tags: ["OpenEnv", "Tutorial", "Build", "Beginner", "Python"],
+    excerpt:
+      "Five small Python files turn an empty folder into a real OpenEnv environment that any AI can train in. Every line is explained — no prior Pydantic, FastAPI, or reinforcement learning knowledge assumed.",
+  },
+  {
     slug: "richfeyn-smart-jar",
     title: "RichFeyn: Building the Smartest Kitchen",
     subtitle: "Automating the repetitive to make room for what matters",
