@@ -964,7 +964,7 @@ function ClaudeStyleReplicationPost() {
   return (
     <>
       <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight mb-6 leading-tight">
-        Replicating Claude Code's Communication Styles in Gemini CLI & Codex CLI: A Complete Guide
+        Teach Your AI Coding Helper Three Different Voices
       </h1>
 
       <p className="text-lg font-serif italic opacity-60 mb-12">
@@ -972,103 +972,37 @@ function ClaudeStyleReplicationPost() {
       </p>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        Introduction
+        The idea in one paragraph
       </h2>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        If you have used <strong>Claude Code</strong> from Anthropic, you have likely appreciated its elegant communication style selector:
+        AI coding assistants that run in your terminal — like <strong>Claude Code</strong> (from Anthropic), <strong>Gemini CLI</strong> (from Google), and <strong>Codex CLI</strong> (from OpenAI) — are basically "chat with an AI that can also read and write the files on your laptop." A useful feature Anthropic shipped early is a <em>voice switcher</em>: a single command lets you tell Claude "just do it, no chatter" or "explain your thinking as you go" or "teach me — make me write the code myself." The other two tools don't ship this feature by default. The good news: you can add it yourself in about five minutes of copy-paste. This post shows you how, in plain language.
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        What are these three voices?
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Claude Code calls them <em>output styles</em>. Here's what the menu looks like inside Claude Code:
       </p>
       <ClaudeCodeBlock title="Output style" plain>
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}
       </ClaudeCodeBlock>
-
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
-        Claude Code (from Anthropic)
-      </h3>
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
-        It lets you switch how the AI "talks" to you during coding sessions:
+        Think of these as three moods you can put your helper in, depending on what you're doing:
       </p>
       <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li><strong>Default:</strong> Fast, concise, task-focused responses.</li>
-        <li><strong>Explanatory:</strong> Explains choices, patterns, and reasoning in more detail.</li>
-        <li><strong>Learning:</strong> Interactive/mentor style — it pauses and asks you to write small pieces of code for hands-on practice.</li>
+        <li><strong>Default</strong> — the quick, efficient mode. You say "add dark mode to the settings page"; it adds dark mode. Minimal chatter. Best when you know exactly what you want and just need it done.</li>
+        <li><strong>Explanatory</strong> — the thoughtful colleague mode. Same task, but the helper explains <em>why</em> it picked a particular approach, what trade-offs matter, and how the change fits the rest of the codebase. Best when you're learning a new project or reviewing unfamiliar code.</li>
+        <li><strong>Learning</strong> — the patient tutor mode. The helper breaks the task into bite-sized pieces, explains one piece, then <em>stops</em> and asks you to write that piece yourself. It reviews your attempt and guides you to the next step. Best when you want to genuinely improve your skills, not just get the job done.</li>
       </ul>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        You typically switch it with a command like <InlineCode>/output-style explanatory</InlineCode> or via a menu.
-      </p>
-
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
-        Gemini CLI (Google)
-      </h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
-        It does not have these three built-in communication styles. It focuses more on other controls:
-      </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li><strong>Plan Mode</strong> (read-only research/planning before changes — safe for exploration).</li>
-        <li><strong>Approval/safety modes</strong> (e.g., safe/default vs. more autonomous/YOLO).</li>
-        <li><strong>Interactive vs. non-interactive mode</strong> (<InlineCode>-p</InlineCode> for one-shot prompts).</li>
-        <li><strong>Custom system instructions</strong> or slash commands you can define yourself.</li>
-      </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
-        You can influence style by prompting it directly (e.g., "explain your choices" or "act as a tutor and let me code parts myself") or by overriding the core system prompt in advanced setups.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        It's more about workflow modes (planning, autonomy, tools) than changing the "voice" between concise vs. teaching.
-      </p>
-
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
-        Codex CLI (OpenAI)
-      </h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
-        It also does not have the exact Default/Explanatory/Learning trio. Closest things:
-      </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li><strong>Personalities</strong> (e.g., friendly, pragmatic, or custom via config) that affect tone and how collaborative/supportive it feels. You can set a default in <InlineCode>~/.codex/config.toml</InlineCode> or switch with <InlineCode>/personality</InlineCode>.</li>
-        <li><strong>Approval/execution modes</strong> (suggest-only, auto-edit, full-auto, etc.).</li>
-        <li><strong>Verbosity/reasoning controls</strong> in config.</li>
-      </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
-        You can guide it with custom prompts or by asking explicitly for explanations or interactive pairing.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        Codex leans toward configurable autonomy and tone, but not the same structured "learning mentor" mode as Claude.
-      </p>
-
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        But what if you prefer <strong>Gemini CLI</strong> or <strong>Codex CLI</strong>? Do they offer similar flexibility?
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-semibold font-serif">
-        Short answer: Not natively, but with a little setup, you can replicate (and even enhance) these styles in both tools.
-      </p>
-
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-bold text-anthropic-accent font-serif">In this guide, you will learn:</p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li>Why Claude Code's feature is unique</li>
-        <li>How to mimic all three styles in <strong>Gemini CLI</strong></li>
-        <li>How to achieve the same in <strong>Codex CLI</strong></li>
-        <li>Ready-to-copy configuration files and one-command setup scripts</li>
-        <li>Step-by-step instructions to deploy and troubleshoot</li>
-      </ul>
-
-      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        The Short Answer: No Native Equivalent
-      </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        Neither <strong>Gemini CLI</strong> (Google) nor <strong>Codex CLI</strong> (OpenAI) offers the exact three-style toggle found in Claude Code. However, both tools are highly customizable through:
-      </p>
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li>System instructions and persistent context files</li>
-        <li>Custom slash commands or profiles</li>
-        <li>Personality and configuration settings</li>
-        <li>Strategic prompting techniques</li>
-      </ul>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        With the right setup, you can get very close, or even surpass Claude's flexibility in certain workflows.
+        Inside Claude Code you switch modes with <InlineCode>/output-style explanatory</InlineCode> (or similar). Gemini and Codex don't have a button like this. So what we're going to do is create our own version — three little "presets" you can summon with a short command.
       </p>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        Understanding the Three Styles
+        When to use which voice — a cheat sheet
       </h2>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
@@ -1100,17 +1034,23 @@ function ClaudeStyleReplicationPost() {
       </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        Gemini CLI Setup (Google)
+        Set it up in Gemini CLI
       </h2>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        Gemini CLI shines with its support for <strong>custom slash commands</strong> and <strong>GEMINI.md</strong> persistent context files.
+        Gemini CLI has a really handy feature: you can invent your own <strong>slash commands</strong>. <InlineCode>/explain</InlineCode> and <InlineCode>/learn</InlineCode> don't exist by default — but after this setup, they will, and they'll do exactly what their names suggest.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Each command lives as a small file in a folder Gemini watches. The file just holds a short note saying "when this command is used, behave this way." No programming, no bash. Ready? Open your terminal and follow along.
       </p>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1: Create the Commands Directory</h3>
-      <ClaudeCodeBlock title="Setup Directory">{`mkdir -p ~/.gemini/commands`}</ClaudeCodeBlock>
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1 — Make the folder where commands live</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Copy-paste this and press Enter. It creates an empty folder inside your home directory called <InlineCode>.gemini/commands</InlineCode>:
+      </p>
+      <ClaudeCodeBlock title="create the folder">{`mkdir -p ~/.gemini/commands`}</ClaudeCodeBlock>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2: Create Configuration Files</h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-serif">Create three TOML files inside the directory:</p>
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2 — Create three tiny files, one per voice</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-semibold font-serif">Each file is a few lines of plain text. Create them one at a time in any text editor (VS Code, TextEdit, Notepad — anything). Save each one into the folder you just made, with the exact filename shown below.</p>
 
       <div className="space-y-8 font-serif">
         <div>
@@ -1171,28 +1111,33 @@ Act like a patient coding instructor for hands-on learning.
       </div>
 
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-serif">
-        Pro Tip: The <InlineCode>{"{{args}}"}</InlineCode> placeholder automatically injects whatever you type after the command, making <InlineCode>/explain refactor auth</InlineCode> work seamlessly.
+        What is <InlineCode>{"{{args}}"}</InlineCode>? It's a placeholder. Whatever you type after the command name gets slotted in. So typing <InlineCode>/explain refactor the login page</InlineCode> sends your task ("refactor the login page") into that slot, and the voice preset wraps around it.
       </p>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3: Use Your New Commands</h3>
-      <ClaudeCodeBlock title="Example Usage">
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3 — Try them out</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Start Gemini CLI (just type <InlineCode>gemini</InlineCode>) and try any of these:
+      </p>
+      <ClaudeCodeBlock title="example — try these inside Gemini CLI">
 {`/explain refactor the payment service to use async/await
-/learn implement JWT authentication with refresh tokens
-/default add dark mode toggle to the settings panel`}
+/learn implement user sign-up with email verification
+/default add a dark-mode toggle to the settings panel`}
       </ClaudeCodeBlock>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        After switching modes, continue the conversation naturally, or re-use the command anytime to reset context.
+        That's it — you now have three voices. Switch anytime mid-conversation. If a command is unrecognised, type <InlineCode>/commands reload</InlineCode> to make Gemini pick up the new files.
       </p>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        Codex CLI Setup (OpenAI)
+        Set it up in Codex CLI
       </h2>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        Codex CLI uses <strong>profiles</strong>, <strong>personalities</strong>, and <strong>AGENTS.md</strong> files for customization.
+        Codex CLI takes a slightly different approach: instead of slash commands, it has <strong>profiles</strong>. A profile is a named bundle of settings — think of it like switching between "work email" and "personal email" on your phone. We'll create three profiles, one per voice, and switch between them with a flag.
       </p>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1: Update Your Config</h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">Edit <InlineCode>~/.codex/config.toml</InlineCode>:</p>
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 1 — Edit Codex's settings file</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Codex keeps its settings in <InlineCode>~/.codex/config.toml</InlineCode>. If the file doesn't exist yet, create it. Open it in a text editor and paste this in:
+      </p>
       <ClaudeCodeBlock title="config.toml">
 {`[profiles.default]
 personality = "pragmatic"
@@ -1207,8 +1152,12 @@ personality = "friendly"
 approval_mode = "read-only"`}
       </ClaudeCodeBlock>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2: Create Project-Level Style Files</h3>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">In your repository root, add these Markdown files:</p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        What you just did: told Codex "here are three named setups." <InlineCode>personality</InlineCode> controls the tone. <InlineCode>approval_mode</InlineCode> controls whether Codex auto-applies changes (<InlineCode>auto</InlineCode>) or only suggests them (<InlineCode>read-only</InlineCode>). The learning profile uses <InlineCode>read-only</InlineCode> on purpose — you're the one writing code in that mode, not Codex.
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 2 — Add the "how to behave" notes per project</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">Profiles set the tone, but we also want Codex to follow specific instructions in each mode. Codex reads a file called <InlineCode>AGENTS.md</InlineCode> from your project folder and treats it like a standing brief. Create the following short Markdown files in the root of any project where you want these voices available:</p>
 
       <div className="space-y-8 font-serif">
         <div>
@@ -1242,27 +1191,37 @@ For this task:
         </div>
       </div>
 
-      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3: Switch Styles in Practice</h3>
-      <ClaudeCodeBlock title="Practice Commands">
-{`# Switch profile and give task
-/profile explanatory
-implement user login with email verification
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">Step 3 — Start Codex in the voice you want</h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Launch Codex with a profile flag, and it'll use that voice for the whole session:
+      </p>
+      <ClaudeCodeBlock title="pick your voice">
+{`# Explanatory mode — ask Codex to explain before doing
+codex --profile explanatory
 
-/profile learning
-add shipping cost calculation based on weight and distance
+# Learning mode — Codex teaches, you write
+codex --profile learning
 
-# Use personality for tone adjustment
-/personality friendly`}
+# Default mode — fast and quiet
+codex --profile default`}
       </ClaudeCodeBlock>
       <p className="p-4 bg-anthropic-accent/5 border-l-4 border-anthropic-accent my-6 italic opacity-90 font-serif">
-        Learning Mode Pro Tip: The <InlineCode>read-only</InlineCode> approval mode ensures Codex suggests changes rather than auto-applying them, perfect for hands-on practice.
+        Inside a Codex session, you can also switch mid-conversation with <InlineCode>/profile explanatory</InlineCode> (no restart required).
       </p>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
-        One-Command Setup Scripts
+        Want to skip all the typing? Use a one-click script
       </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif font-semibold">
-        For rapid deployment, use these scripts to automatically generate all configuration files.
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        If creating each file manually sounds tedious, the scripts below create everything for you in one go. Each one is a small shell script — just three steps:
+      </p>
+      <ol className="list-decimal pl-6 mb-6 space-y-1 text-lg leading-relaxed opacity-90 font-serif">
+        <li>Create a new file called <InlineCode>setup-cli-styles.sh</InlineCode></li>
+        <li>Paste the contents of the relevant script below</li>
+        <li>Run <InlineCode>bash setup-cli-styles.sh</InlineCode> from your terminal</li>
+      </ol>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Everything else is taken care of. You can safely re-run the script if something goes wrong — it'll overwrite the files with fresh copies.
       </p>
 
       <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent text-center font-serif">Gemini CLI Setup Script</h3>
@@ -1386,19 +1345,19 @@ Usage:
       </ClaudeCodeBlock>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
-        How to Use the Setup Scripts
+        How to run the script step by step
       </h2>
       <ol className="list-decimal pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
-        <li><strong>Create the script file:</strong> <InlineCode>touch setup-cli-styles.sh && nano setup-cli-styles.sh</InlineCode></li>
-        <li><strong>Paste the relevant script</strong> into the editor, save, and exit.</li>
-        <li><strong>Make it executable:</strong> <InlineCode>chmod +x setup-cli-styles.sh</InlineCode></li>
-        <li><strong>Run it:</strong> <InlineCode>./setup-cli-styles.sh</InlineCode></li>
-        <li><strong>Verify installation:</strong> Gemini: <InlineCode>ls -la ~/.gemini/commands/</InlineCode>. Codex: <InlineCode>cat ~/.codex/config.toml</InlineCode>.</li>
-        <li><strong>Activate in CLI:</strong> Gemini: Run <InlineCode>gemini</InlineCode> then <InlineCode>/commands reload</InlineCode>. Codex: Start a session with <InlineCode>codex --profile explanatory</InlineCode>.</li>
+        <li><strong>Create an empty file</strong> called <InlineCode>setup-cli-styles.sh</InlineCode> — in any text editor, on your Desktop, or wherever is convenient.</li>
+        <li><strong>Copy the relevant script above</strong> (Gemini or Codex) and paste it into that file. Save.</li>
+        <li><strong>Open a terminal</strong> and navigate to the file's folder (for example, <InlineCode>cd ~/Desktop</InlineCode> if you saved it there).</li>
+        <li><strong>Run it</strong> by typing: <InlineCode>bash setup-cli-styles.sh</InlineCode></li>
+        <li><strong>Check the result</strong>. For Gemini, type <InlineCode>ls ~/.gemini/commands/</InlineCode> — you should see three files. For Codex, type <InlineCode>cat ~/.codex/config.toml</InlineCode> — you should see the three profiles.</li>
+        <li><strong>Use it</strong>. Start Gemini with <InlineCode>gemini</InlineCode> and run <InlineCode>/commands reload</InlineCode>; start Codex with <InlineCode>codex --profile explanatory</InlineCode>.</li>
       </ol>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
-        Comparison Table
+        Which tool should you use?
       </h2>
       <div className="overflow-x-auto mb-6">
         <table className="w-full text-sm border-collapse font-serif">
@@ -1446,47 +1405,44 @@ Usage:
       </div>
 
       <div className="p-6 bg-slate-50 dark:bg-anthropic-text/5 border border-slate-200 dark:border-anthropic-text/10 rounded-xl my-12 font-serif text-center">
-        <strong className="text-anthropic-accent block mb-2 font-bold font-serif">Recommendation:</strong>
+        <strong className="text-anthropic-accent block mb-2 font-bold font-serif">Quick picks:</strong>
         <ul className="list-disc pl-6 space-y-2 opacity-90 font-semibold font-serif text-left inline-block">
-          <li>Want Claude-like simplicity? Use <strong>Gemini CLI</strong> with custom slash commands</li>
-          <li>Prefer OpenAI ecosystem and personalities? Use <strong>Codex CLI</strong> with profiles</li>
-          <li>Pure teaching focus? Both work; Gemini feels more instructor-like when prompted</li>
+          <li>Want it to feel closest to Claude Code? <strong>Gemini CLI</strong> — the slash commands behave almost identically.</li>
+          <li>Already use ChatGPT or prefer OpenAI? <strong>Codex CLI</strong> — the profile system is simple and robust.</li>
+          <li>Genuinely learning, not just getting a task done? Both work; Gemini tends to feel a little more teacher-like in Learning mode.</li>
         </ul>
       </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
-        Troubleshooting
+        If something goes wrong
       </h2>
       <div className="space-y-6 font-serif">
         <div>
           <h3 className="text-lg font-bold mb-2 text-anthropic-accent underline font-serif">Gemini CLI</h3>
           <ul className="list-disc pl-6 space-y-1 opacity-80 font-serif">
-            <li><strong>Command not recognized:</strong> Ensure you are using a recent version. Run <InlineCode>gemini --version</InlineCode>. Some versions require commands in <InlineCode>~/.config/gemini/commands/</InlineCode> instead.</li>
-            <li><strong>Windows compatibility:</strong> Run in Git Bash, WSL, or a Linux/macOS terminal. PowerShell requires adapting the heredoc syntax.</li>
-            <li><strong>Permission denied:</strong> Run <InlineCode>chmod +x setup-cli-styles.sh</InlineCode> again.</li>
+            <li><strong>"Command not recognised."</strong> First, run <InlineCode>/commands reload</InlineCode> inside Gemini. If that doesn't work, your version may want commands under <InlineCode>~/.config/gemini/commands/</InlineCode> instead of <InlineCode>~/.gemini/commands/</InlineCode> — check which folder exists on your system.</li>
+            <li><strong>Running on Windows?</strong> The setup script uses Unix-style file-creation tricks. Run it inside WSL (Windows Subsystem for Linux) or Git Bash. In plain PowerShell it won't work.</li>
+            <li><strong>"Permission denied" when running the script.</strong> Add <InlineCode>bash </InlineCode> at the start: <InlineCode>bash setup-cli-styles.sh</InlineCode>. That avoids needing to mark the file executable.</li>
           </ul>
         </div>
         <div>
           <h3 className="text-lg font-bold mb-2 text-anthropic-accent underline font-serif">Codex CLI</h3>
           <ul className="list-disc pl-6 space-y-1 opacity-80 font-serif">
-            <li><strong>Profile not applying:</strong> Ensure <InlineCode>config.toml</InlineCode> syntax is valid. Run <InlineCode>codex --help</InlineCode> to verify flag support.</li>
-            <li><strong>AGENTS.md ignored:</strong> Confirm the file is in the exact repository root and named <InlineCode>AGENTS.md</InlineCode>.</li>
-            <li><strong>Read-only mode not working:</strong> Some CLI versions use <InlineCode>approval_mode = "ask"</InlineCode> instead of <InlineCode>"read-only"</InlineCode>.</li>
+            <li><strong>Profile seems to be ignored.</strong> Open <InlineCode>~/.codex/config.toml</InlineCode> and double-check there are no missing quote marks or stray characters. Every setting needs quotes around the value.</li>
+            <li><strong>AGENTS.md not picked up.</strong> Make sure the file sits in the top folder of your project (the same folder your code lives in), and that it's named exactly <InlineCode>AGENTS.md</InlineCode> with that capitalisation.</li>
+            <li><strong>"Read-only" mode doesn't exist.</strong> Older Codex versions call it <InlineCode>ask</InlineCode>. If <InlineCode>"read-only"</InlineCode> throws an error, change it to <InlineCode>"ask"</InlineCode>.</li>
           </ul>
         </div>
       </div>
 
       <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10 font-serif">
-        Final Thoughts
+        That's it — you've got three voices
       </h2>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 italic font-serif">
-        While Claude Code pioneered the intuitive three-style toggle, <strong>Gemini CLI</strong> and <strong>Codex CLI</strong> offer powerful, flexible alternatives that can match, or even exceed, its capabilities with minimal configuration.
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Claude Code got this feature first, but after a few minutes of setup, Gemini and Codex match it. The real benefit isn't the feature itself — it's the reminder that these tools are genuinely customisable. You're not locked into whatever mood the vendor decided was the default. If you want your coding helper to pause and teach you, just tell it to. Save that instruction as a command or a profile, and never re-type it.
       </p>
       <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        The key takeaway? <strong>You do not need to switch tools to get the workflow you want.</strong> With a few config files and smart prompting, you can tailor any AI coding assistant to your learning style, team workflow, or project needs.
-      </p>
-      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
-        Which style do you use most? Default for speed, Explanatory for clarity, or Learning for growth? Share your thoughts or your own custom prompts.
+        Start in whichever voice fits today's task, switch when the task changes. The whole point of a voice switcher is that no single voice is right all the time.
       </p>
 
       <div className="mt-16 pt-8 border-t border-anthropic-text/10 opacity-60 text-sm font-serif">
@@ -1502,10 +1458,214 @@ Usage:
   );
 }
 
+function StatuslinePost() {
+  return (
+    <>
+      <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight mb-6 leading-tight">
+        Claude Code's Status Line, Explained — And How to Set It Up in 5 Minutes
+      </h1>
+
+      <p className="text-lg font-serif italic opacity-60 mb-12">
+        Published: April 2026 | Reading Time: ~8 minutes
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        What is the status line?
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        If you use <strong>Claude Code</strong> — Anthropic's terminal-based coding assistant — there's a little strip of text that sits at the bottom of your terminal, just above where you type. That strip is called the <em>status line</em>. Out of the box it's pretty quiet. With a small one-time setup, it becomes the most useful piece of real estate in your terminal: it tells you which Claude model is answering you, how much of the conversation's memory you've used, and how close you are to Anthropic's usage limits.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Think of it like the fuel gauge and trip meter on a car dashboard. You don't stare at it, but when something feels off — or when a bill arrives at the end of the month — you're very glad it was there. This post explains, in plain English, what each piece of the status line means, why you'd want one, and exactly how to install it on your computer. <strong>No bash experience required.</strong>
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        What you'll see when it's running
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Here's what one live line looks like:
+      </p>
+      <CodeBlock title="example status line">
+{`Opus 4.7 | portfolio@main (+42 -7) | 48k/200k (24%) | effort: med | 5h 31% @18:30 IST | 7d 62% @Apr 24, 09:00 IST`}
+      </CodeBlock>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Read left-to-right, each piece is answering a question you'd otherwise have to stop and check:
+      </p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+        <li><strong>Opus 4.7</strong> — "Which Claude model am I talking to?" Opus is the most capable and the most expensive; Sonnet is the everyday workhorse; Haiku is the fastest and cheapest. A glance here prevents you from racking up Opus bills on a task Sonnet could've handled.</li>
+        <li><strong>portfolio@main (+42 -7)</strong> — "Which folder am I in, and which branch of my code?" The numbers in brackets are the lines you've added and deleted since your last save. If you expected a tiny change and the number looks huge, that's your cue to stop and look.</li>
+        <li><strong>48k/200k (24%)</strong> — "How full is the conversation's short-term memory?" Claude can only remember so many words at once. When this bar climbs past 80% or so, responses start getting slower and older details can fall out. The percentage goes green → yellow → orange → red as it fills up.</li>
+        <li><strong>effort: med</strong> — "How hard is Claude thinking?" A setting you control. <em>Low</em> is snappy, <em>medium</em> is the default, <em>max</em> is the deep-thinking mode (and the most expensive). If you see <em>max</em> in red when you weren't expecting it, you know to switch back.</li>
+        <li><strong>5h 31% @18:30 IST</strong> — "How close am I to Anthropic's five-hour usage limit, and when does it reset?" Anthropic's plans have rolling five-hour and seven-day quotas. This tells you "you've used 31%; the window resets at 6:30 PM your time."</li>
+        <li><strong>7d 62% @Apr 24, 09:00 IST</strong> — same thing, but for the weekly quota. If this is high and it's only Tuesday, you probably want to slow down or switch to a cheaper model.</li>
+      </ul>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        That's it. One line, six numbers, no jargon — but collectively they answer the "is everything okay?" question in a way no popup or settings panel can.
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Why bother?
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Three concrete wins, each of which pays for the setup time many times over:
+      </p>
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-lg leading-relaxed opacity-90 font-serif">
+        <li><strong>You catch the expensive-model mistake.</strong> It's easy to leave a session running on Opus after a heavy task and forget to switch back. The model name on the status line is a passive reminder every time you glance down.</li>
+        <li><strong>You don't commit to the wrong branch.</strong> Working on three features in parallel? The branch name and diff counts are right there. An unfamiliar branch name is a hard stop.</li>
+        <li><strong>You see limits before you hit them.</strong> Running out of your weekly quota an hour before a deadline is a particular kind of awful. A yellow 7-day number on a Tuesday is an early warning.</li>
+      </ul>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Set it up in 5 minutes
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        The status line is a small script called <InlineCode>statusline.sh</InlineCode>, written by <a href="https://github.com/daniel3303/ClaudeCodeStatusLine" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">Daniel Oh</a> and freely available on GitHub. You'll do four things: install one helper tool, download the script, tell Claude Code to use it, and restart.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Open a terminal. Copy-paste each block; don't worry about understanding every character.
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
+        Step 1 — Install <InlineCode>jq</InlineCode> (a tiny helper)
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        The script uses a small utility called <InlineCode>jq</InlineCode> to read JSON. Most computers don't have it preinstalled. Run the line that matches your operating system:
+      </p>
+      <CodeBlock title="install jq">
+{`# macOS (requires Homebrew — brew.sh)
+brew install jq
+
+# Ubuntu, Debian, or WSL on Windows
+sudo apt install -y jq
+
+# Fedora
+sudo dnf install -y jq`}
+      </CodeBlock>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
+        Step 2 — Download the script
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Save the script into Claude Code's config folder (<InlineCode>~/.claude/</InlineCode>) and mark it executable:
+      </p>
+      <CodeBlock title="download statusline.sh">
+{`mkdir -p ~/.claude
+curl -L -o ~/.claude/statusline.sh \\
+  https://raw.githubusercontent.com/daniel3303/ClaudeCodeStatusLine/main/statusline.sh
+chmod +x ~/.claude/statusline.sh`}
+      </CodeBlock>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
+        Step 3 — Tell Claude Code to use it
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Open the file <InlineCode>~/.claude/settings.json</InlineCode> in any text editor. If the file doesn't exist yet, create a new one. Add the following block:
+      </p>
+      <CodeBlock title="~/.claude/settings.json">
+{`{
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}`}
+      </CodeBlock>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        If your <InlineCode>settings.json</InlineCode> already has other settings inside the outer braces, just add the <InlineCode>statusLine</InlineCode> block as another entry (don't forget the comma between entries).
+      </p>
+
+      <h3 className="text-xl font-serif font-medium mt-8 mb-4 text-anthropic-accent">
+        Step 4 — Restart Claude Code
+      </h3>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Close your Claude Code session with <InlineCode>Ctrl+C</InlineCode> (or by typing <InlineCode>/exit</InlineCode>) and start it again. You should now see the full status line at the bottom of your terminal. If you do, you're done — skip to the timezone section if you want the time in something other than UTC.
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        Show reset times in your own timezone
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        By default the script shows reset times in UTC, which means mental arithmetic every time you want to know when your quota comes back. Luckily, fixing that is one line of editing.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Open <InlineCode>~/.claude/statusline.sh</InlineCode> in a text editor and search for <InlineCode>TZ=</InlineCode>. You'll find several lines that look like this:
+      </p>
+      <CodeBlock title="before">
+{`formatted=$(TZ=UTC date -d "@$epoch" +"%H:%M" ...)`}
+      </CodeBlock>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        Replace <InlineCode>UTC</InlineCode> with your own <em>IANA timezone name</em>. Some common ones:
+      </p>
+      <div className="overflow-x-auto mb-6">
+        <table className="w-full text-sm border-collapse font-serif">
+          <thead>
+            <tr className="bg-anthropic-text/5">
+              <th className="p-3 border border-anthropic-text/10 font-bold text-left">Where you are</th>
+              <th className="p-3 border border-anthropic-text/10 font-bold text-left">Replace UTC with</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td className="p-3 border border-anthropic-text/10">India</td><td className="p-3 border border-anthropic-text/10"><InlineCode>Asia/Kolkata</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">US East (New York)</td><td className="p-3 border border-anthropic-text/10"><InlineCode>America/New_York</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">US West (San Francisco)</td><td className="p-3 border border-anthropic-text/10"><InlineCode>America/Los_Angeles</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">UK</td><td className="p-3 border border-anthropic-text/10"><InlineCode>Europe/London</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">Central Europe</td><td className="p-3 border border-anthropic-text/10"><InlineCode>Europe/Berlin</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">Japan</td><td className="p-3 border border-anthropic-text/10"><InlineCode>Asia/Tokyo</InlineCode></td></tr>
+            <tr><td className="p-3 border border-anthropic-text/10">Sydney</td><td className="p-3 border border-anthropic-text/10"><InlineCode>Australia/Sydney</InlineCode></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
+        So for someone in Bengaluru, the line becomes:
+      </p>
+      <CodeBlock title="after">
+{`formatted=$(TZ=Asia/Kolkata date -d "@$epoch" +"%H:%M" ...)`}
+      </CodeBlock>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Replace <strong>every</strong> <InlineCode>TZ=UTC</InlineCode> in the file the same way (your editor's "Find & Replace" button makes this painless). Save the file, restart Claude Code, and reset times now read in your local clock. That's also the only change that ships in <a href="https://github.com/mahadevaiahrashmi/mahadevaiahrashmi.github.io/blob/main/.claude/statusline.sh" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">the Kolkata-pinned version</a> on this site — a single find-and-replace, nothing more.
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        <em>Behind the scenes:</em> Anthropic sends reset times as UTC timestamps (for example, <InlineCode>2026-04-18T13:00:00Z</InlineCode>). The <InlineCode>TZ=...</InlineCode> prefix tells the computer "convert this UTC time into <em>this</em> timezone before printing." So <InlineCode>13:00 UTC</InlineCode> prints as <InlineCode>18:30</InlineCode> in Kolkata, <InlineCode>09:00</InlineCode> in New York, or <InlineCode>14:00</InlineCode> in London — same instant, local clock. No math on your end.
+      </p>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        If something looks wrong
+      </h2>
+      <ul className="list-disc pl-6 mb-6 space-y-3 text-lg leading-relaxed opacity-90 font-serif">
+        <li><strong>The status line is blank.</strong> Make sure the script is marked executable (<InlineCode>chmod +x ~/.claude/statusline.sh</InlineCode>) and that the path in <InlineCode>settings.json</InlineCode> matches where you saved it.</li>
+        <li><strong>It says <InlineCode>jq: command not found</InlineCode>.</strong> <InlineCode>jq</InlineCode> didn't install. Re-run Step 1 for your operating system.</li>
+        <li><strong>The 5h / 7d numbers show a dash (<InlineCode>-</InlineCode>).</strong> Claude Code hasn't yet sent the usage data this session; it usually fills in after the first message. If it stays blank, you may be on an older Claude Code version — run <InlineCode>claude-code --version</InlineCode> and update.</li>
+        <li><strong>The times look wrong by several hours.</strong> Double-check the timezone name — IANA zone names are case-sensitive and use underscores (e.g. <InlineCode>America/New_York</InlineCode>, not <InlineCode>America/new_york</InlineCode> or <InlineCode>New York</InlineCode>).</li>
+        <li><strong>Colours don't show on Windows.</strong> Plain PowerShell doesn't render ANSI colours by default. Use Windows Terminal or WSL instead.</li>
+      </ul>
+
+      <h2 className="text-2xl font-serif font-medium mt-12 mb-6 pb-2 border-b border-anthropic-text/10">
+        That's it
+      </h2>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        Five minutes of setup gives you a dashboard that runs silently at the bottom of every Claude Code session. You'll stop wondering which model you're on, stop accidentally committing on the wrong branch, and never again be surprised by a quota that ran out an hour before your deadline. The script is tiny, auditable, and works on macOS, Linux, and Windows (via WSL).
+      </p>
+      <p className="text-lg leading-relaxed opacity-90 mb-6 font-serif">
+        If you tweak it — a different colour scheme, an extra field, a shorter format — the script is plain text and easy to experiment with. Change something, save, restart Claude Code, and watch the line update. That's the whole feedback loop.
+      </p>
+
+      <div className="mt-16 pt-8 border-t border-anthropic-text/10 opacity-60 text-sm font-serif">
+        <p className="font-bold mb-4 font-serif">Resources:</p>
+        <ul className="space-y-2 font-serif">
+          <li><a href="https://github.com/daniel3303/ClaudeCodeStatusLine" className="hover:text-anthropic-accent underline">Daniel Oh — ClaudeCodeStatusLine (upstream)</a></li>
+          <li><a href="https://docs.claude.com/en/docs/claude-code/statusline" className="hover:text-anthropic-accent underline">Claude Code — Statusline Documentation</a></li>
+          <li><a href="https://docs.claude.com/en/docs/claude-code/settings" className="hover:text-anthropic-accent underline">Claude Code — Settings & <InlineCode>~/.claude/settings.json</InlineCode></a></li>
+        </ul>
+        <p className="mt-8 italic font-serif">Disclaimer: statusline.sh behaviour and the Claude Code JSON schema are accurate as of April 2026. The upstream project evolves quickly — check the repo for the current version.</p>
+      </div>
+    </>
+  );
+}
+
 const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
   "richfeyn-smart-jar": RichFeynPost,
   "claude-style-replication": ClaudeStyleReplicationPost,
+  "claude-code-statusline": StatuslinePost,
 };
 
 function setMetaByName(name: string, content: string) {
