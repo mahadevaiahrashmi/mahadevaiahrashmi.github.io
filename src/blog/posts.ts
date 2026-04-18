@@ -25,6 +25,16 @@ export const blogPosts: BlogPost[] = [
       "An OpenEnv-compatible gridworld for multi-stop AMR routing, an honest baseline, and a diagnosis of why prompting alone isn't enough.",
   },
   {
+    slug: "openenv-play2-setup",
+    title: "Run the Warehouse Robot Experiment on Your Own Computer",
+    subtitle: "A plain-English walkthrough of the OpenEnv setup in the play2 repository — prerequisites, install steps, a browser demo, and what to do if something breaks",
+    date: "2026-04-18",
+    readTime: "10 min read",
+    tags: ["OpenEnv", "Tutorial", "Setup", "Beginner"],
+    excerpt:
+      "The warehouse-robot-vs-AI experiment runs on your laptop in about fifteen minutes. Here's what OpenEnv is, what the play2 repo does, and every copy-paste command you need — no prior Python, Docker, or bash knowledge required.",
+  },
+  {
     slug: "richfeyn-smart-jar",
     title: "RichFeyn: Building the Smartest Kitchen",
     subtitle: "Automating the repetitive to make room for what matters",
