@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Claude style replication blog post content", deps: ["../../components/blog-helpers", "../../components/blog-prose"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28"] }
+// agent-notes: { ctx: "Claude style replication blog post content", deps: ["../../components/blog-helpers", "../../components/blog-prose"], state: active, last: "sato@2026-04-19", key: ["extracted from BlogPost.tsx for #29 split; prose primitives applied #28; first code block uses noLineNumbers since content is intrinsically numbered"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -31,7 +31,7 @@ export default function ClaudeStyleReplicationPost() {
       <p className="text-lg leading-relaxed opacity-90 mb-4 font-serif">
         Claude Code calls them <em>output styles</em>. Here's what the menu looks like inside Claude Code:
       </p>
-      <ClaudeCodeBlock title="Output style" plain>
+      <ClaudeCodeBlock title="Output style" plain noLineNumbers>
 {`1. Default     Claude completes coding tasks efficiently and provides concise responses
 2. Explanatory Claude explains its implementation choices and codebase patterns
 3. Learning    Claude pauses and asks you to write small pieces of code for hands-on practice`}

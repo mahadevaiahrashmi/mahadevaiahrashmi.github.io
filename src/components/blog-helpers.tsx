@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "shared blog post components (InlineCode, ClaudeCodeBlock, Card, ColdOpenPanel)", deps: ["motion/react", "lucide-react", "./blog-tokenizer"], state: active, last: "sato@2026-04-18", key: ["extracted from BlogPost.tsx for #29 split; Card/ColdOpenPanel live here for uniform import paths across posts"] }
+// agent-notes: { ctx: "shared blog post components (InlineCode, ClaudeCodeBlock, Card, ColdOpenPanel)", deps: ["motion/react", "lucide-react", "./blog-tokenizer"], state: active, last: "sato@2026-04-19", key: ["extracted from BlogPost.tsx for #29 split; Card/ColdOpenPanel live here for uniform import paths across posts; noLineNumbers prop suppresses gutter numbering"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -28,12 +28,14 @@ export const ClaudeCodeBlock = ({
   language = "toml",
   plain = false,
   codexScript = false,
+  noLineNumbers = false,
 }: {
   children: string;
   title?: string;
   language?: string;
   plain?: boolean;
   codexScript?: boolean;
+  noLineNumbers?: boolean;
 }) => {
   const [copied, setCopied] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -66,9 +68,11 @@ export const ClaudeCodeBlock = ({
           key={lineIndex}
           className="table-row group-hover:bg-zinc-200/50 dark:group-hover:bg-zinc-900/50 transition-colors"
         >
-          <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
-            {lineIndex + 1}
-          </span>
+          {!noLineNumbers && (
+            <span className="table-cell pr-6 text-right text-zinc-400 dark:text-zinc-500 select-none w-10 font-mono text-xs">
+              {lineIndex + 1}
+            </span>
+          )}
           <span className="table-cell font-mono text-sm leading-relaxed break-all text-zinc-800 dark:text-zinc-200">
             {line || "\u00A0"}
           </span>
