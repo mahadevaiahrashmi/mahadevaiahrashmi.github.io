@@ -164,14 +164,13 @@ function HomePage() {
             className="max-w-3xl space-y-6 text-lg font-serif leading-relaxed opacity-80 mb-16"
           >
             <p>
-              I'm an IIT Madras alumnus who fell in love with making machines understand human language and behavior.
-              My career started in semiconductor defect detection — teaching computers to see microscopic flaws in silicon wafers —
-              and evolved into teaching large language models to reason, plan, and make decisions.
+              IIT Madras alumnus with 13+ years in AI/ML. Expertise in building LLMs and multi-agent systems that reason, plan, and act autonomously.
             </p>
             <p>
-              I've spent the last 13+ years across the full ML lifecycle: from exploratory data science and statistical modeling
-              at Axis Bank and TCS, to founding an AI startup (RichFeyn) that shipped three products across computer vision, IoT, and mobile,
-              to building multi-agent AI orchestration systems at KOGO.ai that process thousands of sales leads autonomously.
+              Background: computer vision for semiconductor defect detection, statistical modeling at Axis Bank &amp; TCS, founded RichFeyn (shipped CV/IoT/mobile AI products), and led multi-agent orchestration at KOGO.ai processing thousands of sales leads.
+            </p>
+            <p>
+              Proven in delivering scalable production AI.
             </p>
           </motion.div>
 
