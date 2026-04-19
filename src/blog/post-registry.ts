@@ -11,6 +11,7 @@ import BuildWarehouseRoutingPost from "./posts/build-warehouse-routing-openenv";
 import RichFeynPost from "./posts/richfeyn-smart-jar";
 import ClaudeStyleReplicationPost from "./posts/claude-style-replication";
 import StatuslinePost from "./posts/claude-code-statusline";
+import VteamHybridCheatsheetPost from "./posts/vteam-hybrid-cheatsheet";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -19,4 +20,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "richfeyn-smart-jar": RichFeynPost,
   "claude-style-replication": ClaudeStyleReplicationPost,
   "claude-code-statusline": StatuslinePost,
+  "vteam-hybrid-cheatsheet": VteamHybridCheatsheetPost,
 };

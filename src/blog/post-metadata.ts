@@ -75,4 +75,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Claude Code lets you switch between concise, explanatory, and teaching modes with one command. Gemini and Codex don't — but with five minutes of copy-paste setup, they can. Plain-English walkthrough, no jargon.",
   },
+  {
+    slug: "vteam-hybrid-cheatsheet",
+    title: "The vteam-hybrid Cheatsheet",
+    subtitle: "Seven phases, eighteen agents, six commands you'll actually type — the whole methodology on one page",
+    date: "2026-04-19",
+    readTime: "7 min read",
+    tags: ["Claude Code", "Methodology", "vteam-hybrid", "Reference"],
+    excerpt:
+      "vteam-hybrid picks a different team shape for every phase of development — discovery, architecture, TDD, review, debugging. Here's the whole methodology on one page: the phases, the agents, the commands, and the three non-negotiable rules.",
+  },
 ];
