@@ -105,4 +105,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Three eras of programming, no jargon: writing the recipe yourself, curating examples so a neural network can find the recipe, and now — just describing what you want and letting an LLM figure out how. With diagrams.",
   },
+  {
+    slug: "shankaracharya-illusion-compassion",
+    title: "The Dream That Hurts",
+    subtitle: "Adi Shankaracharya on why illusion demands compassion, not withdrawal",
+    date: "2026-05-08",
+    readTime: "5 min read",
+    tags: ["Essay", "Philosophy", "Vedanta", "Reflection"],
+    excerpt:
+      "A seeker challenges Adi Shankaracharya: if the world is illusion, why help anyone? His answer reframes Advaita as the sharpest form of responsibility — not an excuse to withdraw, but a reason to act without attachment.",
+  },
 ];
