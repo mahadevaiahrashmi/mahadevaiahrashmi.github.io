@@ -1,10 +1,13 @@
-// agent-notes: { ctx: "Discomfort as a Compass essay (Jeselnik) blog post content", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08" }
+// agent-notes: { ctx: "Discomfort as a Compass essay (Jeselnik) with 2 inline SVG diagrams (compass-walk-toward, two-kinds-of-uncomfortable)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) so hard-coded ink/orange/gray palette stays readable in dark mode; matches software-eras figure style"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { PostH2, PostP } from "../../components/blog-prose";
+
+const figureWrap = "bg-[#faf9f5] border border-anthropic-text/10 rounded-xl p-6 my-10";
+const figureCaption = "text-sm text-center mt-3 opacity-60 italic font-serif text-zinc-700";
 
 export default function DiscomfortAsCompassPost() {
   return (
@@ -40,6 +43,54 @@ export default function DiscomfortAsCompassPost() {
         Jeselnik's move is the opposite. He treats the flinch as a tap on the shoulder. <em>Pay attention here. There's something live in this room.</em> Discomfort isn't a stop sign — it's a signal that you've found a vein.
       </PostP>
 
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-j1-title" className="w-full h-auto block">
+          <title id="d-j1-title">The flinch is a compass — most people walk around it; the work is to walk toward it</title>
+          <defs>
+            <marker id="arr-j1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757" />
+            </marker>
+            <marker id="arr-j1-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#b0aea5" />
+            </marker>
+          </defs>
+
+          <g transform="translate(50,110)">
+            <circle cx="30" cy="20" r="16" fill="none" stroke="#141413" strokeWidth="1.5" />
+            <path d="M 5 80 Q 30 45 55 80" fill="none" stroke="#141413" strokeWidth="1.5" />
+            <text x="30" y="105" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#4a4a48" letterSpacing="1.5">YOU</text>
+          </g>
+
+          <text x="135" y="135" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#4a4a48">the flinch</text>
+
+          <path d="M 165 122 Q 280 70 380 70" fill="none" stroke="#b0aea5" strokeWidth="1.5" strokeDasharray="4,3" markerEnd="url(#arr-j1-soft)" />
+          <text x="270" y="55" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#b0aea5" letterSpacing="1.2">WALK AROUND</text>
+
+          <g transform="translate(400,30)">
+            <rect width="280" height="80" fill="#faf9f5" stroke="#b0aea5" strokeWidth="1.2" rx="4" />
+            <text x="140" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#b0aea5" letterSpacing="1.5">COMFORTABLE MIDDLE</text>
+            <g fill="#b0aea5" opacity="0.55">
+              <circle cx="40" cy="48" r="6" /><circle cx="62" cy="48" r="6" /><circle cx="84" cy="48" r="6" />
+              <circle cx="106" cy="48" r="6" /><circle cx="128" cy="48" r="6" /><circle cx="150" cy="48" r="6" />
+              <circle cx="172" cy="48" r="6" /><circle cx="194" cy="48" r="6" /><circle cx="216" cy="48" r="6" />
+              <circle cx="238" cy="48" r="6" />
+            </g>
+            <text x="140" y="72" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#b0aea5">forgettable</text>
+          </g>
+
+          <path d="M 165 148 Q 280 210 380 210" fill="none" stroke="#d97757" strokeWidth="2" markerEnd="url(#arr-j1)" />
+          <text x="270" y="232" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.2" fontWeight="500">WALK TOWARD</text>
+
+          <g transform="translate(400,170)">
+            <rect width="280" height="80" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="140" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5">DISCOMFORT</text>
+            <text x="140" y="48" textAnchor="middle" fontFamily="Lora, serif" fontSize="13" fill="#141413">true · useful · live</text>
+            <text x="140" y="68" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">the thing worth saying</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>The flinch is autopilot saying "go around." The discipline is to treat it as a compass — and walk toward it.</figcaption>
+      </figure>
+
       <PostH2>
         The signal underneath
       </PostH2>
@@ -49,6 +100,50 @@ export default function DiscomfortAsCompassPost() {
       <PostP>
         A topic feels uncomfortable for one of two reasons. Either it's <strong>genuinely cruel</strong> — punching down at someone who can't punch back — or it's <strong>true in a way that no one has dared put into words yet</strong>. The first is bad comedy and bad writing. The second is the whole game. Jeselnik's craft is about telling these two apart, then leaning hard into the second.
       </PostP>
+
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-j2-title" className="w-full h-auto block">
+          <title id="d-j2-title">Discomfort points at two different things — only one is the work</title>
+          <defs>
+            <marker id="arr-j2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757" />
+            </marker>
+            <marker id="arr-j2-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#b0aea5" />
+            </marker>
+          </defs>
+
+          <g transform="translate(335,20)">
+            <rect width="50" height="34" fill="#faf9f5" stroke="#141413" strokeWidth="1.2" rx="3" />
+            <text x="25" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#141413" letterSpacing="1.5">FLINCH</text>
+          </g>
+
+          <line x1="345" y1="58" x2="200" y2="100" stroke="#b0aea5" strokeWidth="1.5" strokeDasharray="4,3" markerEnd="url(#arr-j2-soft)" />
+          <line x1="375" y1="58" x2="520" y2="100" stroke="#d97757" strokeWidth="2" markerEnd="url(#arr-j2)" />
+
+          <g transform="translate(60,110)">
+            <rect width="280" height="135" fill="#faf9f5" stroke="#b0aea5" strokeWidth="1.2" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#b0aea5" letterSpacing="1.5">GENUINELY CRUEL</text>
+            <line x1="20" y1="40" x2="260" y2="40" stroke="#e8e6dc" />
+            <text x="140" y="64" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#4a4a48">"punching down at someone</text>
+            <text x="140" y="82" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#4a4a48">who can't punch back"</text>
+            <text x="140" y="118" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#b0aea5" letterSpacing="1.5">→ BAD WRITING</text>
+          </g>
+
+          <g transform="translate(380,110)">
+            <rect width="280" height="135" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5">TRUE BUT UNSAYABLE</text>
+            <line x1="20" y1="40" x2="260" y2="40" stroke="#e8e6dc" />
+            <text x="140" y="64" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">"true in a way no one</text>
+            <text x="140" y="82" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">has dared put in words"</text>
+            <text x="140" y="118" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5" fontWeight="500">→ THE WHOLE GAME</text>
+          </g>
+
+          <text x="360" y="278" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">discomfort alone can't tell these two apart — the craft does</text>
+        </svg>
+        <figcaption className={figureCaption}>Two topics can feel equally uncomfortable. Only one of them is worth saying. Sorting them is the work.</figcaption>
+      </figure>
+
       <PostP>
         That's why the best of his jokes don't feel like he's being shocking for the sake of it. They feel like he's named something you suspected but couldn't articulate. The laugh is the sound of recognition. <em>Yes — that's the thing no one would say.</em>
       </PostP>

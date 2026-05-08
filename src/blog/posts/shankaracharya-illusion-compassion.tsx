@@ -1,10 +1,13 @@
-// agent-notes: { ctx: "Shankaracharya on illusion and compassion essay (Advaita Vedanta dialogue)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08" }
+// agent-notes: { ctx: "Shankaracharya on illusion and compassion essay (Advaita Vedanta dialogue) with 2 inline SVG diagrams (dream-within-waking, two-responses-fork)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) so hard-coded ink/orange/gray palette stays readable in dark mode; matches software-eras figure style"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { PostH2, PostP } from "../../components/blog-prose";
+
+const figureWrap = "bg-[#faf9f5] border border-anthropic-text/10 rounded-xl p-6 my-10";
+const figureCaption = "text-sm text-center mt-3 opacity-60 italic font-serif text-zinc-700";
 
 export default function ShankaracharyaIllusionCompassionPost() {
   return (
@@ -54,6 +57,38 @@ export default function ShankaracharyaIllusionCompassionPost() {
         Three short questions, and the trap dissolves. The dream is not real in the absolute sense — it ends, it leaves no mark on the world outside the dreamer's mind. But while you're inside it, the pain is not theoretical. The fear is not theoretical. The love is not theoretical. Anyone who has woken up shaking from a nightmare knows the difference between <em>real</em> and <em>real-while-it-lasts</em>, and knows that the second kind can still leave you trembling.
       </PostP>
 
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-s1-title" className="w-full h-auto block">
+          <title id="d-s1-title">The dream within waking — two layers of real</title>
+
+          <g transform="translate(40,30)">
+            <rect width="640" height="220" fill="#faf9f5" stroke="#141413" strokeWidth="1.5" rx="6" />
+            <text x="320" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#4a4a48" letterSpacing="1.5">AWAKE — absolutely real</text>
+            <line x1="20" y1="36" x2="620" y2="36" stroke="#e8e6dc" />
+
+            <g transform="translate(160,60)">
+              <rect width="320" height="140" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" strokeDasharray="6,4" rx="4" />
+              <text x="160" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5">DREAM — relatively real</text>
+              <line x1="20" y1="34" x2="300" y2="34" stroke="#e8e6dc" />
+
+              <g transform="translate(80,50)">
+                <circle cx="15" cy="12" r="11" fill="none" stroke="#141413" strokeWidth="1.2" />
+                <path d="M -2 60 Q 15 34 32 60" fill="none" stroke="#141413" strokeWidth="1.2" />
+              </g>
+              <g transform="translate(180,50)">
+                <circle cx="15" cy="12" r="11" fill="none" stroke="#141413" strokeWidth="1.2" />
+                <path d="M -2 60 Q 15 34 32 60" fill="none" stroke="#141413" strokeWidth="1.2" />
+              </g>
+
+              <text x="160" y="128" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">pain hurts ✓     love feels real ✓</text>
+            </g>
+
+            <text x="320" y="212" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">leaves no permanent mark on the waking world — yet inside, every experience lands</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>Maya = temporary existence, not non-existence. The dream isn't real outside. Inside it, absolutely.</figcaption>
+      </figure>
+
       <PostH2>
         Illusion does not mean non-existence
       </PostH2>
@@ -85,6 +120,56 @@ export default function ShankaracharyaIllusionCompassionPost() {
       <PostP>
         The line cuts because it names a temptation that lives inside every spiritual tradition. The temptation to use the language of transcendence as a hall pass — to say <em>it's all illusion anyway</em> and walk past the person who needs help. That move isn't wisdom. It's the ego, dressed up in robes, congratulating itself for being above the fray.
       </PostP>
+
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-s2-title" className="w-full h-auto block">
+          <title id="d-s2-title">Two responses to "the world is illusion" — withdrawal vs. responsibility</title>
+          <defs>
+            <marker id="arr-s2-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757" />
+            </marker>
+            <marker id="arr-s2-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#b0aea5" />
+            </marker>
+          </defs>
+
+          <g transform="translate(260,20)">
+            <rect width="200" height="46" fill="#faf9f5" stroke="#141413" strokeWidth="1.5" rx="4" />
+            <text x="100" y="20" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#4a4a48" letterSpacing="1.5">PREMISE</text>
+            <text x="100" y="38" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">the world is illusion</text>
+          </g>
+
+          <line x1="320" y1="66" x2="180" y2="100" stroke="#b0aea5" strokeWidth="1.5" strokeDasharray="4,3" markerEnd="url(#arr-s2-soft)" />
+          <line x1="400" y1="66" x2="540" y2="100" stroke="#d97757" strokeWidth="2" markerEnd="url(#arr-s2-orange)" />
+
+          <g transform="translate(40,110)">
+            <rect width="280" height="60" fill="#faf9f5" stroke="#b0aea5" strokeWidth="1.2" rx="4" />
+            <text x="140" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#b0aea5" letterSpacing="1.5">USE TO OPT OUT</text>
+            <text x="140" y="46" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#4a4a48">"it's all illusion anyway"</text>
+          </g>
+          <line x1="180" y1="170" x2="180" y2="200" stroke="#b0aea5" strokeWidth="1.5" strokeDasharray="4,3" markerEnd="url(#arr-s2-soft)" />
+          <g transform="translate(40,210)">
+            <rect width="280" height="80" fill="#faf9f5" stroke="#b0aea5" strokeWidth="1.2" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#b0aea5" letterSpacing="1.5">EGO IN COSTUME</text>
+            <text x="140" y="50" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#4a4a48">withdraw · ignore suffering</text>
+            <text x="140" y="68" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#4a4a48">"faux enlightenment"</text>
+          </g>
+
+          <g transform="translate(400,110)">
+            <rect width="280" height="60" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="140" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5">USE TO DISSOLVE IGNORANCE</text>
+            <text x="140" y="46" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">"others experience it as real"</text>
+          </g>
+          <line x1="540" y1="170" x2="540" y2="200" stroke="#d97757" strokeWidth="2" markerEnd="url(#arr-s2-orange)" />
+          <g transform="translate(400,210)">
+            <rect width="280" height="80" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5" fontWeight="500">ACT WITHOUT ATTACHMENT</text>
+            <text x="140" y="50" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">serve · help · live fully</text>
+            <text x="140" y="68" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">"the sharpest form of responsibility"</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>The same premise leads two ways. The wrong move dresses up withdrawal as wisdom. The right move turns understanding into responsibility.</figcaption>
+      </figure>
 
       <PostH2>
         Action without attachment
