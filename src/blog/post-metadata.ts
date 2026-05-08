@@ -180,4 +180,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Agents got fast. The keyboard is no longer the rate-limiting step. The bottleneck moved upstream — what to build, why, how to direct — and one thing underneath all of it that doesn't move: understanding. You can outsource thinking. You cannot outsource understanding.",
   },
+  {
+    slug: "agent-first-infrastructure",
+    title: "Agent-First Infrastructure",
+    subtitle: "How to design systems for a world where agents — yours, your customer's, and strangers' — are the primary users",
+    date: "2026-05-08",
+    readTime: "7 min read",
+    tags: ["AI", "Essay", "Infrastructure", "Agentic Engineering"],
+    excerpt:
+      "Decompose every workload into sensors and actuators over the world. Make the data structures legible to a parser, not just an eye. Plan for my-agent-talks-to-your-agent across orgs. The teams that redesign for this now will be a tier ahead by the time the rest of the industry notices.",
+  },
 ];
