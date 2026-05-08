@@ -1,10 +1,13 @@
-// agent-notes: { ctx: "Your AI Is Suppandi — Tinkle character analogy for literal-compliance failure modes in LLMs and the prompt-engineering takeaway", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08" }
+// agent-notes: { ctx: "Your AI Is Suppandi — Tinkle character analogy for literal-compliance failure modes in LLMs and the prompt-engineering takeaway, with two inline SVG figures (3-panel comic strip + literal-vs-intent gap diagram)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches process-is-the-prize and software-eras figure style; original artwork only — no Suppandi/Tinkle likeness"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { PostH2, PostP, PostUL } from "../../components/blog-prose";
+
+const figureWrap = "bg-[#faf9f5] border border-anthropic-text/10 rounded-xl p-6 my-10";
+const figureCaption = "text-sm text-center mt-3 opacity-60 italic font-serif text-zinc-700";
 
 export default function AiIsSuppandiPost() {
   return (
@@ -37,6 +40,94 @@ export default function AiIsSuppandiPost() {
         Suppandi: "But sir, you only told me to <em>watch</em> it."
         <span className="block mt-3 not-italic text-xs tracking-widest uppercase opacity-60">— A representative Suppandi exchange</span>
       </blockquote>
+
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-sup-strip-title" className="w-full h-auto block">
+          <title id="d-sup-strip-title">A three-panel comic of the literal-compliance gag: instruction given, taken to the letter, disaster delivered</title>
+
+          <g transform="translate(10,10)">
+            <rect width="220" height="240" fill="#faf9f5" stroke="#d97757" strokeWidth="2" rx="4" />
+            <rect x="20" y="18" width="180" height="48" fill="#faf9f5" stroke="#d97757" strokeWidth="1" rx="22" />
+            <path d="M 78 66 L 82 80 L 90 66 Z" fill="#faf9f5" stroke="#d97757" strokeWidth="1" />
+            <text x="110" y="46" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">"Watch the dog."</text>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <rect x="58" y="92" width="22" height="4" fill="#141413" stroke="none" />
+              <rect x="62" y="84" width="14" height="9" fill="#141413" stroke="none" />
+              <circle cx="69" cy="108" r="11" />
+              <line x1="69" y1="119" x2="69" y2="158" />
+              <line x1="56" y1="135" x2="82" y2="135" />
+              <line x1="69" y1="158" x2="58" y2="184" />
+              <line x1="69" y1="158" x2="80" y2="184" />
+            </g>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <circle cx="151" cy="108" r="11" />
+              <line x1="151" y1="119" x2="151" y2="158" />
+              <line x1="138" y1="135" x2="164" y2="135" />
+              <line x1="151" y1="158" x2="140" y2="184" />
+              <line x1="151" y1="158" x2="162" y2="184" />
+              <path d="M 146 110 Q 151 114 156 110" />
+            </g>
+            <line x1="10" y1="200" x2="210" y2="200" stroke="#e8e6dc" />
+            <text x="110" y="222" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="9" fill="#d97757" letterSpacing="1.5" fontWeight="500">PANEL 1 · INSTRUCTION</text>
+          </g>
+
+          <g transform="translate(250,10)">
+            <rect width="220" height="240" fill="#faf9f5" stroke="#141413" strokeWidth="2" rx="4" />
+            <text x="110" y="36" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">[ a few hours later ]</text>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <circle cx="78" cy="98" r="11" />
+              <line x1="78" y1="109" x2="78" y2="150" />
+              <line x1="65" y1="126" x2="91" y2="126" />
+              <line x1="78" y1="150" x2="67" y2="178" />
+              <line x1="78" y1="150" x2="89" y2="178" />
+              <line x1="92" y1="98" x2="138" y2="118" strokeDasharray="2,3" />
+            </g>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <ellipse cx="160" cy="138" rx="22" ry="10" />
+              <circle cx="180" cy="130" r="6" />
+              <line x1="184" y1="126" x2="188" y2="119" />
+              <line x1="148" y1="148" x2="146" y2="162" />
+              <line x1="155" y1="148" x2="153" y2="162" />
+              <line x1="167" y1="148" x2="169" y2="162" />
+              <line x1="173" y1="148" x2="175" y2="162" />
+              <path d="M 130 175 L 138 188 L 182 188 L 190 175" />
+              <text x="160" y="184" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="9" fill="#4a4a48" stroke="none">empty</text>
+            </g>
+            <line x1="10" y1="200" x2="210" y2="200" stroke="#e8e6dc" />
+            <text x="110" y="222" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="9" fill="#141413" letterSpacing="1.5" fontWeight="500">PANEL 2 · LITERAL COMPLIANCE</text>
+          </g>
+
+          <g transform="translate(490,10)">
+            <rect width="220" height="240" fill="#faf9f5" stroke="#788c5d" strokeWidth="2" rx="4" />
+            <rect x="20" y="14" width="180" height="58" fill="#faf9f5" stroke="#788c5d" strokeWidth="1" rx="22" />
+            <path d="M 134 72 L 138 86 L 146 72 Z" fill="#faf9f5" stroke="#788c5d" strokeWidth="1" />
+            <text x="110" y="36" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#141413">"You only said</text>
+            <text x="110" y="56" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#141413">to WATCH it, sir."</text>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <rect x="58" y="92" width="22" height="4" fill="#141413" stroke="none" />
+              <rect x="62" y="84" width="14" height="9" fill="#141413" stroke="none" />
+              <circle cx="69" cy="108" r="11" />
+              <line x1="69" y1="119" x2="69" y2="158" />
+              <line x1="56" y1="128" x2="78" y2="120" />
+              <line x1="78" y1="120" x2="86" y2="106" />
+              <line x1="69" y1="158" x2="58" y2="184" />
+              <line x1="69" y1="158" x2="80" y2="184" />
+              <path d="M 64 113 Q 69 109 74 113" />
+            </g>
+            <g stroke="#141413" strokeWidth="1.5" fill="none">
+              <circle cx="151" cy="108" r="11" />
+              <line x1="151" y1="119" x2="151" y2="158" />
+              <line x1="138" y1="135" x2="164" y2="135" />
+              <line x1="151" y1="158" x2="140" y2="184" />
+              <line x1="151" y1="158" x2="162" y2="184" />
+              <path d="M 146 110 Q 151 114 156 110" />
+            </g>
+            <line x1="10" y1="200" x2="210" y2="200" stroke="#e8e6dc" />
+            <text x="110" y="222" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="9" fill="#788c5d" letterSpacing="1.5" fontWeight="500">PANEL 3 · DISASTER</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>The forty-year-old gag in three frames. The instruction was clean. The compliance was perfect. The unspoken parts were everything.</figcaption>
+      </figure>
 
       <PostP>
         Variant: master says "Don't let anyone in." Master steps out for two minutes, locks himself out, returns. Suppandi keeps the door bolted. <em>"But sir, you said don't let anyone in."</em>
@@ -97,6 +188,66 @@ export default function AiIsSuppandiPost() {
       <PostP>
         Each of these is a Suppandi gag in different costume. The model is not stupid. It is doing exactly what you asked. The gap is between <em>what you said</em> and <em>what you meant</em>.
       </PostP>
+
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-sup-gap-title" className="w-full h-auto block">
+          <title id="d-sup-gap-title">One instruction, two outcomes — the gap between literal compliance and actual intent</title>
+          <defs>
+            <marker id="arr-sup-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#141413" />
+            </marker>
+            <marker id="arr-sup-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757" />
+            </marker>
+            <marker id="arr-sup-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#788c5d" />
+            </marker>
+          </defs>
+
+          <g transform="translate(210,15)">
+            <rect width="300" height="50" fill="#faf9f5" stroke="#141413" strokeWidth="1.5" rx="4" />
+            <text x="150" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#141413" letterSpacing="1.5" fontWeight="500">YOUR INSTRUCTION</text>
+            <text x="150" y="40" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">"watch the dog"</text>
+          </g>
+
+          <line x1="360" y1="65" x2="360" y2="86" stroke="#141413" strokeWidth="1.5" markerEnd="url(#arr-sup-ink)" />
+
+          <g transform="translate(270,90)">
+            <rect width="180" height="40" fill="#faf9f5" stroke="#141413" strokeWidth="1" strokeDasharray="4,3" rx="4" />
+            <text x="90" y="18" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="9" fill="#4a4a48" letterSpacing="1.5">LITERAL-MINDED MODEL</text>
+            <text x="90" y="32" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">obeys to the letter</text>
+          </g>
+
+          <path d="M 360 130 Q 360 150 185 168" fill="none" stroke="#d97757" strokeWidth="1.5" markerEnd="url(#arr-sup-orange)" />
+          <path d="M 360 130 Q 360 150 535 168" fill="none" stroke="#788c5d" strokeWidth="1.5" markerEnd="url(#arr-sup-green)" />
+
+          <g transform="translate(40,180)">
+            <rect width="290" height="75" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="145" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#d97757" letterSpacing="1.5" fontWeight="500">WHAT IT DID</text>
+            <line x1="20" y1="32" x2="270" y2="32" stroke="#e8e6dc" />
+            <text x="145" y="52" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">stared at the dog</text>
+            <text x="145" y="68" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">for two hours</text>
+          </g>
+
+          <g transform="translate(390,180)">
+            <rect width="290" height="75" fill="#faf9f5" stroke="#788c5d" strokeWidth="1.5" rx="4" />
+            <text x="145" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#788c5d" letterSpacing="1.5" fontWeight="500">WHAT YOU MEANT</text>
+            <line x1="20" y1="32" x2="270" y2="32" stroke="#e8e6dc" />
+            <text x="145" y="52" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">feed it, walk it,</text>
+            <text x="145" y="68" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#141413">keep it alive</text>
+          </g>
+
+          <path d="M 185 255 Q 185 285 360 295" fill="none" stroke="#d97757" strokeWidth="1.5" markerEnd="url(#arr-sup-orange)" />
+          <path d="M 535 255 Q 535 285 360 295" fill="none" stroke="#788c5d" strokeWidth="1.5" markerEnd="url(#arr-sup-green)" />
+
+          <g transform="translate(220,295)">
+            <rect width="280" height="55" fill="#faf9f5" stroke="#141413" strokeWidth="1.5" rx="4" />
+            <text x="140" y="24" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#141413" letterSpacing="2" fontWeight="500">THE GAP</text>
+            <text x="140" y="44" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#4a4a48">everything you didn't say</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>The model fills the gap with the most literal reading. Closing the gap is what prompt engineering actually is.</figcaption>
+      </figure>
 
       <PostH2>
         Why models won't outgrow Suppandi
