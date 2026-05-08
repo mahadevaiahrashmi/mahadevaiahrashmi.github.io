@@ -130,4 +130,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Two world-class athletes, opposite emotional dialects. Alcaraz says fun is a weapon. Liu says struggle makes her alive. Read them side by side and they agree on the only thing that matters — neither is competing primarily to win.",
   },
+  {
+    slug: "ai-is-suppandi",
+    title: "Your AI Is Suppandi",
+    subtitle: "What a Tinkle comics character teaches us about prompt engineering — and the gap between what you say and what you mean",
+    date: "2026-05-08",
+    readTime: "6 min read",
+    tags: ["AI", "Essay", "Prompt Engineering", "Alignment"],
+    excerpt:
+      "Suppandi obeys every instruction word-for-word and produces forty years of comedic disaster. Modern AI assistants do exactly the same thing — and the diagnosis isn't that the model is dumb. It's that the master is the unreliable component.",
+  },
 ];

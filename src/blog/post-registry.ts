@@ -16,6 +16,7 @@ import DiscomfortAsCompassPost from "./posts/discomfort-as-compass";
 import SoftwareErasPost from "./posts/software-eras";
 import ShankaracharyaIllusionCompassionPost from "./posts/shankaracharya-illusion-compassion";
 import ProcessIsThePrizePost from "./posts/process-is-the-prize";
+import AiIsSuppandiPost from "./posts/ai-is-suppandi";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -29,4 +30,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "software-eras": SoftwareErasPost,
   "shankaracharya-illusion-compassion": ShankaracharyaIllusionCompassionPost,
   "process-is-the-prize": ProcessIsThePrizePost,
+  "ai-is-suppandi": AiIsSuppandiPost,
 };
