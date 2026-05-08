@@ -115,4 +115,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A seeker challenges Adi Shankaracharya: if the world is illusion, why help anyone? His answer reframes Advaita as the sharpest form of responsibility — not an excuse to withdraw, but a reason to act without attachment.",
   },
+  {
+    slug: "process-is-the-prize",
+    title: "The Process Is the Prize",
+    subtitle: "Carlos Alcaraz protects joy. Alysa Liu protects struggle. Two opposite temperaments, one shared insight about the work.",
+    date: "2026-05-08",
+    readTime: "7 min read",
+    tags: ["Essay", "Sports", "Process", "Reflection"],
+    excerpt:
+      "Two world-class athletes, opposite emotional dialects. Alcaraz says fun is a weapon. Liu says struggle makes her alive. Read them side by side and they agree on the only thing that matters — neither is competing primarily to win.",
+  },
 ];
