@@ -160,4 +160,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Whiteboard puzzles measured typing under pressure on small instances — useful when typing was the bottleneck, obsolete now that the job is directing agents. Replace it with a real five-day brief, a real deployment, and a fleet of attacker agents told to break it. Hire whoever is still standing.",
   },
+  {
+    slug: "substrate-is-pre-training",
+    title: "The Substrate Is Pre-training",
+    subtitle: "Why today's AIs are statistical simulation circuits — not minds — and how that shapes what they're good at",
+    date: "2026-05-08",
+    readTime: "7 min read",
+    tags: ["AI", "Essay", "LLM", "ML"],
+    excerpt:
+      "Plain-English unpacking of Karpathy's framing: pre-training is the substrate, RL is the polish bolted on top, capability peaks where verification is easy, and the jagged frontier you keep tripping over is exactly what the architecture predicts. Treat them as ghosts, not animals.",
+  },
 ];
