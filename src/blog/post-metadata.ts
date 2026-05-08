@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-05-08", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory"] }
+// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-05-08", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory; unlisted=true hides from /blog index and homepage featured pick but keeps the slug routable at /blog/<slug>"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -12,6 +12,9 @@ export interface BlogPost {
   readTime: string;
   tags: string[];
   excerpt: string;
+  /** When true, the post does not appear in /blog or as the homepage featured post,
+   *  but remains accessible via direct URL at /blog/<slug>. */
+  unlisted?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -34,6 +37,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["OpenEnv", "Tutorial", "Setup", "Beginner"],
     excerpt:
       "The warehouse-robot-vs-AI experiment runs on your laptop in about fifteen minutes. Here's what OpenEnv is, what the play2 repo does, and every copy-paste command you need — no prior Python, Docker, or bash knowledge required.",
+    unlisted: true,
   },
   {
     slug: "build-warehouse-routing-openenv",
@@ -44,6 +48,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["OpenEnv", "Tutorial", "Build", "Beginner", "Python"],
     excerpt:
       "Five small Python files turn an empty folder into a real OpenEnv environment that any AI can train in. Every line is explained — no prior Pydantic, FastAPI, or reinforcement learning knowledge assumed.",
+    unlisted: true,
   },
   {
     slug: "richfeyn-smart-jar",

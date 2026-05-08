@@ -74,7 +74,7 @@ const ExperienceItem = ({ title, company, companyUrl, period, impact, descriptio
 );
 
 function HomePage() {
-  const featuredPost = blogPosts[0];
+  const featuredPost = blogPosts.find((p) => !p.unlisted) ?? blogPosts[0];
 
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">

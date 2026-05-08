@@ -48,7 +48,7 @@ export default function BlogList() {
 
         {/* Posts List */}
         <div className="space-y-8">
-          {blogPosts.map((post, idx) => (
+          {blogPosts.filter((post) => !post.unlisted).map((post, idx) => (
             <motion.article
               key={post.slug}
               initial={{ opacity: 0, y: 20 }}
