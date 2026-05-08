@@ -140,4 +140,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Suppandi obeys every instruction word-for-word and produces forty years of comedic disaster. Modern AI assistants do exactly the same thing — and the diagnosis isn't that the model is dumb. It's that the master is the unreliable component.",
   },
+  {
+    slug: "floor-and-ceiling",
+    title: "Raising the Floor, Raising the Ceiling",
+    subtitle: "Vibe coding lets anyone build. Agentic engineering lets the best build a tier higher than they ever could. Both are happening at once.",
+    date: "2026-05-08",
+    readTime: "6 min read",
+    tags: ["AI", "Essay", "Agentic Engineering", "Vibe Coding"],
+    excerpt:
+      "The same wave of AI assistants is doing two opposite things at once — lowering the bar to entry so anyone can ship, and raising the bar for excellence so the best can ship a tier higher. Vibe coding raises the floor; agentic engineering raises the ceiling. They're two ends of the same lever.",
+  },
 ];
