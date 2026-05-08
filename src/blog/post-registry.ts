@@ -22,6 +22,7 @@ import BuildItBreakItHireItPost from "./posts/build-it-break-it-hire-it";
 import SubstrateIsPretrainingPost from "./posts/substrate-is-pre-training";
 import RemainingHumanBottleneckPost from "./posts/remaining-human-bottleneck";
 import AgentFirstInfrastructurePost from "./posts/agent-first-infrastructure";
+import QuestionAfterTheToolPost from "./posts/question-after-the-tool";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -41,4 +42,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "substrate-is-pre-training": SubstrateIsPretrainingPost,
   "remaining-human-bottleneck": RemainingHumanBottleneckPost,
   "agent-first-infrastructure": AgentFirstInfrastructurePost,
+  "question-after-the-tool": QuestionAfterTheToolPost,
 };

@@ -190,4 +190,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Decompose every workload into sensors and actuators over the world. Make the data structures legible to a parser, not just an eye. Plan for my-agent-talks-to-your-agent across orgs. The teams that redesign for this now will be a tier ahead by the time the rest of the industry notices.",
   },
+  {
+    slug: "question-after-the-tool",
+    title: "The Question After the Tool",
+    subtitle: "Build the tool first. Then face the question every great tool eventually raises — does it have a mind, and how would we ever know?",
+    date: "2026-05-08",
+    readTime: "8 min read",
+    tags: ["AI", "Essay", "Consciousness", "Philosophy"],
+    excerpt:
+      "Build the tool first — incredibly intelligent, useful, precise. Then, and only then, the harder question: is anybody home? Substrate equivalence is what closes the case for other humans, and it's the one inference path AI doesn't give us. Behaviour alone won't be enough. Why the question matters, why it stays open, and what working on AI is doing to the philosophy of mind.",
+  },
 ];
