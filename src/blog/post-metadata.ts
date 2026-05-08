@@ -170,4 +170,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Plain-English unpacking of Karpathy's framing: pre-training is the substrate, RL is the polish bolted on top, capability peaks where verification is easy, and the jagged frontier you keep tripping over is exactly what the architecture predicts. Treat them as ghosts, not animals.",
   },
+  {
+    slug: "remaining-human-bottleneck",
+    title: "The Remaining Human Bottleneck",
+    subtitle: "What to build. Why it's worth building. How to direct the agents that build it. The three things you still can't outsource — and the one you must keep.",
+    date: "2026-05-08",
+    readTime: "6 min read",
+    tags: ["AI", "Essay", "Agentic Engineering", "Craft"],
+    excerpt:
+      "Agents got fast. The keyboard is no longer the rate-limiting step. The bottleneck moved upstream — what to build, why, how to direct — and one thing underneath all of it that doesn't move: understanding. You can outsource thinking. You cannot outsource understanding.",
+  },
 ];
