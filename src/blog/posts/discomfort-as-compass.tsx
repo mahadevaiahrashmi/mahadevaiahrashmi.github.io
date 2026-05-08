@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { PostH2, PostP } from "../../components/blog-prose";
+import { PostH2, PostH3, PostP } from "../../components/blog-prose";
 
 const figureWrap = "bg-[#faf9f5] border border-anthropic-text/10 rounded-xl p-6 my-10";
 const figureCaption = "text-sm text-center mt-3 opacity-60 italic font-serif text-zinc-700";
@@ -175,6 +175,19 @@ export default function DiscomfortAsCompassPost() {
       </PostP>
       <PostP>
         This is harder than it sounds. Walking toward discomfort is uncomfortable, by definition. There's no version where the practice gets easy and you stop sweating. What changes is your relationship with the sweat. You start to notice that the sweat is the proof you're in the right place. The room with no sweat is the room where everyone is making the same forgettable thing.
+      </PostP>
+
+      <PostH3>
+        Feedback like you would to a toddler
+      </PostH3>
+      <PostP>
+        Watch a good parent correct a small child. The kid spills the milk. The parent doesn't say <em>you ruined it</em>. The parent says <em>let's try with two hands</em>. Same information — <em>that didn't work, here is what would</em> — but the assumption underneath is that the kid is on your team and still learning. Adults, weirdly, get less of this than toddlers do. By the time someone is a colleague we strip out the warmth and keep the correction. The feedback ends up technically correct and emotionally inedible — it bounces off, or it lands and breeds resentment. Neither changes the work.
+      </PostP>
+      <PostP>
+        The flinch principle pushes you to <em>say</em> the hard thing. The toddler frame is the <em>how</em> — how to say it without doing damage. A few moves carry most of the weight. Speak to the behavior, not the identity: <em>the slide didn't land for me</em>, not <em>you can't present</em>. Make the correction small and concrete enough to act on tomorrow, not a sweeping verdict on a year of work. Stay regulated even if they aren't; your tone is the carrier signal, and a sharp tone overwrites every word that follows it. Assume good faith on the way in — they were trying, the same way the toddler was trying. And — the part most people skip — notice out loud when they get it right next time, the same way you would beam at a kid who finally got the milk in the cup. Correction without acknowledgement is just a one-way audit.
+      </PostP>
+      <PostP>
+        None of this is softening the feedback. The hard thing still gets said. What changes is the package it arrives in: <em>I think you can do this and I'm trying to help you get there</em>, instead of <em>I caught you</em>. Both make the same point. Only one gets internalized. The discomfort principle gives you the courage to say it. The toddler principle makes sure the person can hear it.
       </PostP>
 
       <PostH2>
