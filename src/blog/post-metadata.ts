@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-04-18", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory"] }
+// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-05-08", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -84,5 +84,25 @@ export const blogPosts: BlogPost[] = [
     tags: ["Claude Code", "Methodology", "vteam-hybrid", "Reference"],
     excerpt:
       "vteam-hybrid picks a different team shape for every phase of development — discovery, architecture, TDD, review, debugging. Here's the whole methodology on one page: the phases, the agents, the commands, and the three non-negotiable rules.",
+  },
+  {
+    slug: "discomfort-as-compass",
+    title: "Discomfort as a Compass",
+    subtitle: "What Anthony Jeselnik gets right about creative work — and why it travels well outside comedy",
+    date: "2026-05-08",
+    readTime: "6 min read",
+    tags: ["Essay", "Craft", "Writing", "Creativity"],
+    excerpt:
+      "Anthony Jeselnik treats the flinch — that small voice saying don't go there — as a compass instead of a stop sign. The principle generalises to any creative work: the thing you're uncomfortable saying is the thing most worth figuring out how to say well.",
+  },
+  {
+    slug: "software-eras",
+    title: "Software 1.0, 2.0, 3.0",
+    subtitle: "How we tell computers what to do is changing fast — a plain-English tour of the three eras of programming",
+    date: "2026-05-08",
+    readTime: "7 min read",
+    tags: ["AI", "Essay", "Software", "Beginner"],
+    excerpt:
+      "Three eras of programming, no jargon: writing the recipe yourself, curating examples so a neural network can find the recipe, and now — just describing what you want and letting an LLM figure out how. With diagrams.",
   },
 ];

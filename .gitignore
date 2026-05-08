@@ -52,6 +52,11 @@ ehthumbs.db
 # Claude Code machine-specific memory
 .claude/projects/
 
+# Standalone HTML drafts (kept on disk for reference; React posts are the published version)
+/blog-jeselnik-discomfort.html
+/blog-software-eras.html
+/rashmi-portfolio.html
+
 # Package manager lockfiles (uncomment the one you DON'T use)
 # package-lock.json
 # yarn.lock
