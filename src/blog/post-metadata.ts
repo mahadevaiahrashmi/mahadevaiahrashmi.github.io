@@ -150,4 +150,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "The same wave of AI assistants is doing two opposite things at once — lowering the bar to entry so anyone can ship, and raising the bar for excellence so the best can ship a tier higher. Vibe coding raises the floor; agentic engineering raises the ceiling. They're two ends of the same lever.",
   },
+  {
+    slug: "build-it-break-it-hire-it",
+    title: "Build It, Break It, Hire It",
+    subtitle: "The LeetCode interview tested a job that no longer exists. The new test is a real project, real agents, and a red team that gets paid to break what you shipped.",
+    date: "2026-05-08",
+    readTime: "7 min read",
+    tags: ["AI", "Essay", "Hiring", "Agentic Engineering"],
+    excerpt:
+      "Whiteboard puzzles measured typing under pressure on small instances — useful when typing was the bottleneck, obsolete now that the job is directing agents. Replace it with a real five-day brief, a real deployment, and a fleet of attacker agents told to break it. Hire whoever is still standing.",
+  },
 ];

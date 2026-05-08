@@ -18,6 +18,7 @@ import ShankaracharyaIllusionCompassionPost from "./posts/shankaracharya-illusio
 import ProcessIsThePrizePost from "./posts/process-is-the-prize";
 import AiIsSuppandiPost from "./posts/ai-is-suppandi";
 import FloorAndCeilingPost from "./posts/floor-and-ceiling";
+import BuildItBreakItHireItPost from "./posts/build-it-break-it-hire-it";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -33,4 +34,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "process-is-the-prize": ProcessIsThePrizePost,
   "ai-is-suppandi": AiIsSuppandiPost,
   "floor-and-ceiling": FloorAndCeilingPost,
+  "build-it-break-it-hire-it": BuildItBreakItHireItPost,
 };
