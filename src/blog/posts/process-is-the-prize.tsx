@@ -1,10 +1,13 @@
-// agent-notes: { ctx: "Process Is the Prize — combined essay on Carlos Alcaraz and Alysa Liu, joy vs. struggle but same outcome detachment", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08" }
+// agent-notes: { ctx: "Process Is the Prize — combined essay on Carlos Alcaraz and Alysa Liu, joy vs. struggle but same outcome detachment, with one inline SVG diagram (two-paths-converging)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figure forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches software-eras figure style"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import { PostH2, PostP } from "../../components/blog-prose";
+
+const figureWrap = "bg-[#faf9f5] border border-anthropic-text/10 rounded-xl p-6 my-10";
+const figureCaption = "text-sm text-center mt-3 opacity-60 italic font-serif text-zinc-700";
 
 export default function ProcessIsThePrizePost() {
   return (
@@ -85,6 +88,63 @@ export default function ProcessIsThePrizePost() {
       <PostP>
         Alcaraz: <em>happiness is success</em>. Liu: <em>the pinnacle of life's goals is not happiness</em>. Alcaraz: <em>I have fun on the court</em>. Liu: <em>I love to struggle</em>. Alcaraz protects pleasure as a weapon. Liu protects struggle as fuel. If you handed those quotes to a coach with no names attached, the coach would assume two different sports, two different psychologies, maybe two different planets.
       </PostP>
+
+      <figure className={figureWrap}>
+        <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="d-pp-title" className="w-full h-auto block">
+          <title id="d-pp-title">Two paths to the same place — joy and struggle both lead to outcome detachment</title>
+          <defs>
+            <marker id="arr-pp-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#d97757" />
+            </marker>
+            <marker id="arr-pp-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#788c5d" />
+            </marker>
+          </defs>
+
+          <g transform="translate(40,30)">
+            <rect width="280" height="60" fill="#faf9f5" stroke="#d97757" strokeWidth="1.5" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#d97757" letterSpacing="1.5" fontWeight="500">CARLOS ALCARAZ</text>
+            <text x="140" y="48" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">joy as a weapon</text>
+          </g>
+
+          <g transform="translate(400,30)">
+            <rect width="280" height="60" fill="#faf9f5" stroke="#788c5d" strokeWidth="1.5" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#788c5d" letterSpacing="1.5" fontWeight="500">ALYSA LIU</text>
+            <text x="140" y="48" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#141413">struggle as fuel</text>
+          </g>
+
+          <line x1="180" y1="90" x2="180" y2="115" stroke="#d97757" strokeWidth="1.5" markerEnd="url(#arr-pp-orange)" />
+          <line x1="540" y1="90" x2="540" y2="115" stroke="#788c5d" strokeWidth="1.5" markerEnd="url(#arr-pp-green)" />
+
+          <g transform="translate(40,125)">
+            <rect width="280" height="115" fill="#faf9f5" stroke="#d97757" strokeWidth="1" strokeDasharray="4,3" rx="4" />
+            <text x="140" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#d97757" letterSpacing="1.5">PROTECTS: pleasure</text>
+            <line x1="20" y1="34" x2="260" y2="34" stroke="#e8e6dc" />
+            <text x="140" y="56" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#4a4a48">"having fun is key to me"</text>
+            <text x="140" y="80" textAnchor="middle" fontFamily="Lora, serif" fontSize="11" fill="#141413">stays light → plays best</text>
+            <text x="140" y="100" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">happiness is success</text>
+          </g>
+
+          <g transform="translate(400,125)">
+            <rect width="280" height="115" fill="#faf9f5" stroke="#788c5d" strokeWidth="1" strokeDasharray="4,3" rx="4" />
+            <text x="140" y="22" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="10" fill="#788c5d" letterSpacing="1.5">PROTECTS: the fight</text>
+            <line x1="20" y1="34" x2="260" y2="34" stroke="#e8e6dc" />
+            <text x="140" y="56" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="12" fill="#4a4a48">"I compete so I can train"</text>
+            <text x="140" y="80" textAnchor="middle" fontFamily="Lora, serif" fontSize="11" fill="#141413">stays in the climb → grows</text>
+            <text x="140" y="100" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="11" fill="#4a4a48">I care about my story</text>
+          </g>
+
+          <path d="M 180 240 Q 180 280 360 290" fill="none" stroke="#d97757" strokeWidth="1.5" markerEnd="url(#arr-pp-orange)" />
+          <path d="M 540 240 Q 540 280 360 290" fill="none" stroke="#788c5d" strokeWidth="1.5" markerEnd="url(#arr-pp-green)" />
+
+          <g transform="translate(220,290)">
+            <rect width="280" height="60" fill="#faf9f5" stroke="#141413" strokeWidth="1.5" rx="4" />
+            <text x="140" y="26" textAnchor="middle" fontFamily="Poppins, sans-serif" fontSize="11" fill="#141413" letterSpacing="1.5" fontWeight="500">DETACH FROM OUTCOME</text>
+            <text x="140" y="48" textAnchor="middle" fontFamily="Lora, serif" fontStyle="italic" fontSize="13" fill="#4a4a48">the process is the prize</text>
+          </g>
+        </svg>
+        <figcaption className={figureCaption}>Opposite emotional textures. The same move underneath: stay glued to the work, not the result.</figcaption>
+      </figure>
       <PostP>
         Read both more carefully and the contradiction dissolves. Neither of them is competing primarily to win. Alcaraz is on the court because tennis is beautiful and the game itself is the gift — the trophy is what happens when you stay light enough to play your best. Liu is on the ice because the fight is alive — the medal is what happens when you stay engaged with the climb.
       </PostP>
