@@ -74,7 +74,7 @@ const ExperienceItem = ({ title, company, companyUrl, period, impact, descriptio
 );
 
 function HomePage() {
-  const featuredPost = blogPosts.find((p) => !p.unlisted) ?? blogPosts[0];
+  const featuredPost = blogPosts.find((p) => !p.unlisted && !p.draft) ?? blogPosts[0];
 
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
@@ -531,6 +531,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogList />} />
+        <Route path="/draft" element={<BlogList mode="draft" />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
       </Routes>
     </BrowserRouter>

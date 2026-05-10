@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-05-08", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory; unlisted=true hides from /blog index and homepage featured pick but keeps the slug routable at /blog/<slug>"] }
+// agent-notes: { ctx: "blog post metadata (titles, slugs, tags, excerpts); bodies live in ./posts/*", deps: [], state: active, last: "sato@2026-05-10", key: ["renamed from posts.ts in #31 to avoid collision with the ./posts/ directory; unlisted=true hides from /blog index and homepage featured pick but keeps the slug routable at /blog/<slug>; draft=true routes a post to /draft instead of /blog"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -15,6 +15,9 @@ export interface BlogPost {
   /** When true, the post does not appear in /blog or as the homepage featured post,
    *  but remains accessible via direct URL at /blog/<slug>. */
   unlisted?: boolean;
+  /** When true, the post is hidden from /blog and the homepage featured pick,
+   *  and instead listed at /draft. Slug remains routable at /blog/<slug>. */
+  draft?: boolean;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -99,6 +102,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Essay", "Craft", "Writing", "Creativity"],
     excerpt:
       "Anthony Jeselnik treats the flinch — that small voice saying don't go there — as a compass instead of a stop sign. The principle generalises to any creative work: the thing you're uncomfortable saying is the thing most worth figuring out how to say well.",
+    draft: true,
   },
   {
     slug: "software-eras",
@@ -109,6 +113,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Software", "Beginner"],
     excerpt:
       "Three eras of programming, no jargon: writing the recipe yourself, curating examples so a neural network can find the recipe, and now — just describing what you want and letting an LLM figure out how. With diagrams.",
+    draft: true,
   },
   {
     slug: "shankaracharya-illusion-compassion",
@@ -119,6 +124,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Essay", "Philosophy", "Vedanta", "Reflection"],
     excerpt:
       "A seeker challenges Adi Shankaracharya: if the world is illusion, why help anyone? His answer reframes Advaita as the sharpest form of responsibility — not an excuse to withdraw, but a reason to act without attachment.",
+    draft: true,
   },
   {
     slug: "process-is-the-prize",
@@ -129,6 +135,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["Essay", "Sports", "Process", "Reflection"],
     excerpt:
       "Two world-class athletes, opposite emotional dialects. Alcaraz says fun is a weapon. Liu says struggle makes her alive. Read them side by side and they agree on the only thing that matters — neither is competing primarily to win.",
+    draft: true,
   },
   {
     slug: "ai-is-suppandi",
@@ -139,6 +146,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Prompt Engineering", "Alignment"],
     excerpt:
       "Suppandi obeys every instruction word-for-word and produces forty years of comedic disaster. Modern AI assistants do exactly the same thing — and the diagnosis isn't that the model is dumb. It's that the master is the unreliable component.",
+    draft: true,
   },
   {
     slug: "floor-and-ceiling",
@@ -149,6 +157,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Agentic Engineering", "Vibe Coding"],
     excerpt:
       "The same wave of AI assistants is doing two opposite things at once — lowering the bar to entry so anyone can ship, and raising the bar for excellence so the best can ship a tier higher. Vibe coding raises the floor; agentic engineering raises the ceiling. They're two ends of the same lever.",
+    draft: true,
   },
   {
     slug: "build-it-break-it-hire-it",
@@ -159,6 +168,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Hiring", "Agentic Engineering"],
     excerpt:
       "Whiteboard puzzles measured typing under pressure on small instances — useful when typing was the bottleneck, obsolete now that the job is directing agents. Replace it with a real five-day brief, a real deployment, and a fleet of attacker agents told to break it. Hire whoever is still standing.",
+    draft: true,
   },
   {
     slug: "substrate-is-pre-training",
@@ -169,6 +179,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "LLM", "ML"],
     excerpt:
       "Plain-English unpacking of Karpathy's framing: pre-training is the substrate, RL is the polish bolted on top, capability peaks where verification is easy, and the jagged frontier you keep tripping over is exactly what the architecture predicts. Treat them as ghosts, not animals.",
+    draft: true,
   },
   {
     slug: "remaining-human-bottleneck",
@@ -179,6 +190,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Agentic Engineering", "Craft"],
     excerpt:
       "Agents got fast. The keyboard is no longer the rate-limiting step. The bottleneck moved upstream — what to build, why, how to direct — and one thing underneath all of it that doesn't move: understanding. You can outsource thinking. You cannot outsource understanding.",
+    draft: true,
   },
   {
     slug: "agent-first-infrastructure",
@@ -189,6 +201,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Infrastructure", "Agentic Engineering"],
     excerpt:
       "Decompose every workload into sensors and actuators over the world. Make the data structures legible to a parser, not just an eye. Plan for my-agent-talks-to-your-agent across orgs. The teams that redesign for this now will be a tier ahead by the time the rest of the industry notices.",
+    draft: true,
   },
   {
     slug: "question-after-the-tool",
@@ -199,5 +212,6 @@ export const blogPosts: BlogPost[] = [
     tags: ["AI", "Essay", "Consciousness", "Philosophy"],
     excerpt:
       "Demis Hassabis's framing from a recent talk: build the tool first — incredibly intelligent, useful, precise. Then, and only then, the harder question: is anybody home? Substrate equivalence is what closes the case for other humans, and it's the one inference path AI doesn't give us. Behaviour alone won't be enough. Why the question matters, why it stays open, and what working on AI is doing to the philosophy of mind.",
+    draft: true,
   },
 ];

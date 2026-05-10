@@ -9,7 +9,20 @@ import { Link } from "react-router-dom";
 import { blogPosts } from "../blog/post-metadata";
 import ThemeToggle from "./ThemeToggle";
 
-export default function BlogList() {
+interface BlogListProps {
+  mode?: "published" | "draft";
+}
+
+export default function BlogList({ mode = "published" }: BlogListProps = {}) {
+  const isDraft = mode === "draft";
+  const visiblePosts = isDraft
+    ? blogPosts
+    : blogPosts.filter((post) => !post.draft && !post.unlisted);
+  const heading = isDraft ? "Drafts" : "Blog";
+  const description = isDraft
+    ? "Every post in the system — drafts, published, and unlisted. Used as a working index while writing."
+    : "Thoughts, experiments, and deep dives on AI/ML engineering, agentic systems, and building production data products.";
+
   return (
     <div className="min-h-screen selection:bg-anthropic-accent/20">
       {/* Navigation */}
@@ -39,16 +52,16 @@ export default function BlogList() {
             <Link to="/" className="opacity-60 hover:opacity-100 transition-opacity">
               <ArrowLeft size={20} />
             </Link>
-            <h1 className="text-5xl md:text-6xl font-serif font-light tracking-tight">Blog</h1>
+            <h1 className="text-5xl md:text-6xl font-serif font-light tracking-tight">{heading}</h1>
           </div>
           <p className="text-xl font-serif leading-relaxed opacity-70 max-w-2xl">
-            Thoughts, experiments, and deep dives on AI/ML engineering, agentic systems, and building production data products.
+            {description}
           </p>
         </motion.div>
 
         {/* Posts List */}
         <div className="space-y-8">
-          {blogPosts.filter((post) => !post.unlisted).map((post, idx) => (
+          {visiblePosts.map((post, idx) => (
             <motion.article
               key={post.slug}
               initial={{ opacity: 0, y: 20 }}
