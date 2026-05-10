@@ -96,6 +96,9 @@ When the human declares unavailability, Pat answers product questions using `doc
 ### Commit Discipline
 Commit and push after every reasonable chunk of work. One commit per issue. Conventional commits format.
 
+### Watch Deploys
+After every `git push` to `main`, watch the GitHub Actions "Deploy to GitHub Pages" run with `gh run watch` and report **green** or **red** before moving on. Don't leave the user refreshing a stale page.
+
 ## Tracking
 
 <!-- tracking-adapter: github-projects -->
