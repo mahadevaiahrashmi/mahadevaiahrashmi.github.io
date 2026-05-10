@@ -15,12 +15,12 @@ interface BlogListProps {
 
 export default function BlogList({ mode = "published" }: BlogListProps = {}) {
   const isDraft = mode === "draft";
-  const visiblePosts = isDraft
-    ? blogPosts
-    : blogPosts.filter((post) => !post.draft && !post.unlisted);
+  const visiblePosts = blogPosts.filter((post) =>
+    isDraft ? post.draft || post.unlisted : !post.draft && !post.unlisted,
+  );
   const heading = isDraft ? "Drafts" : "Blog";
   const description = isDraft
-    ? "Every post in the system — drafts, published, and unlisted. Used as a working index while writing."
+    ? "Posts that aren't on the main blog index — drafts in progress and unlisted entries."
     : "Thoughts, experiments, and deep dives on AI/ML engineering, agentic systems, and building production data products.";
 
   return (
