@@ -118,7 +118,7 @@ function HomePage() {
                 <span className="italic">& Product Leader.</span>
               </h1>
               <p className="text-xl font-serif leading-relaxed opacity-60 mb-8 max-w-xl">
-                13 years. 6 companies. Production AI systems shipped — from statistical models at KLA to multi-agent orchestration at KOGO.ai.
+                8 years. Production AI systems shipped — from statistical models at KLA to multi-agent orchestration at KOGO.ai.
               </p>
 
               {/* CTA Hierarchy */}
@@ -164,7 +164,7 @@ function HomePage() {
             className="max-w-3xl space-y-6 text-lg font-serif leading-relaxed opacity-80 mb-16"
           >
             <p>
-              IIT Madras alumnus with 13+ years in AI/ML. Expertise in building LLMs and multi-agent systems that reason, plan, and act autonomously.
+              IIT Madras alumnus with 8+ years in AI/ML. Expertise in building LLMs and multi-agent systems that reason, plan, and act autonomously.
             </p>
             <p>
               Background: computer vision for semiconductor defect detection, statistical modeling at Axis Bank &amp; TCS, founded RichFeyn (shipped CV/IoT/mobile AI products), and led multi-agent orchestration at KOGO.ai processing thousands of sales leads.
