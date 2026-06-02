@@ -279,6 +279,66 @@ function HomePage() {
                 ))}
               </div>
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">Resume Tailor</h3>
+                <div className="flex gap-4">
+                  <a href="https://github.com/mahadevaiahrashmi/resume-tailor" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity" title="Source Repo">
+                    <Github size={18} />
+                  </a>
+                  <Link to="/blog/resume-tailor" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Case Study">
+                    Case Study <ExternalLink size={14} />
+                  </Link>
+                </div>
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                A local-first web app that tailors your resume and cover letter to a job description — outputs one-page PDF and Word, runs against five swappable AI engines (local Ollama to hosted Claude), and is built to re-emphasize real experience, never invent it.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Python", "FastAPI", "LLMs", "Ollama"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="group block border border-anthropic-text/10 rounded-2xl p-8 hover:border-anthropic-accent/40 transition-colors"
+            >
+              <div className="flex justify-between items-start mb-6">
+                <h3 className="text-2xl font-serif font-medium group-hover:text-anthropic-accent transition-colors">Explainer Bot</h3>
+                <div className="flex gap-4">
+                  <a href="https://github.com/mahadevaiahrashmi/explainer-bot" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity" title="Source Repo">
+                    <Github size={18} />
+                  </a>
+                  <Link to="/blog/explainer-bot" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Case Study">
+                    Case Study <ExternalLink size={14} />
+                  </Link>
+                </div>
+              </div>
+              <p className="text-lg leading-relaxed opacity-80 mb-6">
+                Turns rough points into a 3Blue1Brown-style explainer video — an LLM writes and self-critiques the script and designs editable HTML slides, then assembles a cue video you narrate in your own voice. Web and terminal UIs, three swappable model backends.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {["Python", "FastAPI", "LLMs", "Multimodal"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 bg-anthropic-text/5 rounded-md text-xs font-sans uppercase tracking-wider opacity-70">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 

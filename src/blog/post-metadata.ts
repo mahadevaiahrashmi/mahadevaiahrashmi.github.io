@@ -214,4 +214,26 @@ export const blogPosts: BlogPost[] = [
       "Demis Hassabis's framing from a recent talk: build the tool first — incredibly intelligent, useful, precise. Then, and only then, the harder question: is anybody home? Substrate equivalence is what closes the case for other humans, and it's the one inference path AI doesn't give us. Behaviour alone won't be enough. Why the question matters, why it stays open, and what working on AI is doing to the philosophy of mind.",
     draft: true,
   },
+  {
+    slug: "resume-tailor",
+    title: "Resume Tailor: One Resume, Tuned for Every Role",
+    subtitle: "A local-first web app that tailors your resume and cover letter to a job description — five AI engines, one interface, zero invented facts",
+    date: "2026-06-02",
+    readTime: "6 min read",
+    tags: ["Applied AI", "LLM", "FastAPI", "Python", "Document Generation"],
+    excerpt:
+      "Paste a job description and your resume, pick an AI engine, and get back a tailored one-page resume and cover letter as PDF and Word. A case study in production LLM application work — a pluggable abstraction over five model backends (local Ollama to hosted Claude), privacy-aware design, and the grounding discipline that re-emphasizes real experience instead of inventing it.",
+    draft: true,
+  },
+  {
+    slug: "explainer-bot",
+    title: "Explainer Bot: From Rough Notes to a Narrated Video",
+    subtitle: "Rough points in, a finished explainer video out — scripted and storyboarded by an LLM, narrated in your own voice",
+    date: "2026-06-02",
+    readTime: "6 min read",
+    tags: ["Applied AI", "LLM", "FastAPI", "Python", "Multimodal"],
+    excerpt:
+      "Hand it rough points, get back a 3Blue1Brown-style explainer video — but narrated in your own voice, not synthetic TTS. A multi-stage generation pipeline with human-in-the-loop checkpoints: LLM script-plus-self-critique, editable HTML slides, and a cue video you record against. Built in Python on FastAPI with three swappable model backends.",
+    draft: true,
+  },
 ];
