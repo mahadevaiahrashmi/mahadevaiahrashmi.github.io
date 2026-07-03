@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Agent-First Infrastructure — essay on designing systems for a world where agents are primary users: sensors/actuators decomposition, legibility, my-agent-talks-to-your-agent, with one inline SVG figure (sensors+actuators+agents+inter-org handshake stack)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figure forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style"] }
+// agent-notes: { ctx: "Agent-First Infrastructure — essay on designing systems for a world where agents are primary users: sensors/actuators decomposition, legibility, my-agent-talks-to-your-agent, with one inline SVG figure (sensors+actuators+agents+inter-org handshake stack)", deps: ["../../components/blog-prose"], state: active, last: "humanizer@2026-05-15", key: ["SVG figure forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style", "humanized version appended below original via blader/humanizer skill"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -200,6 +200,92 @@ export default function AgentFirstInfrastructurePost() {
       </PostP>
       <PostP>
         The world is being parsed now, not just read. Build accordingly.
+      </PostP>
+
+      <hr className="my-16 border-anthropic-text/10" />
+
+      <PostH2>Humanized version</PostH2>
+
+      <p className="text-sm font-serif italic opacity-60 mb-8">
+        The same essay, rewritten with the blader/humanizer skill, same argument, fewer AI tells, more voice.
+      </p>
+
+      <PostP>
+        Almost every piece of software I&apos;ve worked on in the last fifteen years was built for one of two readers. A human poking at a screen, or another program someone on the team owned. The APIs, the docs, the JSON shapes, the error copy: all of it assumed one or the other. Those assumptions are going to break, and soon.
+      </PostP>
+      <PostP>
+        Most of the load on systems I&apos;m building now goes to agents. Not our scripts. Not humans. Agents. Mine, my customers&apos;, my customers&apos; customers&apos;, and a growing slice of agents owned by strangers who are calling on behalf of other strangers. Most teams haven&apos;t felt the weight of this yet. The ones that do feel it, and rebuild now, will be a generation ahead before anyone else notices the shift.
+      </PostP>
+
+      <PostH2>What agent-first actually means</PostH2>
+      <PostP>
+        People hear &quot;agent-first&quot; and assume it means wrapping the existing CRUD endpoints in an LLM tool layer. It doesn&apos;t. That&apos;s agent-aftermarket, a chat veneer bolted onto a system designed for human clicks. It demos beautifully and falls over in production, because every assumption beneath the veneer is wrong. Pagination sized for human eyes. Error messages written for a person to read. Auth flows that expect a browser session. Rate limits calibrated to a typist, not to something that never sleeps.
+      </PostP>
+      <PostP>
+        Agent-first means the default caller is a model. Every endpoint, every payload, every protocol assumes the consumer can read docs but has no human intuition, can fire off a hundred parallel calls but hates retrying ambiguous errors, can parse structured data but drowns in HTML soup. You are not building for the eye anymore. You are building for the parser.
+      </PostP>
+
+      <PostH2>Decompose the world into sensors and actuators</PostH2>
+      <PostP>
+        The cleanest move I know for designing agent-native systems is to stop thinking in features and start thinking in sensors and actuators. Every workload your system performs is one of two things. It reads some part of the world, or it changes some part of the world. That&apos;s it. Place an order, that&apos;s an actuator. List recent orders, sensor. Search the catalog, sensor. Adjust inventory, actuator. Nothing else.
+      </PostP>
+      <PostP>
+        Why does this matter for agents? Because an agent is just a thing that composes sensors and actuators in service of a goal. Read the calendar. If there&apos;s a free slot, send a confirmation. Otherwise, propose alternatives. That&apos;s three calls and a little logic. If your platform exposes its surface as a tidy catalog of sensors and actuators, named, typed, and described, agents compose on top of it almost for free. If your platform exposes its surface as a UI with twenty-eight buttons, agents have to reverse-engineer what each one does before they can do anything at all.
+      </PostP>
+      <PostUL>
+        <li><strong>Sensors</strong> are read-only. Stable shapes. Safe to call again and again. Cheap, fast, pure.</li>
+        <li><strong>Actuators</strong> change the world. They take idempotency keys. They have explicit pre- and post-conditions. Hard to call by accident, easy to call on purpose.</li>
+        <li>The catalog of sensors and actuators is the agent-facing API. The UI, the dashboards, the cron jobs, all of it, is just one particular composition of that catalog.</li>
+      </PostUL>
+      <PostP>
+        Once you design this way, the system fits both humans and agents better. The dashboards your team likes are compositions of sensors. The automations are compositions of actuators. The support agent doing customer triage is another composition. Your platform stops being a forest of bespoke endpoints and starts being a vocabulary.
+      </PostP>
+
+      <PostH2>Legibility, write data the model can read</PostH2>
+      <PostP>
+        The other half of agent-first design is making your data legible to a model. Humans put up with clever data. Implicit conventions, magic strings, fields whose meaning you derive from context. Models do not. A field called <code>status</code> with values <code>&quot;A&quot;</code>, <code>&quot;B&quot;</code>, <code>&quot;C&quot;</code> is fine inside a database nobody outside your team touches. It is actively poisonous for an agent calling your API for the first time.
+      </PostP>
+      <PostP>
+        Legible data has a few habits. It self-describes. A field called <code>order_status</code> with values <code>&quot;pending&quot;</code>, <code>&quot;paid&quot;</code>, <code>&quot;shipped&quot;</code> tells the agent what it is, so the agent doesn&apos;t have to guess. It comes with explicit schemas. Every endpoint ships a JSON Schema the agent can read at runtime. It prefers enumerated vocabularies to free text. It includes units. It timestamps in ISO-8601, not in whatever format the original engineer happened to like. And it avoids clever in-band signalling. No <code>&quot;id&quot;: -1</code> meaning anonymous. No <code>&quot;phone&quot;: &quot;&quot;</code> meaning unsubscribed.
+      </PostP>
+      <PostP>
+        None of this is new. Good API designers have been saying it for twenty years. The difference is that for twenty years it was a nice-to-have, because the consumer was a human reading docs at a human pace. Now the consumer is a model that will hit your API ten thousand times in parallel and act on whatever shape comes back. Sloppy data doesn&apos;t just irritate developers anymore. It miscalibrates agent behavior at scale.
+      </PostP>
+
+      <PostH2>My agent talks to your agent</PostH2>
+      <PostP>
+        The third leg is the one I find most interesting, because it barely exists yet and it&apos;s coming fast. Protocols where my agent talks directly to yours, on behalf of the two of us, with neither of us in the loop.
+      </PostP>
+      <PostP>
+        The use cases are easy to picture and harder to build. My agent wants to book a flight under four hundred dollars. The airline&apos;s agent wants to fill an empty seat. They negotiate. My agent wants to know whether your warehouse can fulfill in two days. Yours wants to know whether mine can pay net-30. They negotiate. What they&apos;re doing is not &quot;calling an API.&quot; It&apos;s a structured conversation between two systems, each chasing a goal on behalf of a principal, with some protocol in between to keep the conversation honest.
+      </PostP>
+      <PostP>
+        That protocol is what&apos;s missing. It has to handle a small list of hard things. Who is this agent acting for. What authority do they hold. How do we verify that. How do we negotiate disagreement. How do we settle. How do we audit afterward. None of these are new questions. Humans answered them with contracts and lawyers. The catch is that the answers now need to be encodable in a way two agents can run in milliseconds. We&apos;re roughly where TCP/IP sat in 1985. A lot of partial standards, no clear winner, a quiet sense that whatever sticks will be very valuable.
+      </PostP>
+      <PostP>
+        If you&apos;re building infrastructure today, you can&apos;t wait for the standard. But you can stop assuming the consumer of your system is always a developer reading docs. In five years some of your traffic will be other people&apos;s agents arriving at your endpoint with no human attached, expecting to read your schema, evaluate your terms, place a transaction, and leave. The teams whose systems can handle that visit gracefully will pick up most of the cross-org agent traffic that&apos;s about to flood the internet.
+      </PostP>
+
+      <PostH2>What to do this quarter</PostH2>
+      <PostP>
+        Concrete moves. None of them exotic.
+      </PostP>
+      <PostUL>
+        <li><strong>List your sensors and actuators.</strong> Literally write them down. What does your system read from the world? What does it change? Each entry gets a name, a plain-English description, a schema, and one line on what calling it costs. If the list runs longer than a page, the surface is cluttered, and that&apos;s the first thing to fix.</li>
+        <li><strong>Make every internal API agent-callable.</strong> Generate a machine-readable schema. Document every parameter. Add idempotency to mutating endpoints. Return errors an agent can act on, not error pages a human has to interpret.</li>
+        <li><strong>Pick an auth story for agents acting on someone&apos;s behalf.</strong> OAuth-style flows mostly assume a human in the middle. You&apos;ll want a model where an agent presents a capability token that says &quot;I am acting for X, with scope Y, until time Z.&quot; Start now, even if your first version is rough.</li>
+        <li><strong>Stop fighting the agent skin.</strong> If your customers are wrapping your product in their own agent, that&apos;s a feature, not a bug. Help them. The teams that resist this end up with systems that are hostile to how people actually use software in the next decade.</li>
+      </PostUL>
+
+      <PostH2>The question to keep asking</PostH2>
+      <PostP>
+        I check every design decision in an agent-first system against one slightly uncomfortable question.
+      </PostP>
+      <PostP>
+        If my user were a model, would my system make sense to it? If yes, the human-facing UI on top will be fine. Humans mostly want what models want from a system: clear names, predictable behavior, no surprises. If no, you&apos;re about to discover the hard way that a quiet shift is happening on your traffic graph, and the new majority of your users isn&apos;t reading your docs the way you expected them to.
+      </PostP>
+      <PostP>
+        The world is being parsed now, not just read. Build for that.
       </PostP>
     </>
   );

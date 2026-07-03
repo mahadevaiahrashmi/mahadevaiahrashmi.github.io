@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Software 1.0/2.0/3.0 essay (Karpathy eras) blog post content with 3 inline SVG diagrams", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) so hard-coded ink/orange/green palette stays readable in dark mode"] }
+// agent-notes: { ctx: "Software 1.0/2.0/3.0 essay (Karpathy eras) blog post content with 3 inline SVG diagrams", deps: ["../../components/blog-prose"], state: active, last: "humanizer@2026-05-15", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) so hard-coded ink/orange/green palette stays readable in dark mode", "humanized version appended below original via blader/humanizer skill"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -245,6 +245,77 @@ export default function SoftwareErasPost() {
       </PostP>
       <PostP>
         If you've ever written a really good email — clear ask, the right context, just enough background — you already have half the skill.
+      </PostP>
+
+      <hr className="my-16 border-anthropic-text/10" />
+
+      <PostH2>Humanized version</PostH2>
+
+      <p className="text-sm font-serif italic opacity-60 mb-8">
+        The same essay, rewritten with the blader/humanizer skill. Same argument, fewer AI tells, more voice.
+      </p>
+
+      <PostP>
+        The first time I watched my mother ask ChatGPT to draft a complaint letter to her bank, I had a small, weird feeling. She wasn&apos;t prompting, exactly. She was just talking. And the thing on the other end did the work. That moment, more than any demo or keynote, was when I understood something had genuinely changed about how people give instructions to computers.
+      </PostP>
+      <PostP>
+        Andrej Karpathy describes this as three eras: Software 1.0, 2.0, and 3.0. I find the framing useful, partly because it&apos;s clean and partly because it answers a question people keep asking me at dinner parties, which is some version of "wait, is this just autocomplete?" No. It isn&apos;t. Here&apos;s how I&apos;d explain the three eras to someone who has never opened a terminal.
+      </PostP>
+
+      <PostH2>1.0: we write the recipe</PostH2>
+      <PostP>
+        For most of computing&apos;s history, programming has meant exactly one thing. A human writes instructions in a language the computer understands, one line at a time, and the computer does what it&apos;s told. No more, no less.
+      </PostP>
+      <PostP>
+        The analogy I keep coming back to is a recipe. You don&apos;t walk into a kitchen and tell someone "make cake." You say: 200g of flour, two eggs, whisk for three minutes, 180 degrees for 25 minutes. Forget to mention the oven and your cake sits on the counter forever. The computer is exactly that literal.
+      </PostP>
+      <PostP>
+        Almost every piece of software you touched before about 2012 was Software 1.0. Your bank&apos;s interest calculator, the Uber booking flow, the budget spreadsheet you keep meaning to update. All of it typed out, painstakingly, by humans. It&apos;s reliable. It&apos;s also slow to build and only as smart as whoever wrote the recipe.
+      </PostP>
+
+      <PostH2>2.0: we curate the examples, the machine learns the recipe</PostH2>
+      <PostP>
+        Around 2012, the deep learning crowd had a quiet revolution. Instead of writing the rules, they started letting computers figure out the rules from examples. This sounds small. It isn&apos;t.
+      </PostP>
+      <PostP>
+        Try writing rules that distinguish a cat from a dog. Pointy ears? Plenty of dogs have pointy ears. Whiskers? Have you seen a schnauzer. You give up after about ten minutes. The Software 2.0 answer is to skip the rules entirely. You show a neural network a few thousand labelled photos, it nudges millions of internal dials, and after a while it just... knows. Not in a way anyone can fully explain, which is part of the deal.
+      </PostP>
+      <PostP>
+        The programmer&apos;s job shifts. You&apos;re not writing instructions anymore. You&apos;re picking what data to feed in, what shape of network to use, what goal it should chase. The network discovers the recipe. You curate the cookbook.
+      </PostP>
+      <PostP>
+        Netflix recommendations, Google Photos finding your dog, your bank flagging that weird transaction in Bangkok, Tesla&apos;s lane-keeping. All Software 2.0. Much more powerful than 1.0 for anything messy. Also much more expensive, much more specialist, and training runs can take days even now.
+      </PostP>
+
+      <PostH2>3.0: we just say what we want</PostH2>
+      <PostP>
+        Then large language models showed up and the rules changed again. ChatGPT, Claude, Gemini. A third way of programming, basically overnight.
+      </PostP>
+      <PostP>
+        In Software 3.0 you don&apos;t write code and you don&apos;t curate a dataset. You ask, in English. "Summarise this document." "Find me flights to Lisbon under 40,000 rupees next month." "Look at this spreadsheet and tell me which customers are about to churn." That&apos;s the program. That sentence.
+      </PostP>
+      <PostP>
+        What surprises me is what happens after you hit enter. The model reads the request, works out what you actually mean (often charitably), pokes around the environment it has access to, runs something, looks at the output, notices the output is wrong, and tries again. It does the back-and-forth a thoughtful junior would do, except it happens in about four seconds and nobody needs a coffee.
+      </PostP>
+      <PostP>
+        You don&apos;t need to know whether the answer wants to be a SQL query or a Python script or a quick web search. The model picks. What you need to know is how to phrase the question, and what context to drop in alongside it. A screenshot. A paragraph from an email. The CSV. A sample row.
+      </PostP>
+      <PostP>
+        That&apos;s the new skill, and I think it&apos;s genuinely a skill. Programming, more and more, is the craft of writing a clear request and handing over the right context.
+      </PostP>
+
+      <PostH2>So what does this mean for the rest of us?</PostH2>
+      <PostP>
+        The biggest change isn&apos;t technical. It&apos;s who gets to program.
+      </PostP>
+      <PostP>
+        Software 1.0 belonged to people with computer science degrees. Software 2.0 belonged to data scientists, which is a smaller club. Software 3.0 is open to anyone who can describe what they want clearly. I&apos;ve watched a lawyer friend build a contract reviewer for her firm in an afternoon. A baker I know runs his own little customer-support assistant for order queries. Neither of them writes code. Neither of them needs to.
+      </PostP>
+      <PostP>
+        Does this make traditional programming obsolete? No. The cake still has to bake somewhere. Software 1.0 and 2.0 are quietly humming inside almost every Software 3.0 system you&apos;ll use. But the centre of gravity has moved. The most valuable skill is no longer typing the instructions yourself. It&apos;s knowing what&apos;s worth asking for, and describing it well enough that something else can do the rest.
+      </PostP>
+      <PostP>
+        If you&apos;ve ever written a really good email — clear ask, right context, just enough background, no waffle — congratulations. You already have half the skill.
       </PostP>
     </>
   );

@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "The Substrate Is Pre-training — plain-English unpacking of Karpathy's framing that LLMs are statistical simulation circuits with RL bolted on, jagged frontier, treat as tool, with two inline SVG figures (substrate stack + jagged capability bars)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style"] }
+// agent-notes: { ctx: "The Substrate Is Pre-training — plain-English unpacking of Karpathy's framing that LLMs are statistical simulation circuits with RL bolted on, jagged frontier, treat as tool, with two inline SVG figures (substrate stack + jagged capability bars)", deps: ["../../components/blog-prose"], state: active, last: "humanizer@2026-05-15", key: ["SVG figures forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style", "humanized version appended below original via blader/humanizer skill"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -210,6 +210,94 @@ export default function SubstrateIsPretrainingPost() {
       </PostP>
       <PostP>
         Once you really hold this picture, you stop being surprised by either the brilliance or the cliff-fall stupidity. You expect both. You use the tool for the slopes it can ski and you grade the output for the slopes it can't. You stop asking it to understand. You ask it to produce — and you do the understanding yourself.
+      </PostP>
+      <PostP>
+        The substrate is pre-training. The polish is RL. Everything else is you.
+      </PostP>
+
+      <hr className="my-16 border-anthropic-text/10" />
+
+      <PostH2>Humanized version</PostH2>
+
+      <p className="text-sm font-serif italic opacity-60 mb-8">
+        The same essay, rewritten with the blader/humanizer skill — same argument, fewer AI tells, more voice.
+      </p>
+
+      <PostP>
+        Karpathy has a line I keep coming back to. He says today&apos;s AI systems are statistical simulation circuits, the substrate is pre-training, and reinforcement learning is bolted on top. One sentence. Once it lands, half of the noisy debate about these models goes quiet.
+      </PostP>
+      <PostP>
+        Most of the public argument (are they conscious, do they really understand, are they going to take over the world) skips the part where you ask what the things actually are. I find Karpathy&apos;s framing clarifying, so I want to walk through it the way I wish someone had walked me through it the first time.
+      </PostP>
+
+      <PostH2>Two words: substrate and pre-training</PostH2>
+      <PostP>
+        Substrate is the foundation. The thing underneath. A house sits on concrete. A plant sits in soil. Whatever you build on top inherits the shape of what&apos;s below it. That&apos;s the whole idea.
+      </PostP>
+      <PostP>
+        Pre-training is the long, expensive first phase of building a modern language model. The model reads a few trillion tokens of text (books, papers, code, websites, transcripts, the public internet) and gets asked, over and over, to predict the next word. Nothing fancier than that. It gets better at the prediction game, and along the way it builds a giant internal map of how language tends to flow. Grammar. Common phrasings. Factual associations. Rhetorical moves. Reasoning styles, sort of.
+      </PostP>
+      <PostP>
+        Stitch the two words together and Karpathy&apos;s claim gets sharp. The foundation of today&apos;s AI is the statistical pattern-matching that fell out of next-word prediction, repeated billions of times, across the readable internet. The thing you talk to in the chat window is, at base, those patterns. Not a mind. A map.
+      </PostP>
+
+      <PostH2>And then RL is bolted on top</PostH2>
+      <PostP>
+        Pre-training alone gives you a wild, sometimes brilliant, often impolite autocomplete. It has read everything, and it will happily continue any text you give it, including text you do not want continued. So the labs add a second, smaller, more deliberate layer on top. Reinforcement learning. The model is shown which completions humans (or graders, or rules, or other models) like better, and gets nudged toward producing more of those.
+      </PostP>
+      <PostP>
+        That&apos;s the layer that turns the wild autocomplete into something that introduces itself politely, follows instructions, refuses bad requests, and tries to be useful. RL is not the foundation. It&apos;s the polish. A thin coat of social training painted on a much larger, much messier statistical mass.
+      </PostP>
+
+      <PostH2>Frontier labs are giant RL environments</PostH2>
+      <PostP>
+        If pre-training is read-the-internet, RL is sit-in-school. The labs design tasks where the model tries something and a verifier (a unit test, a math grader, a human, another model) produces a reward. Right answer, plus one. Wrong answer, minus one. The model nudges its weights in the direction that earns more pluses next time.
+      </PostP>
+      <PostP>
+        This works absurdly well in places where the verifier is sharp and cheap. Math problems: either the answer matches or it doesn&apos;t. Code: either the test passes or it doesn&apos;t. Logic puzzles, formal proofs, structured games, all of these have crisp reward signals, so the RL signal is loud, and the model visibly gets better. Capability peaks where verification is easy. That&apos;s the rule.
+      </PostP>
+      <PostP>
+        It works much worse where the verifier is fuzzy. Taste. Ethics. Original research. Real insight. Long-horizon planning. There&apos;s no automatic grader for any of those. Humans can rate, but humans are slow and inconsistent and disagree with each other. So the RL signal is quiet, the model improves slowly, and capability lags. That mismatch (sharp graders versus fuzzy ones) is, in my view, the single most useful idea for understanding why these models are good at what they&apos;re good at and bad at what they&apos;re bad at.
+      </PostP>
+
+      <PostH2>The jagged frontier</PostH2>
+      <PostP>
+        People have started calling the result jagged capability, which I think is exactly right. The model is genuinely brilliant at some things and shockingly bad at others, with no smooth gradient between. It will prove a hard theorem and then fluff a piece of common sense a six-year-old would handle. It will write a beautiful paragraph and mis-add three small numbers in the next one.
+      </PostP>
+      <PostP>
+        With the substrate-and-RL picture in hand, the jaggedness stops being weird. There are two reasons it shows up.
+      </PostP>
+      <PostUL>
+        <li><strong>The labs choose what to train on.</strong> They prioritise by ROI. What customers ask for, what&apos;s publishable, what they can measure. Domains inside that priority list get attention. Domains outside it get whatever crumbs leaked into the pre-training corpus. There is no universal teacher. There is a small group of labs making prioritisation calls, and you live downstream of those calls.</li>
+        <li><strong>Verifiability shapes the polish.</strong> RL rewards what can be graded. Math and code can be graded. Strategic judgment, aesthetic taste, original synthesis, much harder. The polish layer disproportionately strengthens the gradable skills. The ungradable ones drift.</li>
+      </PostUL>
+      <PostP>
+        So the peaks line up where the labs invested and where a sharp verifier exists. The valleys line up where the labs didn&apos;t, or where no verifier can really work, or both. It&apos;s not random. It&apos;s a map you can almost predict if you know what the lab cared about.
+      </PostP>
+
+      <PostH2>Working with a jagged tool</PostH2>
+      <PostP>
+        Nobody publishes the jaggedness. The labs don&apos;t ship a per-domain capability map. You find the peaks and valleys by using the thing and noticing what works. That&apos;s odd for software. Most tools have a documented surface and you stay inside it. With LLMs the surface is mottled, and the documentation is the last conversation you had.
+      </PostP>
+      <PostP>
+        A few practical moves I&apos;ve started leaning on.
+      </PostP>
+      <PostUL>
+        <li><strong>Stay in the loop.</strong> Treat the model as a tool, not a colleague. Watch what comes out. When the output smells off, it usually means you&apos;ve walked into a valley.</li>
+        <li><strong>Keep a rough mental map of the peaks.</strong> Math, structured code, well-trodden tasks. Those are slopes you can ski down fast. Original synthesis, taste, long planning, anything genuinely out-of-distribution. Those need more of your attention and a lot more verification.</li>
+        <li><strong>If a domain is verifiable but out-of-distribution, build the RL yourself.</strong> You can sometimes drag a model up a valley by hand, with examples and fine-tuning. It&apos;s expensive. It&apos;s also a knob you have.</li>
+        <li><strong>If a domain is not verifiable, do the verification yourself.</strong> The model can draft. You have to grade. There is no shortcut. The labs can&apos;t grade what no one can grade.</li>
+      </PostUL>
+
+      <PostH2>Ghosts, not animals</PostH2>
+      <PostP>
+        The other Karpathy line I keep is that these systems are ghosts, not animals. Animals were shaped by evolution and biology. They have bodies, drives, real continuity, real curiosity, real fear. They got smart by surviving. LLMs got &quot;smart&quot; by absorbing the textual residue of animals that were doing all of that, then learning to imitate it. They&apos;re simulations of intelligence, not instances of it. What&apos;s on the other side of the chat window is closer to a haunted library than a creature.
+      </PostP>
+      <PostP>
+        That isn&apos;t a metaphor that shrinks them. A ghostly statistical engine that has read everything humans ever wrote is still useful, sometimes startling, occasionally beautiful. But it explains the gap between brilliant and embarrassing. There is no continuous mind underneath. Only a probability distribution over what a competent human would say next, sampled through whatever polish the lab installed.
+      </PostP>
+      <PostP>
+        Once you hold this picture, the brilliance and the cliff-fall stupidity stop being surprises. You expect both. You use the tool for the slopes it can ski and you grade the output for the slopes it can&apos;t. You stop asking it to understand. You ask it to produce, and you do the understanding yourself.
       </PostP>
       <PostP>
         The substrate is pre-training. The polish is RL. Everything else is you.

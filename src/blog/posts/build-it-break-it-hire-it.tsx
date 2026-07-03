@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "Build It, Break It, Hire It — essay arguing LeetCode hiring is obsolete and the new test is a real five-day deployment under load and a red-team agent attack, with one inline SVG diagram (build → deploy → attack → verdict pipeline)", deps: ["../../components/blog-prose"], state: active, last: "sato@2026-05-08", key: ["SVG figure forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style"] }
+// agent-notes: { ctx: "Build It, Break It, Hire It — essay arguing LeetCode hiring is obsolete and the new test is a real five-day deployment under load and a red-team agent attack, with one inline SVG diagram (build → deploy → attack → verdict pipeline)", deps: ["../../components/blog-prose"], state: active, last: "humanizer@2026-05-15", key: ["SVG figure forced onto light surface (bg-[#faf9f5]) to keep ink/orange/green palette readable in dark mode; matches floor-and-ceiling and ai-is-suppandi figure style", "humanized version appended below original via blader/humanizer skill"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -214,6 +214,115 @@ export default function BuildItBreakItHireItPost() {
       </PostP>
       <PostP>
         If you are still hiring on inverted binary trees, you are hiring for a role that doesn't exist in your company anymore. If you are interviewing somewhere that asks you to invert one, ask the interviewer what their actual senior engineers do this week, and notice the gap.
+      </PostP>
+      <PostP>
+        Build it. Break it. Hire whoever is still standing.
+      </PostP>
+
+      <hr className="my-16 border-anthropic-text/10" />
+
+      <PostH2>Humanized version</PostH2>
+
+      <p className="text-sm font-serif italic opacity-60 mb-8">
+        The same essay, rewritten with the blader/humanizer skill — same argument, fewer AI tells, more voice.
+      </p>
+
+      <PostP>
+        First day. Your manager hands you a Jira board with two hundred screens to refactor, three weekend incidents that nobody triaged, and a row of Claude Code sessions you&apos;re supposed to keep running at the same time. Standup has twelve people in it. Half of them say &apos;my agents&apos; the way people used to say &apos;my team&apos;. Welcome.
+      </PostP>
+      <PostP>
+        The interview that got you here? Invert a binary tree on a whiteboard, forty-five minutes, no tools, while a stranger watched you type. Read that sentence again. Something is off, and most companies still won&apos;t say it out loud.
+      </PostP>
+
+      <PostH2>What the puzzle was actually measuring</PostH2>
+      <PostP>
+        I want to be fair to the LeetCode interview before I throw it out. A good coding puzzle did measure something real. Can you reason about a small problem with a clock on you, get to something that runs, talk through your thinking, and stay coherent when the question gets harder. That was a proxy for &apos;can this person write code at all&apos;, and back when writing code was the bottleneck, the proxy was tight enough to do useful work.
+      </PostP>
+      <PostP>
+        It isn&apos;t now. The proxy is loose, and it gets looser every quarter.
+      </PostP>
+      <PostP>
+        A senior engineer in 2026 mostly doesn&apos;t type. They pick what to build, sketch the system, hand work to a small army of agents, read what comes back, and make a hundred small calls about which of the model&apos;s confident-looking outputs is actually right. The typing part, the part the puzzle measured, is the cheapest hour of the day. When your proxy stops tracking the work, you start filtering for the wrong people. You select the candidates who ground hardest against the puzzle. You miss the ones who can ship.
+      </PostP>
+
+      <PostH2>The new test</PostH2>
+      <PostP>
+        Try this instead. Give the candidate a real brief.
+      </PostP>
+      <blockquote className="border-l-4 border-anthropic-accent bg-anthropic-text/5 px-6 py-5 my-8 font-serif italic text-lg leading-relaxed">
+        Build a secure e-commerce site. Call it a Walmart clone, an Amazon clone, doesn&apos;t matter. A real catalog, a real cart, real checkout, real auth, real order history. You get five days. Use whatever agents you like: Claude, Codex, Cursor, something you wrote yourself. Here&apos;s a small cloud budget. Deploy it. Send the URL.
+      </blockquote>
+      <PostP>
+        That&apos;s the build half. Agents allowed, agents encouraged. The agents are not cheating. The agents are the point. We aren&apos;t checking whether the candidate can write code without help. We&apos;re checking whether the candidate can run a team of agents for five days and produce something you&apos;d put in front of a paying customer without flinching.
+      </PostP>
+      <PostP>
+        Then comes the part a whiteboard cannot do.
+      </PostP>
+
+      <PostH2>The break phase</PostH2>
+      <PostP>
+        When the deadline closes, we drop the deployment into a sandbox and point two streams of traffic at it.
+      </PostP>
+      <PostP>
+        The first is <strong>simulated load</strong>. Ten thousand synthetic shoppers doing ordinary shopper things. Browse. Search. Add to cart. Abandon. Come back later. Apply a coupon. Check out. Refund. None of it is hostile. It&apos;s just a Tuesday at a working store. We watch what bends: the search index when the catalog gets fat, the checkout queue when two hundred carts hit it at once, the database during a flash sale, auth when a thousand people log in at the same second.
+      </PostP>
+      <PostP>
+        The second is <strong>a red team of attacker agents</strong>. Ten or so recent models, reasoning cranked, each with one instruction: break this. They try the things attackers have always tried, in parallel, because they can. SQL injection. Auth bypass. IDOR. Race conditions in checkout. Prompt injection through the product reviews, if there&apos;s a model in the loop. Password-reset abuse. Scraping the whole catalog through the search endpoint. Burning the cloud budget through a runaway function. The agents don&apos;t get tired. They don&apos;t clock off. They iterate.
+      </PostP>
+      <PostP>
+        Five days of build. One day of attack. The score is on the wall.
+      </PostP>
+
+      <PostH2>What surviving actually means</PostH2>
+      <PostP>
+        Nobody has to ship a perfect system. You can&apos;t in five days. The question is narrower, and more honest. When the load and the red team show up, what happens?
+      </PostP>
+      <PostP>
+        Strong candidates wobble in interesting ways. The auth holds. Checkout is rate-limited. A budget alarm fires before the cloud bill goes anywhere catastrophic. The cart has a database transaction that the candidate clearly thought about for ten minutes, not ten seconds. There&apos;s a log trail you can read after the fact. There are alerts. When the recommendation engine falls over, the catalog still browses, because somebody put a try/except in the right place.
+      </PostP>
+      <PostP>
+        Weak candidates fail in boring ways. The first SQL injection lands and the agents have admin. The cart double-charges under load because nothing is idempotent. The database password is sitting in the git history. The site dies at two hundred concurrent users and the candidate can&apos;t tell you why because there&apos;s no logging anywhere. The cloud bill quietly clears four figures during the attack window because an agent spun up a serverless function with no rate limit and went to bed.
+      </PostP>
+      <PostP>
+        Same models. Same tools. Same five days. The difference is what they thought to ask the agents to do, what they thought to tell the agents <em>not</em> to do, and what they actually read before they shipped.
+      </PostP>
+
+      <PostH2>What the test is filtering for</PostH2>
+      <PostP>
+        The puzzle filtered for typing fluency. This one filters for a different list, and the list lines up with the job.
+      </PostP>
+      <PostUL>
+        <li><strong>Taste.</strong> Which decisions matter? Where do the five days go? The candidate who spent day one writing a clever search algorithm and never got to checkout was done before the red team arrived.</li>
+        <li><strong>Defensive instinct.</strong> Did you think about what an attacker would try, before they tried it? The puzzle never asked. The job asks every week.</li>
+        <li><strong>Agent orchestration.</strong> Did you scope work so the output was reviewable, or did you let an agent write three thousand lines you never opened?</li>
+        <li><strong>Reading code under pressure.</strong> When the build fails on day three, can you actually find the bug in the model&apos;s code, or do you tell it to &apos;fix it&apos; and hope?</li>
+        <li><strong>Architectural judgment.</strong> Where did you put the auth boundary, the rate limit, the audit log? Agents do not add these by default. They are in the system because a person told the agent to add them.</li>
+        <li><strong>Honesty under fire.</strong> When the red team breaks something, can you explain what happened, or do you hand-wave? You learn a lot from a post-mortem. You learn almost nothing from a puzzle.</li>
+      </PostUL>
+      <PostP>
+        None of these show up in a LeetCode question. All of them show up in the job.
+      </PostP>
+
+      <PostH2>The objections</PostH2>
+      <PostP>
+        <strong>&apos;This takes too long.&apos;</strong> Longer than a forty-five-minute puzzle, shorter than the six rounds of behavioural and system design most big companies already run. About the same wall-clock, roughly. You&apos;re trading low-signal hours for high-signal ones.
+      </PostP>
+      <PostP>
+        <strong>&apos;Not fair to juniors.&apos;</strong> Calibrate the brief. A junior doesn&apos;t have to ship what a staff engineer ships. They have to ship the right thing for their level: smaller scope, fewer features, but a system that doesn&apos;t tip over the first time an agent pokes at it. A junior who can do that on day one is a junior worth hiring on day one.
+      </PostP>
+      <PostP>
+        <strong>&apos;They&apos;ll game it.&apos;</strong> You can&apos;t game ten attacker agents actively breaking your deployment. Either it stood up or it didn&apos;t. Take-homes get gamed. System design rounds get gamed. Behavioural rounds get gamed. This one mostly doesn&apos;t, because the load is real.
+      </PostP>
+      <PostP>
+        <strong>&apos;It&apos;s expensive.&apos;</strong> A few hundred dollars in cloud and inference per candidate. Hiring a strong engineer who can&apos;t do the job costs six figures. Hiring a weak one occasionally costs the company.
+      </PostP>
+
+      <PostH2>The bar moved</PostH2>
+      <PostP>
+        The puzzle measured a craft working engineers don&apos;t practice anymore. The new test measures the craft they do practice: directing agents, defending systems, staying upright in production. It&apos;s a more honest test, because it&apos;s closer to the actual job.
+      </PostP>
+      <PostP>
+        If you&apos;re still hiring on inverted binary trees, you&apos;re hiring for a role that doesn&apos;t exist in your own company. If you&apos;re interviewing somewhere that asks you to invert one, ask what their senior engineers did this week, and notice the gap.
       </PostP>
       <PostP>
         Build it. Break it. Hire whoever is still standing.
