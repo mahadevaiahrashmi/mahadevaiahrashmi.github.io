@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "EkAdhyapak Sahayak project case-study blog post", deps: ["../../components/blog-prose"], state: active, last: "2026-09-20", key: ["case study; multi-grade FLN offline AI for single-teacher schools"] }
+// agent-notes: { ctx: "OneTeacher project case-study blog post", deps: ["../../components/blog-prose"], state: active, last: "2026-09-20", key: ["case study; multi-grade FLN offline AI for single-teacher schools"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -6,15 +6,15 @@
 
 import { PostH2, PostP, PostUL, PostOL } from "../../components/blog-prose";
 
-export default function EkAdhyapakSahayakPost() {
+export default function OneTeacherPost() {
   return (
     <>
       <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight mb-6 leading-tight">
-        EkAdhyapak Sahayak: One Teacher, Many Grades, One AI Companion
+        OneTeacher: One Teacher, Many Grades, One AI Companion
       </h1>
 
       <p className="text-lg font-serif italic opacity-60 mb-12">
-        An offline-first teaching assistant for single-teacher multi-grade government primary schools — differentiated plans, FLN oral checks, and timetables designed for the real classroom.
+        An offline-first teaching assistant for single-teacher multi-grade primary schools — differentiated plans, FLN oral checks, and timetables. English, Tamil, Telugu, Kannada, Malayalam, Hindi.
       </p>
 
       <PostP>
@@ -22,7 +22,7 @@ export default function EkAdhyapakSahayakPost() {
       </PostP>
 
       <PostP>
-        <strong>EkAdhyapak Sahayak</strong> (एक अध्यापक सहायक) is a deliberately small tool for that reality. It is a single HTML file. The teacher enters the topic, the grades present, the subject, and the language preference. One click produces an optimized prompt. That prompt is pasted into a free AI the teacher already uses — Grok, Gemini, or ChatGPT. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
+        <strong>OneTeacher</strong> is a deliberately small tool for that reality. It is a single HTML file. The teacher enters the topic, the grades present, the subject, and the language preference (English, Tamil, Telugu, Kannada, Malayalam, Hindi, or bilingual). One click produces an optimized prompt. That prompt is pasted into a free AI the teacher already uses — Grok, Gemini, or ChatGPT. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
       </PostP>
 
       <PostH2>Built for Constraints, Not Ideal Conditions</PostH2>
@@ -32,10 +32,11 @@ export default function EkAdhyapakSahayakPost() {
       </PostP>
 
       <PostUL>
-        <li><strong>Offline-first.</strong> Static templates (daily checklist, FLN oral questions, group-work ideas, blackboard tips) work with no internet. The AI path only needs a moment of connectivity to paste a prompt.</li>
+        <li><strong>Offline-first.</strong> Static templates work with no internet. The AI path only needs a moment of connectivity to paste a prompt.</li>
         <li><strong>No install, no login.</strong> One file. Any phone or laptop browser. No app store, no account, no student data.</li>
-        <li><strong>Multi-grade as the unit of design.</strong> Parallel activities for lower and higher grades are the default, not an optional toggle.</li>
-        <li><strong>Teacher remains the expert.</strong> The system generates; the teacher accepts, edits, or discards. Nothing is published to students by the tool.</li>
+        <li><strong>Multi-grade as the unit of design.</strong> Parallel activities for lower and higher grades are the default.</li>
+        <li><strong>Teacher remains the expert.</strong> The system generates; the teacher accepts, edits, or discards.</li>
+        <li><strong>Language inclusive.</strong> Built for South India and beyond — Tamil, Telugu, Kannada, Malayalam, Hindi, and English.</li>
       </PostUL>
 
       <div className="grid md:grid-cols-3 gap-6 my-12">
@@ -58,11 +59,11 @@ export default function EkAdhyapakSahayakPost() {
       <PostOL>
         <li><strong>Multi-grade lesson plan</strong> — common introduction, differentiated main activities, peer learning, quick check, realistic homework.</li>
         <li><strong>Differentiated worksheets</strong> — three levels from the same concept, short enough for half a page.</li>
-        <li><strong>Story + questions</strong> — village-context story with graded follow-ups.</li>
+        <li><strong>Story + questions</strong> — local-context story with graded follow-ups.</li>
         <li><strong>Daily timetable</strong> — period-wise plan for one room and one adult.</li>
         <li><strong>FLN oral test</strong> — progressive questions and what “good” vs “needs support” looks like.</li>
         <li><strong>Blackboard ideas</strong> — chalk-only drawings and how different grades interact with the same board.</li>
-        <li><strong>Parent note (Hindi)</strong> — short, respectful message for diary or WhatsApp.</li>
+        <li><strong>Parent note</strong> — short message for diary or WhatsApp, in the language you choose.</li>
         <li><strong>Full-day package</strong> — end-to-end materials for one topic.</li>
       </PostOL>
 
@@ -73,59 +74,39 @@ export default function EkAdhyapakSahayakPost() {
       </PostP>
 
       <PostUL>
-        <li><strong>Prompt as product.</strong> The HTML app is a structured prompt factory. Inputs become a system prompt that forces parallel activities, time boxes, and teacher attention maps — so generic chat models behave like a multi-grade specialist.</li>
-        <li><strong>No proprietary model required.</strong> Free tools the teacher already opens are enough. That keeps cost at zero for the school and avoids vendor lock-in.</li>
-        <li><strong>Offline path always available.</strong> When the network is down, static templates still give a checklist, oral questions, and group ideas. The product does not go dark.</li>
+        <li><strong>Prompt as product.</strong> The HTML app is a structured prompt factory so generic chat models behave like a multi-grade specialist.</li>
+        <li><strong>No proprietary model required.</strong> Free tools the teacher already opens are enough.</li>
+        <li><strong>Offline path always available.</strong> When the network is down, static templates still give a checklist, oral questions, and group ideas.</li>
       </PostUL>
 
       <PostH2>Documents & Demo</PostH2>
 
       <PostP>
-        Full product definition and investor materials are public:
+        Full product definition and materials are public:
       </PostP>
 
       <PostUL>
         <li>
           <strong>Product Requirements Document (PRD)</strong> —{" "}
-          <a
-            href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/PRD.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-anthropic-accent hover:underline"
-          >
+          <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/PRD.md" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
             PRD on GitHub
           </a>
         </li>
         <li>
-          <strong>Investor pitch deck</strong> (with speaker notes) —{" "}
-          <a
-            href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/raw/main/EkAdhyapak_Sahayak_Investor_Pitch.pptx"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-anthropic-accent hover:underline"
-          >
+          <strong>Investor pitch deck</strong> —{" "}
+          <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/raw/main/EkAdhyapak_Sahayak_Investor_Pitch.pptx" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
             Download PPTX
           </a>
         </li>
         <li>
           <strong>Live tool</strong> —{" "}
-          <a
-            href="https://cdn.jsdelivr.net/gh/mahadevaiahrashmi/EkAdhyapak-Sahayak@main/EkAdhyapak_Sahayak.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-anthropic-accent hover:underline"
-          >
-            Open the HTML assistant
+          <a href="https://cdn.jsdelivr.net/gh/mahadevaiahrashmi/EkAdhyapak-Sahayak@main/index.html" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
+            Open OneTeacher
           </a>
         </li>
         <li>
           <strong>Source</strong> —{" "}
-          <a
-            href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-anthropic-accent hover:underline"
-          >
+          <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
             github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak
           </a>
         </li>
@@ -134,7 +115,7 @@ export default function EkAdhyapakSahayakPost() {
       <PostH2>Why It Matters</PostH2>
 
       <PostP>
-        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve. As an engineering artifact, it is a case study in constraint-driven AI product design — offline-first delivery, prompt engineering as the core product surface, and an explicit refusal to invent a student-facing stack that schools cannot support. Built as one HTML file so a teacher can open it on a shared phone and start preparing the next period.
+        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve — including in Tamil Nadu, Andhra Pradesh, Telangana, Karnataka, and Kerala. As an engineering artifact, it is a case study in constraint-driven AI product design: offline-first delivery, prompt engineering as the core product surface, and an explicit refusal to invent a student-facing stack that schools cannot support.
       </PostP>
     </>
   );
