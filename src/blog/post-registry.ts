@@ -25,7 +25,7 @@ import AgentFirstInfrastructurePost from "./posts/agent-first-infrastructure";
 import QuestionAfterTheToolPost from "./posts/question-after-the-tool";
 import ResumeTailorPost from "./posts/resume-tailor";
 import ExplainerBotPost from "./posts/explainer-bot";
-import EkAdhyapakSahayakPost from "./posts/ekadhyapak-sahayak";
+import OneTeacherPost from "./posts/ekadhyapak-sahayak";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -48,5 +48,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "question-after-the-tool": QuestionAfterTheToolPost,
   "resume-tailor": ResumeTailorPost,
   "explainer-bot": ExplainerBotPost,
-  "ekadhyapak-sahayak": EkAdhyapakSahayakPost,
+  "ekadhyapak-sahayak": OneTeacherPost,
 };
