@@ -1,4 +1,4 @@
-// agent-notes: { ctx: "slug-to-component registry for blog posts; sole import surface for the router", deps: ["./posts/*"], state: active, last: "sato@2026-05-08", key: ["split from BlogPost.tsx to satisfy react-refresh/only-export-components; also the single place to wire a new post into routing"] }
+// agent-notes: { ctx: "slug-to-component registry for blog posts; sole import surface for the router", deps: ["./posts/*"], state: active, last: "2026-09-20", key: ["split from BlogPost.tsx to satisfy react-refresh/only-export-components; also the single place to wire a new post into routing"] }
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -25,6 +25,7 @@ import AgentFirstInfrastructurePost from "./posts/agent-first-infrastructure";
 import QuestionAfterTheToolPost from "./posts/question-after-the-tool";
 import ResumeTailorPost from "./posts/resume-tailor";
 import ExplainerBotPost from "./posts/explainer-bot";
+import EkAdhyapakSahayakPost from "./posts/ekadhyapak-sahayak";
 
 export const postContentBySlug: Record<string, ComponentType> = {
   "warehouse-routing-openenv": WarehouseRoutingPost,
@@ -47,4 +48,5 @@ export const postContentBySlug: Record<string, ComponentType> = {
   "question-after-the-tool": QuestionAfterTheToolPost,
   "resume-tailor": ResumeTailorPost,
   "explainer-bot": ExplainerBotPost,
+  "ekadhyapak-sahayak": EkAdhyapakSahayakPost,
 };
