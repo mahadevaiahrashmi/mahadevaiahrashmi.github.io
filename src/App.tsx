@@ -216,6 +216,7 @@ function HomePage() {
                 <div className="flex flex-wrap gap-4 justify-end">
                   <a href="https://oneteacher-app-richfeyn.vercel.app/" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Live Demo">Live <ExternalLink size={14} /></a>
                   <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity" title="Source Repo"><Github size={18} /></a>
+                  <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/One_Teacher_Investor_Pitch.pdf" target="_blank" rel="noopener noreferrer" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Investor deck">Deck <ExternalLink size={14} /></a>
                   <Link to="/blog/ekadhyapak-sahayak" className="opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1.5 text-xs font-sans uppercase tracking-widest" title="Case Study">Case Study <ExternalLink size={14} /></Link>
                 </div>
               </div>
