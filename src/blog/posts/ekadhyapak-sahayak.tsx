@@ -22,7 +22,7 @@ export default function OneTeacherPost() {
       </PostP>
 
       <PostP>
-        <strong>OneTeacher</strong> is a deliberately small tool for that reality. It is a single HTML file. The teacher enters the topic, the grades present, the subject, and optionally the language preference. One click produces an optimized prompt. That prompt is pasted into a free AI the teacher already uses — Grok, Gemini, or ChatGPT. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
+        <strong>OneTeacher</strong> is a deliberately small tool for that reality. Teachers enter the topic, grades present, subject, and language. They can edit the generated prompt, then run it on the server. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
       </PostP>
 
       <PostH2>Built for Constraints, Not Ideal Conditions</PostH2>
@@ -32,11 +32,12 @@ export default function OneTeacherPost() {
       </PostP>
 
       <PostUL>
-        <li><strong>Offline-first.</strong> Static templates work with no internet. The AI path only needs a moment of connectivity to paste a prompt.</li>
-        <li><strong>No install, no login.</strong> One file. Any phone or laptop browser. No app store, no account, no student data.</li>
+        <li><strong>No install, no login, no API key on the page.</strong> Open the live tool and generate. The model call runs on the server.</li>
+        <li><strong>Editable prompt.</strong> Teachers can change the prompt before generating.</li>
         <li><strong>Multi-grade as the unit of design.</strong> Parallel activities for lower and higher grades are the default.</li>
         <li><strong>Teacher remains the expert.</strong> The system generates; the teacher accepts, edits, or discards.</li>
         <li><strong>English by default.</strong> Optional Tamil, Telugu, Kannada, Malayalam, and Hindi when materials should match the classroom language.</li>
+        <li><strong>Offline templates.</strong> Checklists and FLN questions still work with no internet.</li>
       </PostUL>
 
       <div className="grid md:grid-cols-3 gap-6 my-12">
@@ -67,18 +68,6 @@ export default function OneTeacherPost() {
         <li><strong>Full-day package</strong> — end-to-end materials for one topic.</li>
       </PostOL>
 
-      <PostH2>The Applied-AI Decisions</PostH2>
-
-      <PostP>
-        The interesting work is not “call an LLM.” It is prompt design under severe product constraints: multi-grade pedagogy, FLN, low materials, and a teacher who may only have a few minutes and intermittent signal.
-      </PostP>
-
-      <PostUL>
-        <li><strong>Prompt as product.</strong> The HTML app is a structured prompt factory so generic chat models behave like a multi-grade specialist.</li>
-        <li><strong>No proprietary model required.</strong> Free tools the teacher already opens are enough.</li>
-        <li><strong>Offline path always available.</strong> When the network is down, static templates still give a checklist, oral questions, and group ideas.</li>
-      </PostUL>
-
       <PostH2>Documents & Demo</PostH2>
 
       <PostP>
@@ -100,7 +89,7 @@ export default function OneTeacherPost() {
         </li>
         <li>
           <strong>Live tool</strong> —{" "}
-          <a href="https://htmlpreview.github.io/?https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/index.html" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
+          <a href="https://oneteacher-app-richfeyn.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
             Open OneTeacher
           </a>
         </li>
@@ -115,7 +104,7 @@ export default function OneTeacherPost() {
       <PostH2>Why It Matters</PostH2>
 
       <PostP>
-        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve. As an engineering artifact, it is a case study in constraint-driven AI product design: offline-first delivery, prompt engineering as the core product surface, and an explicit refusal to invent a student-facing stack that schools cannot support.
+        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve. As an engineering artifact, it is a case study in constraint-driven AI product design: server-side generation, editable prompts, and an explicit refusal to invent a student-facing stack that schools cannot support.
       </PostP>
     </>
   );
