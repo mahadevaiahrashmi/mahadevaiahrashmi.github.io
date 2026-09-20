@@ -83,8 +83,8 @@ export default function OneTeacherPost() {
         </li>
         <li>
           <strong>Investor pitch deck</strong> —{" "}
-          <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/raw/main/EkAdhyapak_Sahayak_Investor_Pitch.pptx" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
-            Download PPTX
+          <a href="https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/One_Teacher_Investor_Pitch.pdf" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
+            One_Teacher_Investor_Pitch.pdf
           </a>
         </li>
         <li>
