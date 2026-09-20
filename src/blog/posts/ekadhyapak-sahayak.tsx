@@ -14,7 +14,7 @@ export default function OneTeacherPost() {
       </h1>
 
       <p className="text-lg font-serif italic opacity-60 mb-12">
-        An offline-first teaching assistant for single-teacher multi-grade primary schools — differentiated plans, FLN oral checks, and timetables. English, Tamil, Telugu, Kannada, Malayalam, Hindi.
+        An offline-first teaching assistant for single-teacher multi-grade primary schools — differentiated plans, FLN oral checks, and timetables. English by default; Tamil, Telugu, Kannada, Malayalam, Hindi available.
       </p>
 
       <PostP>
@@ -22,7 +22,7 @@ export default function OneTeacherPost() {
       </PostP>
 
       <PostP>
-        <strong>OneTeacher</strong> is a deliberately small tool for that reality. It is a single HTML file. The teacher enters the topic, the grades present, the subject, and the language preference (English, Tamil, Telugu, Kannada, Malayalam, Hindi, or bilingual). One click produces an optimized prompt. That prompt is pasted into a free AI the teacher already uses — Grok, Gemini, or ChatGPT. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
+        <strong>OneTeacher</strong> is a deliberately small tool for that reality. It is a single HTML file. The teacher enters the topic, the grades present, the subject, and optionally the language preference. One click produces an optimized prompt. That prompt is pasted into a free AI the teacher already uses — Grok, Gemini, or ChatGPT. The output is a multi-grade lesson plan, differentiated worksheets, an FLN oral check, a realistic timetable, or a full-day package. The teacher reviews before anything reaches the children.
       </PostP>
 
       <PostH2>Built for Constraints, Not Ideal Conditions</PostH2>
@@ -36,7 +36,7 @@ export default function OneTeacherPost() {
         <li><strong>No install, no login.</strong> One file. Any phone or laptop browser. No app store, no account, no student data.</li>
         <li><strong>Multi-grade as the unit of design.</strong> Parallel activities for lower and higher grades are the default.</li>
         <li><strong>Teacher remains the expert.</strong> The system generates; the teacher accepts, edits, or discards.</li>
-        <li><strong>Language inclusive.</strong> Built for South India and beyond — Tamil, Telugu, Kannada, Malayalam, Hindi, and English.</li>
+        <li><strong>English by default.</strong> Optional Tamil, Telugu, Kannada, Malayalam, and Hindi when materials should match the classroom language.</li>
       </PostUL>
 
       <div className="grid md:grid-cols-3 gap-6 my-12">
@@ -100,7 +100,7 @@ export default function OneTeacherPost() {
         </li>
         <li>
           <strong>Live tool</strong> —{" "}
-          <a href="https://cdn.jsdelivr.net/gh/mahadevaiahrashmi/EkAdhyapak-Sahayak@main/index.html" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
+          <a href="https://htmlpreview.github.io/?https://github.com/mahadevaiahrashmi/EkAdhyapak-Sahayak/blob/main/index.html" target="_blank" rel="noopener noreferrer" className="text-anthropic-accent hover:underline">
             Open OneTeacher
           </a>
         </li>
@@ -115,7 +115,7 @@ export default function OneTeacherPost() {
       <PostH2>Why It Matters</PostH2>
 
       <PostP>
-        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve — including in Tamil Nadu, Andhra Pradesh, Telangana, Karnataka, and Kerala. As an engineering artifact, it is a case study in constraint-driven AI product design: offline-first delivery, prompt engineering as the core product surface, and an explicit refusal to invent a student-facing stack that schools cannot support.
+        As a product, it targets a structural gap: single-teacher multi-grade classrooms that existing platforms only partially serve. As an engineering artifact, it is a case study in constraint-driven AI product design: offline-first delivery, prompt engineering as the core product surface, and an explicit refusal to invent a student-facing stack that schools cannot support.
       </PostP>
     </>
   );
